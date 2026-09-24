@@ -23,14 +23,14 @@ Input: `PRD.md` · Mode: prd · Status: **ready**
 - [x] T5 Verify with Playwright MCP
 - [x] T6 Document phase
 
-## FE-03 Habits page (pending)
+## FE-03 Habits page (done)
 
-- [ ] T1 Habit cards with toggle, frequency, streak
-- [ ] T2 Add/edit form
-- [ ] T3 Deactivate and remove
-- [ ] T4 Empty state
-- [ ] T5 Verify with Playwright MCP
-- [ ] T6 Document phase
+- [x] T1 Habit cards with toggle, frequency, streak
+- [x] T2 Add/edit form
+- [x] T3 Deactivate and remove
+- [x] T4 Empty state
+- [x] T5 Verify with Playwright MCP
+- [x] T6 Document phase
 
 ## FE-04 Learning resources page (pending)
 

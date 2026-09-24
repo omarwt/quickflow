@@ -1,0 +1,50 @@
+- generic [ref=f1e2]:
+  - generic [ref=f1e3]:
+    - banner [ref=f1e4]:
+      - generic [ref=f1e5]: QuickFlow
+      - navigation "Main" [ref=f1e6]:
+        - link "Dashboard" [ref=f1e7] [cursor=pointer]:
+          - /url: /dashboard
+        - link "Tasks" [ref=f1e8] [cursor=pointer]:
+          - /url: /tasks
+        - link "Habits" [ref=f1e9] [cursor=pointer]:
+          - /url: /habits
+        - link "Learning Resources" [ref=f1e10] [cursor=pointer]:
+          - /url: /learning
+        - link "Todo Plans" [ref=f1e11] [cursor=pointer]:
+          - /url: /plans
+        - link "Settings" [ref=f1e12] [cursor=pointer]:
+          - /url: /settings
+    - main [ref=f1e13]:
+      - generic [ref=f1e14]:
+        - generic [ref=f1e15]:
+          - heading "Habits" [level=1] [ref=f1e16]
+          - button "Add Habit" [ref=f1e17] [cursor=pointer]
+        - article "Morning run" [ref=f1e20]:
+          - generic [ref=f1e21]:
+            - heading "Morning run" [level=2] [ref=f1e22]
+            - generic [ref=f1e23]: Daily
+          - paragraph [ref=f1e24]: 5 km
+          - paragraph [ref=f1e25]: 1-day streak
+          - generic [ref=f1e26]:
+            - 'checkbox "Done today: Morning run" [checked] [ref=f1e27]'
+            - text: Done today
+          - generic [ref=f1e28]:
+            - button "Edit" [ref=f1e29] [cursor=pointer]
+            - button "Deactivate" [ref=f1e30] [cursor=pointer]
+            - button "Remove" [ref=f1e31] [cursor=pointer]
+        - heading "Inactive" [level=2] [ref=f1e76]
+        - article "Weekly planning" [ref=f1e78]:
+          - generic [ref=f1e79]:
+            - heading "Weekly planning" [level=2] [ref=f1e80]
+            - generic [ref=f1e81]: Weekly
+          - paragraph [ref=f1e82]: 1-week streak
+          - paragraph [ref=f1e83]: Done this week
+          - paragraph [ref=f1e84]: "Inactive: not tracked"
+          - generic [ref=f1e85]:
+            - button "Edit" [ref=f1e86] [cursor=pointer]
+            - button "Activate" [ref=f1e87] [cursor=pointer]
+            - button "Remove" [ref=f1e88] [cursor=pointer]
+  - status [ref=f1e89]:
+    - text: "\"Weekly planning\" deactivated"
+    - button "Dismiss" [ref=f1e90] [cursor=pointer]: ×

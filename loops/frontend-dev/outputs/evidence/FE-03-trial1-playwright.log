@@ -1,0 +1,13 @@
+  [PASS] 1. Open /habits, empty state :: Heading 'Habits', 'No habits yet' heading, 'Add Habit' button shown
+  [PASS] 2. Submit empty name :: Inline alert 'Name is required'; dialog stayed open
+  [PASS] 3. Add 'Morning run' Daily :: Card shows Daily label, 'No streak yet', unticked Done today checkbox
+  [PASS] 4. Add 'Weekly review' Weekly :: Card shows Weekly label, 'Not done this week yet'
+  [PASS] 5. Tick Done today on Morning run :: Status 'done for today', checkbox checked, '1-day streak'
+  [PASS] 6. Reload page :: Morning run still checked, '1-day streak' persisted (not duplicated)
+  [PASS] 7. Untick then re-tick Morning run :: 'No streak yet' after untick, '1-day streak' after re-tick
+  [PASS] 8. Tick Done today on Weekly review :: '1-week streak' and 'Done this week' shown
+  [PASS] 9. Edit Weekly review -> Weekly planning :: Card title updated to 'Weekly planning'
+  [PASS] 10. Deactivate Weekly planning :: Card moved under 'Inactive' heading, shows 'Inactive: not tracked', no Done today checkbox, button reads 'Activate'
+  [PASS] 11. Activate Weekly planning :: Card moved back to main grid with Done today checkbox restored
+  [PASS] 12. Remove Morning run :: Confirmation dialog 'Remove habit' shown; after confirming, Morning run gone, only Weekly planning remains
+playwright phase-03: PASS (12 checks, session 40b91f13-bae0-4a50-b66d-e19667d392d8, 2614593 tokens)
