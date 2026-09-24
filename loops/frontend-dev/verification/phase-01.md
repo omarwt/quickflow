@@ -11,4 +11,4 @@ Backend starts from a fresh database (default settings: name "QuickFlow user", t
 7. Set Email to "omar@example.com", Timezone "Asia/Dubai", Default view "Todo Plans", untick the notification checkbox, click "Save settings". Expected: a "Settings saved" message appears. [screenshot]
 8. Reload the page on /settings. Expected: the saved values are still shown (Omar, omar@example.com, Asia/Dubai, Todo Plans, checkbox unticked).
 9. Open `/`. Expected: the app now opens on `/plans` (the default view).
-10. Resize the browser to 390x844. Expected: the navigation is still visible and usable at the top of the page (click "Tasks" and the Tasks heading shows). [screenshot]
+10. Resize the browser to 390x844. Expected: the navigation is still visible and usable as a tab bar fixed to the bottom of the screen with all six pages (click "Tasks" and the Tasks heading shows). [screenshot]

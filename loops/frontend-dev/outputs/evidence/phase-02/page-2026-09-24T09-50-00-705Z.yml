@@ -1,0 +1,88 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - link "Skip to content" [ref=e4] [cursor=pointer]:
+      - /url: "#main"
+    - banner [ref=e5]:
+      - generic [ref=e6]: QuickFlow
+      - navigation "Main" [ref=e10]:
+        - link "Dashboard" [ref=e11] [cursor=pointer]:
+          - /url: /dashboard
+        - link "Tasks" [ref=e18] [cursor=pointer]:
+          - /url: /tasks
+        - link "Habits" [ref=e23] [cursor=pointer]:
+          - /url: /habits
+        - link "Learning Resources" [ref=e27] [cursor=pointer]:
+          - /url: /learning
+        - link "Todo Plans" [ref=e31] [cursor=pointer]:
+          - /url: /plans
+        - link "Settings" [ref=e36] [cursor=pointer]:
+          - /url: /settings
+    - main [ref=e40]:
+      - generic [ref=e41]:
+        - generic [ref=e42]:
+          - heading "Tasks" [level=1] [ref=e43]
+          - button "Add Task" [ref=e44] [cursor=pointer]
+        - search [ref=e47]:
+          - searchbox "Search tasks" [ref=e48]
+          - combobox "Status filter" [ref=e49]:
+            - option "All statuses" [selected]
+            - option "Todo"
+            - option "In progress"
+            - option "Done"
+          - combobox "Priority filter" [ref=e50]:
+            - option "All priorities" [selected]
+            - option "High"
+            - option "Medium"
+            - option "Low"
+          - combobox "Due date filter" [ref=e51]:
+            - option "Any due date" [selected]
+            - option "Due today"
+            - option "Overdue"
+            - option "Upcoming"
+            - option "No due date"
+          - combobox "Sort" [ref=e52]:
+            - option "Newest first" [selected]
+            - option "By due date"
+          - generic [ref=e53] [cursor=pointer]:
+            - checkbox "Show archived" [ref=e54]
+            - text: Show archived
+        - list "Tasks" [ref=e479]:
+          - listitem [ref=e504]:
+            - checkbox "Mark \"Plan summer trip\" done" [ref=e571]
+            - generic [ref=e506]:
+              - generic [ref=e507]: Plan summer trip
+              - generic [ref=e508]:
+                - generic [ref=e509]: In progress
+                - generic [ref=e510]: Medium priority
+            - generic [ref=e511]:
+              - button "Edit" [active] [ref=e512] [cursor=pointer]
+              - button "Archive" [ref=e516] [cursor=pointer]
+              - button "Delete" [ref=e520] [cursor=pointer]
+          - listitem [ref=e480]:
+            - checkbox "Mark \"Pay bills\" not done" [checked] [ref=e481]
+            - generic [ref=e482]:
+              - generic [ref=e483]: Pay bills
+              - generic [ref=e484]:
+                - generic [ref=e485]: Done
+                - generic [ref=e486]: Low priority
+                - generic [ref=e487]: Due yesterday
+            - generic [ref=e491]:
+              - button "Edit" [ref=e492] [cursor=pointer]
+              - button "Archive" [ref=e496] [cursor=pointer]
+              - button "Delete" [ref=e500] [cursor=pointer]
+          - listitem [ref=e524]:
+            - checkbox "Mark \"Write report\" done" [ref=e525]
+            - generic [ref=e526]:
+              - generic [ref=e527]: Write report
+              - generic [ref=e528]: Q3 numbers
+              - generic [ref=e529]:
+                - generic [ref=e530]: Todo
+                - generic [ref=e531]: High priority
+                - generic [ref=e532]: Due today
+            - generic [ref=e536]:
+              - button "Edit" [ref=e537] [cursor=pointer]
+              - button "Archive" [ref=e541] [cursor=pointer]
+              - button "Delete" [ref=e545] [cursor=pointer]
+  - status [ref=e572]:
+    - generic [ref=e575]: Task saved
+    - button "Dismiss" [ref=e576] [cursor=pointer]

@@ -1,9 +1,29 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from 'react'
 import { ApiError } from '../api/client'
-import { Button, Icon, IconButton } from './ds'
+import { Button, Icon, IconButton, Skeleton } from './ds'
 
-export function Loading({ label = 'Loading…' }: { label?: string }) {
-  return <p className="muted" role="status">{label}</p>
+/**
+ * Loading state shaped like the content it replaces (UX-FEED, F1), so the page doesn't jump when data
+ * arrives. Screen readers hear the label; the skeleton itself is hidden from them.
+ */
+export function Loading({ label = 'Loading…', variant = 'text', count = 3 }: {
+  label?: string; variant?: 'text' | 'rows' | 'cards' | 'form'; count?: number
+}) {
+  const n = Array.from({ length: count }, (_, i) => i)
+  return (
+    <div className={`loading loading-${variant}`} role="status">
+      <span className={variant === 'text' ? 'muted' : 'sr-only'}>{label}</span>
+      {variant === 'rows' && <div className="list">{n.map((i) => (
+        <div key={i} className="row skeleton-row"><Skeleton width="1.25rem" height="1.25rem" /><div className="main"><Skeleton width="40%" /><Skeleton width="25%" height=".75rem" /></div></div>
+      ))}</div>}
+      {variant === 'cards' && <div className="grid">{n.map((i) => (
+        <div key={i} className="card skeleton-card"><Skeleton width="55%" height="1.25rem" /><Skeleton width="80%" /><Skeleton width="100%" height=".5rem" /><Skeleton width="45%" height="2rem" /></div>
+      ))}</div>}
+      {variant === 'form' && <div className="card form skeleton-card">{n.map((i) => (
+        <div key={i} className="field"><Skeleton width="30%" height=".875rem" /><Skeleton height="2.5rem" /></div>
+      ))}</div>}
+    </div>
+  )
 }
 
 export function ErrorState({ error, onRetry }: { error: unknown; onRetry?: () => void }) {

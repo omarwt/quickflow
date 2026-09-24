@@ -33,7 +33,7 @@ export default function SettingsPage() {
     },
   })
 
-  if (query.isPending) return <Loading />
+  if (query.isPending) return <section><h1>Settings</h1><Loading variant="form" count={4} /></section>
   if (query.isError) return <ErrorState error={query.error} onRetry={() => query.refetch()} />
   if (!form) return null
 

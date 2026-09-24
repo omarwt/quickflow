@@ -1,6 +1,6 @@
 # Tasks — frontend-dev
 
-Input: `PRD.md` · Mode: prd · Status: **ready**
+Input: `PRD.md` · Mode: prd · Status: **in_progress**
 
 `[ ]` not started · `[-]` in progress · `[x]` completed · `[!]` blocked
 
@@ -60,16 +60,34 @@ Input: `PRD.md` · Mode: prd · Status: **ready**
 - [x] T5 Verify: build, FE-01..05 Playwright regression, dark-theme scenario
 - [x] T6 Document phase
 
-## FE-07 UI/UX improvements to existing pages (pending)
+## FE-07 UI/UX improvements to existing pages (in_progress)
 
-- [ ] T1 Fix contrast and focus findings, add skip link and landmarks
-- [ ] T2 Mobile navigation without horizontal scroll, layouts from 360 px, touch targets
-- [ ] T3 Skeleton loading without layout shift, pending buttons, immediate toggle feedback
-- [ ] T4 Copy fixes: plurals, relative dates, clearer empty states and confirmations
+- [x] T1 Fix contrast and focus findings, add skip link and landmarks
+- [x] T2 Mobile navigation without horizontal scroll, layouts from 360 px, touch targets
+- [x] T3 Skeleton loading without layout shift, pending buttons, immediate toggle feedback
+- [x] T4 Copy fixes: plurals, relative dates, clearer empty states and confirmations
 - [ ] T5 Verify: build, UX scenario (keyboard-only, 360 px, dark), FE-01..05 regression, ux-audit on the five pages
 - [ ] T6 Document phase
 
-## FE-08 Dashboard page (pending)
+## FE-08 Responsive layouts for all screen sizes (pending)
+
+- [ ] T1 Breakpoint system as tokens: phone <480, large phone 480-759, tablet 760-1023, laptop 1024-1439, wide 1440+, plus fluid type and spacing with clamp()
+- [ ] T2 Tablet layout: collapsible icon-rail sidebar, two-column grids; wide layout: wider content, three-column card grids, list rows with inline meta
+- [ ] T3 Phones: dialogs become bottom sheets, toolbar filters collapse into a Filters sheet, landscape phones keep the tab bar usable
+- [ ] T4 Reflow at 320 CSS px and 200% zoom (WCAG 1.4.10), long titles and numbers wrap without overflow
+- [ ] T5 Verify: screenshot matrix (320, 390, 768, 1024, 1440, 1920), responsive scenario, FE-01..07 regression, ux-audit mobile + desktop
+- [ ] T6 Document phase
+
+## FE-09 Page transitions and navigation feel (pending)
+
+- [ ] T1 Route transitions with the View Transitions API (React Router viewTransition), shell and navigation stay still, content cross-fades and slides
+- [ ] T2 Prefetch a page's data when its nav link is hovered or focused, and keep previous data, so pages open without a loading flash
+- [ ] T3 Focus and announcement on navigation: move focus to the page heading, per-page document.title, scroll to top; motion for dialogs, sheets, toasts and list add/remove
+- [ ] T4 Respect prefers-reduced-motion (no movement, instant or fade only) and keep CLS 0 during navigation
+- [ ] T5 Verify: transition scenario (titles, focus, no loading flash after prefetch, reduced motion), Chrome DevTools performance trace (INP under 200 ms, no layout shift), FE-01..07 regression
+- [ ] T6 Document phase
+
+## FE-10 Dashboard page (pending)
 
 - [ ] T1 Greeting and summary cards
 - [ ] T2 Today's tasks, overdue, habit checklist
@@ -78,10 +96,11 @@ Input: `PRD.md` · Mode: prd · Status: **ready**
 - [ ] T5 Verify with Playwright MCP and ux-audit on /dashboard
 - [ ] T6 Document phase
 
-## FE-09 End-to-end journey and UX acceptance (pending)
+## FE-11 End-to-end journey and UX acceptance (pending)
 
 - [ ] T1 Full PRD journey on a fresh database
 - [ ] T2 Reload persistence, keyboard-only and 360 px mobile run
-- [ ] T3 ux-audit on all six pages, mobile and desktop
-- [ ] T4 Verify with Playwright MCP
-- [ ] T5 Document phase
+- [ ] T3 Journey on phone, tablet and desktop sizes with page transitions
+- [ ] T4 ux-audit on all six pages, mobile and desktop
+- [ ] T5 Verify with Playwright MCP
+- [ ] T6 Document phase

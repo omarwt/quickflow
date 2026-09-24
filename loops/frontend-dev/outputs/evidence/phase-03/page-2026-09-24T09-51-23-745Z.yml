@@ -1,0 +1,57 @@
+- generic [ref=e3]:
+  - link "Skip to content" [ref=e4] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=e5]:
+    - generic [ref=e6]: QuickFlow
+    - navigation "Main" [ref=e10]:
+      - link "Dashboard" [ref=e11] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Tasks" [ref=e18] [cursor=pointer]:
+        - /url: /tasks
+      - link "Habits" [ref=e23] [cursor=pointer]:
+        - /url: /habits
+      - link "Learning Resources" [ref=e27] [cursor=pointer]:
+        - /url: /learning
+      - link "Todo Plans" [ref=e31] [cursor=pointer]:
+        - /url: /plans
+      - link "Settings" [ref=e36] [cursor=pointer]:
+        - /url: /settings
+  - main [ref=e40]:
+    - generic [ref=e41]:
+      - generic [ref=e42]:
+        - heading "Habits" [level=1] [ref=e43]
+        - button "Add Habit" [ref=e44] [cursor=pointer]
+      - article "Morning run" [ref=e96]:
+        - generic [ref=e97]:
+          - heading "Morning run" [level=2] [ref=e98]
+          - generic [ref=e99]: Daily
+        - paragraph [ref=e100]: 5 km
+        - paragraph [ref=e101]: No streak yet
+        - generic [ref=e104] [cursor=pointer]:
+          - 'checkbox "Done today: Morning run" [ref=e105]'
+          - text: Done today
+        - generic [ref=e106]:
+          - button "Edit" [ref=e107] [cursor=pointer]
+          - button "Deactivate" [ref=e111] [cursor=pointer]
+          - button "Remove" [ref=e115] [cursor=pointer]
+      - dialog [ref=e71]:
+        - generic [ref=e72]:
+          - heading "Add habit" [level=2] [ref=e73]
+          - button "Close" [active] [ref=e74] [cursor=pointer]
+        - generic [ref=e127]:
+          - generic [ref=e128]:
+            - generic [ref=e129]: Name
+            - textbox "Name" [ref=e130]
+          - generic [ref=e131]:
+            - generic [ref=e132]: Description
+            - textbox "Description" [ref=e133]
+          - group "Repeats" [ref=e134]:
+            - generic [ref=e136] [cursor=pointer]:
+              - radio "Daily" [checked] [ref=e137]
+              - text: Daily
+            - generic [ref=e138] [cursor=pointer]:
+              - radio "Weekly" [ref=e139]
+              - text: Weekly
+          - generic [ref=e140]:
+            - button "Cancel" [ref=e141] [cursor=pointer]
+            - button "Add habit" [ref=e142] [cursor=pointer]

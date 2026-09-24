@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { api, type Plan, type PlanItem } from '../api/client'
-import { formatDateTime, label } from '../lib/format'
+import { formatWindow, label, plural } from '../lib/format'
 import { useRefresh } from '../lib/queries'
 import { formatRest, remainingSeconds, useNow } from '../lib/time'
 import { useToast } from './ui'
@@ -33,7 +33,7 @@ export default function PlanCard({ plan, receivedAt, onRemove, compact }: {
   const toggle = useMutation({
     mutationFn: ({ itemId, done }: { itemId: number; done: boolean }) => api<Plan>('PATCH', `/plans/${plan.id}/items/${itemId}`, { done }),
     // BR-13: the item may also have completed a task or a habit, so those views refresh too
-    onSuccess: () => refresh('plans', 'tasks', 'habits'),
+    onSuccess: () => refresh('plans', 'tasks', 'habits'), // returned, so the toggle stays pending until the refetch
     onError: (e) => toast(e.message, 'error'),
   })
 
@@ -44,7 +44,7 @@ export default function PlanCard({ plan, receivedAt, onRemove, compact }: {
         <Badge tone={STATUS_TONE[plan.status]}>{label(plan.status)}</Badge>
       </div>
       <p className="muted small">
-        Priority {plan.priorityOrder} · {formatDateTime(plan.startDateTime)} → {formatDateTime(plan.endDateTime)} · est. {plan.estimatedMinutes} min
+        Priority {plan.priorityOrder} · {formatWindow(plan.startDateTime, plan.endDateTime)} · est. {plan.estimatedMinutes} min
       </p>
       {plan.status === 'IN_PROGRESS' && (
         <p className="rest" aria-live="off"><Icon name="clock" />Rest time: <strong data-testid="rest-time">{formatRest(toEnd)}</strong></p>
@@ -54,15 +54,16 @@ export default function PlanCard({ plan, receivedAt, onRemove, compact }: {
         <div className="progress" role="progressbar" aria-label={`${plan.title} progress`} aria-valuenow={plan.progressPercent} aria-valuemin={0} aria-valuemax={100}>
           <div style={{ width: `${plan.progressPercent}%` }} />
         </div>
-        <p className="small"><strong>{plan.progressPercent}%</strong> complete · {plan.doneCount} of {plan.totalCount} items done</p>
+        <p className="small"><strong>{plan.progressPercent}%</strong> complete · {plan.doneCount} of {plan.totalCount} {plural(plan.totalCount, 'item')} done</p>
       </div>
       {!compact && (
         <ul className="list compact-list">
           {(plan.items as PlanItem[]).map((i) => (
             <li key={i.id} className={`mini-row${i.done ? ' done' : ''}`}>
               <label className="check">
-                <input type="checkbox" checked={i.done} disabled={toggle.isPending} aria-label={`Plan item done: ${i.title}`}
-                  onChange={() => toggle.mutate({ itemId: i.id, done: !i.done })} />
+                <input type="checkbox" checked={toggle.isPending && toggle.variables?.itemId === i.id ? toggle.variables.done : i.done}
+                  aria-busy={(toggle.isPending && toggle.variables?.itemId === i.id) || undefined} aria-label={`Plan item done: ${i.title}`}
+                  onChange={() => { if (!toggle.isPending) toggle.mutate({ itemId: i.id, done: !i.done }) }} />
                 <span className="title">{i.title}</span>
               </label>
               <Badge>{SOURCE[i.sourceType]}</Badge>

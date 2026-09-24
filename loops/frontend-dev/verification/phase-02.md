@@ -4,7 +4,7 @@ Backend starts from a fresh database. "Yesterday" and "today" mean dates in UTC,
 
 1. Open `/tasks`. Expected: heading "Tasks", an empty state "No tasks yet" with an "Add Task" button. [screenshot]
 2. Click "Add Task", leave Title empty, click "Add task". Expected: inline error "Title is required"; the dialog stays open.
-3. Enter Title "Write report", Description "Q3 numbers", Priority "High", Due date = today, click "Add task". Expected: dialog closes, a "Task "Write report" added" message appears, the task is listed with badges "Todo", "High priority" and its due date.
+3. Enter Title "Write report", Description "Q3 numbers", Priority "High", Due date = today, click "Add task". Expected: dialog closes, a "Task "Write report" added" message appears, the task is listed with badges "Todo", "High priority" and "Due today".
 4. Add a second task "Pay bills", Priority "Low", Due date = yesterday. Expected: it is listed with an "Overdue" badge.
 5. Add a third task "Plan trip" with no due date and priority Medium. Expected: three tasks listed. [screenshot]
 6. Type "report" in the search box. Expected: only "Write report" is listed. Clear the search.

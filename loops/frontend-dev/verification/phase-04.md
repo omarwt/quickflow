@@ -10,7 +10,7 @@ Backend starts from a fresh database.
 6. Click "Add milestone" with an empty title. Expected: the error "Milestone title is required".
 7. Add milestone "Chapter 1" with target date 2026-12-01, then milestone "Chapter 2" with no date. Expected: both listed, "Chapter 1" shows a target date badge, the card shows "0 of 2 milestones done".
 8. Tick "Chapter 1". Expected: it is struck through and the card shows "1 of 2 milestones done" with a partly filled progress bar. [screenshot]
-9. Remove "Chapter 2". Expected: only "Chapter 1" remains and the card shows "1 of 1 milestones done".
+9. Remove "Chapter 2". Expected: only "Chapter 1" remains and the card shows "1 of 1 milestone done".
 10. Add note "Dependency injection explained in ch. 1". Expected: the note is listed with a date/time. Add a second note "Revisit ch. 1 exercises" and then remove it. Expected: only the first note remains.
 11. Change the status select of "Spring in Action" to "In progress". Expected: after a reload of the page, the status still shows "In progress" and, after "Show details", the milestone and note are still there. [screenshot]
 12. Click "Remove" on "Rust course". Expected: a confirmation dialog "Remove learning card". Confirm. Expected: only "Spring in Action" remains.

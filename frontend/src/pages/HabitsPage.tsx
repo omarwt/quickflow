@@ -49,6 +49,7 @@ export default function HabitsPage() {
       <div className="row-actions">
         <Button size="sm" variant="ghost" icon="pencil" onClick={() => setEditing(h)}>Edit</Button>
         <Button size="sm" variant="ghost" icon={h.active ? 'archive' : 'restore'}
+          pending={action.isPending && action.variables?.habit.id === h.id && action.variables.op !== 'delete'}
           onClick={() => action.mutate({ habit: h, op: h.active ? 'deactivate' : 'activate' })}>{h.active ? 'Deactivate' : 'Activate'}</Button>
         <Button size="sm" variant="danger" icon="trash" onClick={() => setRemoving(h)}>Remove</Button>
       </div>
@@ -64,7 +65,7 @@ export default function HabitsPage() {
         <h1>Habits</h1>
         <Button variant="primary" icon="plus" onClick={() => setEditing('new')}>Add Habit</Button>
       </div>
-      {habits.isPending ? <Loading /> : habits.isError ? <ErrorState error={habits.error} onRetry={() => habits.refetch()} /> :
+      {habits.isPending ? <Loading variant="cards" /> : habits.isError ? <ErrorState error={habits.error} onRetry={() => habits.refetch()} /> :
         habits.data.length === 0 ? (
           <EmptyState title="No habits yet" text="Add a daily or weekly habit and tick it off each time you do it."
             action={<Button variant="primary" icon="plus" onClick={() => setEditing('new')}>Add Habit</Button>} />

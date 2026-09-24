@@ -592,26 +592,79 @@
         {
           "id": "T1",
           "title": "Fix contrast and focus findings, add skip link and landmarks",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T2",
           "title": "Mobile navigation without horizontal scroll, layouts from 360 px, touch targets",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T3",
           "title": "Skeleton loading without layout shift, pending buttons, immediate toggle feedback",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T4",
           "title": "Copy fixes: plurals, relative dates, clearer empty states and confirmations",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T5",
           "title": "Verify: build, UX scenario (keyboard-only, 360 px, dark), FE-01..05 regression, ux-audit on the five pages",
+          "status": "todo"
+        },
+        {
+          "id": "T6",
+          "title": "Document phase",
+          "status": "todo"
+        }
+      ],
+      "status": "in_progress",
+      "failedTrials": 0,
+      "verification": "pending",
+      "runs": [],
+      "errors": [
+        "Regression phase-01 step 10 failed: the FE-01 scenario expected the mobile navigation at the top of the page; FE-07 intentionally moved it to a bottom tab bar (F3). The earlier grep only looked for changed copy, not layout."
+      ],
+      "fixes": [
+        "Updated phase-01.md step 10 to expect the bottom tab bar with all six pages; grepped phase-01..05 for other layout assumptions (none)."
+      ],
+      "start": "2026-09-24T12:43:12+03:00"
+    },
+    {
+      "id": "FE-08",
+      "title": "Responsive layouts for all screen sizes",
+      "dependsOn": [
+        "FE-07"
+      ],
+      "requirements": [
+        "UX-SIZES"
+      ],
+      "tasks": [
+        {
+          "id": "T1",
+          "title": "Breakpoint system as tokens: phone <480, large phone 480-759, tablet 760-1023, laptop 1024-1439, wide 1440+, plus fluid type and spacing with clamp()",
+          "status": "todo"
+        },
+        {
+          "id": "T2",
+          "title": "Tablet layout: collapsible icon-rail sidebar, two-column grids; wide layout: wider content, three-column card grids, list rows with inline meta",
+          "status": "todo"
+        },
+        {
+          "id": "T3",
+          "title": "Phones: dialogs become bottom sheets, toolbar filters collapse into a Filters sheet, landscape phones keep the tab bar usable",
+          "status": "todo"
+        },
+        {
+          "id": "T4",
+          "title": "Reflow at 320 CSS px and 200% zoom (WCAG 1.4.10), long titles and numbers wrap without overflow",
+          "status": "todo"
+        },
+        {
+          "id": "T5",
+          "title": "Verify: screenshot matrix (320, 390, 768, 1024, 1440, 1920), responsive scenario, FE-01..07 regression, ux-audit mobile + desktop",
           "status": "todo"
         },
         {
@@ -628,10 +681,58 @@
       "fixes": []
     },
     {
-      "id": "FE-08",
+      "id": "FE-09",
+      "title": "Page transitions and navigation feel",
+      "dependsOn": [
+        "FE-08"
+      ],
+      "requirements": [
+        "UX-MOTION"
+      ],
+      "tasks": [
+        {
+          "id": "T1",
+          "title": "Route transitions with the View Transitions API (React Router viewTransition), shell and navigation stay still, content cross-fades and slides",
+          "status": "todo"
+        },
+        {
+          "id": "T2",
+          "title": "Prefetch a page's data when its nav link is hovered or focused, and keep previous data, so pages open without a loading flash",
+          "status": "todo"
+        },
+        {
+          "id": "T3",
+          "title": "Focus and announcement on navigation: move focus to the page heading, per-page document.title, scroll to top; motion for dialogs, sheets, toasts and list add/remove",
+          "status": "todo"
+        },
+        {
+          "id": "T4",
+          "title": "Respect prefers-reduced-motion (no movement, instant or fade only) and keep CLS 0 during navigation",
+          "status": "todo"
+        },
+        {
+          "id": "T5",
+          "title": "Verify: transition scenario (titles, focus, no loading flash after prefetch, reduced motion), Chrome DevTools performance trace (INP under 200 ms, no layout shift), FE-01..07 regression",
+          "status": "todo"
+        },
+        {
+          "id": "T6",
+          "title": "Document phase",
+          "status": "todo"
+        }
+      ],
+      "status": "pending",
+      "failedTrials": 0,
+      "verification": "pending",
+      "runs": [],
+      "errors": [],
+      "fixes": []
+    },
+    {
+      "id": "FE-10",
       "title": "Dashboard page",
       "dependsOn": [
-        "FE-07",
+        "FE-09",
         "ext:backend-dev/BE-06"
       ],
       "requirements": [
@@ -683,10 +784,10 @@
       "fixes": []
     },
     {
-      "id": "FE-09",
+      "id": "FE-11",
       "title": "End-to-end journey and UX acceptance",
       "dependsOn": [
-        "FE-08",
+        "FE-10",
         "ext:backend-dev/BE-07"
       ],
       "requirements": [
@@ -708,16 +809,21 @@
         },
         {
           "id": "T3",
-          "title": "ux-audit on all six pages, mobile and desktop",
+          "title": "Journey on phone, tablet and desktop sizes with page transitions",
           "status": "todo"
         },
         {
           "id": "T4",
-          "title": "Verify with Playwright MCP",
+          "title": "ux-audit on all six pages, mobile and desktop",
           "status": "todo"
         },
         {
           "id": "T5",
+          "title": "Verify with Playwright MCP",
+          "status": "todo"
+        },
+        {
+          "id": "T6",
           "title": "Document phase",
           "status": "todo"
         }
@@ -730,8 +836,8 @@
       "fixes": []
     }
   ],
-  "lastUpdated": "2026-09-24T12:40:11+03:00",
-  "currentPhase": null,
+  "lastUpdated": "2026-09-24T12:51:09+03:00",
+  "currentPhase": "FE-07",
   "completedPhases": [
     "FE-01",
     "FE-02",
@@ -742,6 +848,6 @@
   ],
   "blockedPhases": [],
   "retryCount": 0,
-  "verificationStatus": "-",
-  "status": "ready"
+  "verificationStatus": "pending",
+  "status": "in_progress"
 }

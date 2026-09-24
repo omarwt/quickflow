@@ -123,7 +123,7 @@ Owner column: **BE** = backend-dev, **FE** = frontend-dev, **BE+FE** = both.
 
 ### UI/UX quality requirements (added 2026-09-24)
 
-The user asked for these after FE-05, as a UI/UX improvement plan across the frontend. They aren't
+The user asked for these after FE-05, as a UI/UX improvement plan across the frontend. UX-SIZES and UX-MOTION were added during FE-07, when the user asked for phases covering different screen sizes and smoother movement between pages. They aren't
 in the PRD. They make PRD §8 and NFR-5/NFR-6 measurable, and [docs/ui-ux-plan.md](../../../docs/ui-ux-plan.md)
 explains the reasons for each. The baseline audit is in `loops/frontend-dev/outputs/evidence/ux-baseline/`.
 
@@ -135,6 +135,8 @@ explains the reasons for each. The baseline audit is in `loops/frontend-dev/outp
 | UX-FEED | Feedback | skeleton loading that keeps the layout, pending state on every submitting button, immediate feedback on toggles, consistent toasts/confirmations, correct plurals and dates in copy | FE |
 | UX-THEME | Theme | light and dark themes that follow the system setting, both meeting UX-A11Y contrast | FE |
 | UX-AUDIT | Quality gate | `loops/_lib/ux-audit.py` (Lighthouse through Chrome DevTools MCP) passes on all six pages, mobile and desktop: accessibility ≥ 95, best practices ≥ 95, SEO ≥ 90, CLS ≤ 0.1 | FE |
+| UX-SIZES | Screen sizes | layouts designed for phones (320–479 px), large phones (480–759), tablets (760–1023), laptops (1024–1439) and wide screens (1440 px+), including landscape phones; fluid type and spacing; dialogs as bottom sheets on phones; content reflows at 320 CSS px and 200% zoom (WCAG 1.4.10) | FE |
+| UX-MOTION | Page transitions | moving between pages feels continuous: the shell stays still while content transitions (View Transitions API), data is prefetched from navigation so pages open without a loading flash, focus moves to the new page heading and the title updates; all motion respects `prefers-reduced-motion`; no layout shift and INP under 200 ms during navigation | FE |
 
 ### Testing requirements and definition of done (PRD §11, §13)
 

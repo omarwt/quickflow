@@ -1,0 +1,43 @@
+== phase-01
+  [PASS] 1. Open / and verify redirect to /dashboard with Dashboard heading :: URL became /dashboard, 'Dashboard' heading shown
+  [PASS] 2. Navigation contains exactly 6 expected links :: Dashboard, Tasks, Habits, Learning Resources, Todo Plans, Settings all present, no extras
+  [PASS] 3. Click each nav link, URL and heading match :: /tasks→Tasks, /habits→Habits, /learning→Learning Resources, /plans→Todo Plans, /settings→Settings, /dashboard→Dashboard all confirmed
+  [PASS] 4. Settings shows default values :: Display name 'QuickFlow user', Timezone 'UTC', Default view 'Dashboard', notification checkbox checked
+  [PASS] 5. Clear Display name and save shows inline error :: Alert 'Display name is required' shown, nothing saved
+  [PASS] 6. Invalid email shows server error :: Alert 'Email must be a valid address' shown under Email field
+  [PASS] 7. Valid settings save shows confirmation :: 'Settings saved' message appeared
+  [PASS] 8. Reload /settings shows persisted values :: Omar, omar@example.com, Asia/Dubai, Todo Plans, checkbox unchecked all persisted
+  [PASS] 9. Open / opens on default view /plans :: URL became /plans
+  [FAIL] 10. Resize to 390x844, nav visible/usable at top :: Nav is visible and usable (clicking Tasks worked, heading showed) but renders as a bottom tab bar, not at the top of the page as expected
+playwright phase-01: FAIL (10 checks, session 97e2403a-6f64-4b5e-ad9c-7a80e14281ee, 3133548 tokens)
+== phase-02
+  [PASS] 1. Open /tasks, empty state :: Heading Tasks, empty state 'No tasks yet' with Add Task button
+  [PASS] 2. Submit empty title :: Inline alert 'Title is required' shown, dialog stayed open
+  [PASS] 3. Add 'Write report' task :: Dialog closed, toast 'Task "Write report" added', badges Todo/High priority/Due today
+  [PASS] 4. Add 'Pay bills' due yesterday :: Listed with Overdue badge plus Todo/Low priority/Due yesterday
+  [PASS] 5. Add 'Plan trip' no due date :: Three tasks listed, Plan trip shows Todo/Medium priority
+  [PASS] 6. Search 'report' :: Only 'Write report' listed
+  [PASS] 7. Priority filter Low :: Only 'Pay bills' listed
+  [PASS] 8. Due date filter Overdue :: Only 'Pay bills' listed
+  [PASS] 9. Complete 'Pay bills' :: Toast '"Pay bills" completed', Done badge, strikethrough confirmed via screenshot, Overdue badge gone
+  [PASS] 10. Status filter Done :: Only 'Pay bills' listed
+  [PASS] 11. Edit 'Plan trip' :: Renamed to 'Plan summer trip', status 'In progress' shown in list
+  [PASS] 12. Archive/Restore 'Plan summer trip' :: Disappeared after archive; Show archived showed only it with Restore button; after Restore and unticking it reappeared in main list
+  [PASS] 13. Delete 'Write report' :: Confirmation dialog 'Delete task' shown; after confirming, task gone, two tasks remain
+  [PASS] 14. Reload page :: Same two tasks persisted: 'Pay bills' (Done) and 'Plan summer trip' (In progress)
+playwright phase-02: PASS (14 checks, session 6beed295-62c2-47e7-9624-8115a679af8f, 3751717 tokens)
+== phase-03
+  [PASS] 1. Open /habits, check empty state :: Heading 'Habits', empty state 'No habits yet' with 'Add Habit' button
+  [PASS] 2. Submit Add Habit with empty Name :: Inline alert 'Name is required', dialog stayed open
+  [PASS] 3. Add 'Morning run' Daily habit :: Card 'Morning run' with 'Daily' label, 'No streak yet', unticked 'Done today' checkbox
+  [PASS] 4. Add 'Weekly review' Weekly habit :: Card shows 'Weekly' label and 'Not done this week yet'
+  [PASS] 5. Tick Done today on Morning run :: Status message '"Morning run" done for today', checkbox checked, '1-day streak'
+  [PASS] 6. Reload page :: Morning run still checked, '1-day streak' (not duplicated)
+  [PASS] 7. Untick then re-tick Morning run :: Untick showed 'No streak yet'; re-tick showed '1-day streak' again
+  [PASS] 8. Tick Done today on Weekly review :: '1-week streak' and 'Done this week' shown
+  [PASS] 9. Edit Weekly review to 'Weekly planning' :: Card title updated to 'Weekly planning'
+  [PASS] 10. Deactivate Weekly planning :: Moved under 'Inactive' heading, shows 'Inactive: not tracked', no Done today checkbox, button reads 'Activate'
+  [PASS] 11. Activate Weekly planning :: Moved back to main grid with 'Done today' checkbox
+  [PASS] 12. Remove Morning run :: Confirmation dialog 'Remove habit' appeared; after confirming, Morning run card gone, only Weekly planning remains
+playwright phase-03: PASS (12 checks, session c726a555-67d2-4363-81f3-0d5032bb80ea, 2509626 tokens)
+== phase-04

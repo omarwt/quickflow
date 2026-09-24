@@ -41,6 +41,7 @@ bash loops/backend-dev/verification/phase-07.sh          # every curl script on 
 cd frontend && npm run build                             # type-check + production build
 bash loops/_lib/playwright-verify.sh loops/frontend-dev/verification/phase-01.md   # browser check
 python3 loops/_lib/ux-audit.py --out /tmp/ux-audit                            # Lighthouse, all pages
+SIZES="320x640 768x1024 1440x900" bash loops/_lib/screenshots.sh /tmp/shots   # headless screenshots per size
 ```
 
 The browser checks run the Playwright MCP server **headless** in a separate Claude Code session

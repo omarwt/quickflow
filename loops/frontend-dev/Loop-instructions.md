@@ -38,6 +38,8 @@ Same layout as backend-dev: `task.md`, `progress.md`, `state/`, `plan.json`,
 - Plan the UI/UX work as its own phases, and don't leave it as polish at the end:
   - an **audit + design system** phase once the core pages exist. Its baseline is `ux-audit.py` plus screenshots at mobile and desktop width, and it produces tokens and shared components. The restyle must not change behaviour: the earlier scenarios have to pass unchanged.
   - an **improvements** phase that fixes the ranked findings for accessibility, responsive layout and feedback.
+  - a **screen sizes** phase that designs each size class (phone, large phone, tablet, laptop, wide) and checks it with the `screenshots.sh` matrix (`SIZES=...`).
+  - a **page transitions** phase: route transitions, prefetching from navigation, focus and title on navigation, reduced motion, and a DevTools performance trace.
   - pages built after these phases use the design system from the start.
   - the final phase adds the `ux-audit.py` gate for every page.
   - write the plan and its findings to `docs/ui-ux-plan.md`.

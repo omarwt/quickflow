@@ -12,15 +12,16 @@ export default function HabitToggle({ habit, today }: { habit: Habit; today: str
       ? api('DELETE', `/habits/${habit.id}/completions/${today}`)
       : api('POST', `/habits/${habit.id}/completions`),
     onSuccess: () => {
-      refresh('habits')
       toast(habit.progress.completedToday ? `"${habit.name}" unmarked for today` : `"${habit.name}" done for today`)
+      return refresh('habits') // stay pending until the refetch, so the optimistic tick doesn't flicker
     },
     onError: (e) => toast(e.message, 'error'),
   })
   return (
     <label className="check">
-      <input type="checkbox" checked={habit.progress.completedToday} disabled={!habit.active || toggle.isPending}
-        onChange={() => toggle.mutate()} aria-label={`Done today: ${habit.name}`} />
+      <input type="checkbox" checked={toggle.isPending ? !habit.progress.completedToday : habit.progress.completedToday}
+        disabled={!habit.active} aria-busy={toggle.isPending || undefined}
+        onChange={() => { if (!toggle.isPending) toggle.mutate() }} aria-label={`Done today: ${habit.name}`} />
       Done today
     </label>
   )

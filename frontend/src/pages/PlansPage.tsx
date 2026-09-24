@@ -31,7 +31,7 @@ export default function PlansPage() {
         <h1>Todo Plans</h1>
         <Button variant="primary" icon="plus" onClick={() => setBuilding(true)}>Create Plan</Button>
       </div>
-      {plans.isPending ? <Loading /> : plans.isError ? <ErrorState error={plans.error} onRetry={() => plans.refetch()} /> :
+      {plans.isPending ? <Loading variant="cards" count={2} /> : plans.isError ? <ErrorState error={plans.error} onRetry={() => plans.refetch()} /> :
         all.length === 0 ? (
           <EmptyState title="No plans yet" text="Bundle existing tasks, habits and learning resources into a time-boxed plan."
             action={<Button variant="primary" icon="plus" onClick={() => setBuilding(true)}>Create Plan</Button>} />

@@ -1,8 +1,8 @@
 # Progress — frontend-dev
 
-Status: **ready** · Input: `PRD.md` (prd)
-Current phase: - · Completed: FE-01, FE-02, FE-03, FE-04, FE-05, FE-06 · Blocked: -
-Remaining: FE-07, FE-08, FE-09
+Status: **in_progress** · Input: `PRD.md` (prd)
+Current phase: FE-07 · Completed: FE-01, FE-02, FE-03, FE-04, FE-05, FE-06 · Blocked: -
+Remaining: FE-07, FE-08, FE-09, FE-10, FE-11
 
 ## FE-01 App shell and settings
 
@@ -156,3 +156,29 @@ Tests:
   - playwright: pass — `bash loops/_lib/playwright-verify.sh loops/frontend-dev/verification/phase-06.md` — outputs/evidence/FE-06-trial1-playwright.log
 
 Output: `outputs/phase-06-ui-ux-audit-and-design-system.md`
+
+## FE-07 UI/UX improvements to existing pages
+
+Status: in_progress
+
+Start: 2026-09-24T12:43:12+03:00
+
+End: -
+
+Duration: -
+
+Token consumption: unavailable
+
+Retries: 0/3
+
+Verification: PENDING
+
+Tests:
+
+Errors:
+- Regression phase-01 step 10 failed: the FE-01 scenario expected the mobile navigation at the top of the page; FE-07 intentionally moved it to a bottom tab bar (F3). The earlier grep only looked for changed copy, not layout.
+
+Fixes:
+- Updated phase-01.md step 10 to expect the bottom tab bar with all six pages; grepped phase-01..05 for other layout assumptions (none).
+
+Output: `outputs/phase-07-ui-ux-improvements-to-existing-pages.md`

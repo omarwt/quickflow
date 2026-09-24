@@ -4,7 +4,7 @@ import { api, ApiError, get, type LearningCard } from '../api/client'
 import LearningCardForm from '../components/LearningCardForm'
 import { Badge, Button, Card, IconButton } from '../components/ds'
 import { ConfirmDialog, Dialog, EmptyState, ErrorState, Loading, useToast } from '../components/ui'
-import { formatDate, formatDateTime } from '../lib/format'
+import { formatDate, formatDateTime, plural } from '../lib/format'
 import { useRefresh } from '../lib/queries'
 
 type Status = LearningCard['status']
@@ -21,7 +21,7 @@ function CardView({ card, onRemove }: { card: LearningCard; onRemove: () => void
   const mutate = useMutation({
     mutationFn: ({ method, path, body }: { method: string; path: string; body?: unknown }) =>
       api<LearningCard>(method, `/learning-cards/${card.id}${path}`, body),
-    onSuccess: () => refresh('learning'),
+    onSuccess: () => refresh('learning'), // returned: pending until the refetch, so optimistic ticks don't flicker
     onError: (e) => toast(e instanceof ApiError ? e.message : 'Request failed', 'error'),
   })
 
@@ -54,7 +54,7 @@ function CardView({ card, onRemove }: { card: LearningCard; onRemove: () => void
         <div className="progress" role="progressbar" aria-label={`${card.title} milestones`} aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100}>
           <div style={{ width: `${pct}%` }} />
         </div>
-        <p className="muted small">{card.milestonesDone} of {card.milestonesTotal} milestones done</p>
+        <p className="muted small">{card.milestonesDone} of {card.milestonesTotal} {plural(card.milestonesTotal, 'milestone')} done</p>
       </div>
       <div className="row-actions start">
         <Button size="sm" icon={open ? 'chevronUp' : 'chevronDown'} aria-expanded={open} onClick={() => setOpen(!open)}>{open ? 'Hide details' : 'Show details'}</Button>
@@ -69,8 +69,9 @@ function CardView({ card, onRemove }: { card: LearningCard; onRemove: () => void
             {card.milestones.map((m) => (
               <li key={m.id} className={`mini-row${m.done ? ' done' : ''}`}>
                 <label className="check">
-                  <input type="checkbox" checked={m.done} aria-label={`Milestone done: ${m.title}`}
-                    onChange={() => mutate.mutate({ method: 'PATCH', path: `/milestones/${m.id}`, body: { done: !m.done } })} />
+                  <input type="checkbox" aria-label={`Milestone done: ${m.title}`}
+                    checked={mutate.isPending && mutate.variables?.path === `/milestones/${m.id}` && mutate.variables.method === 'PATCH' ? !m.done : m.done}
+                    onChange={() => { if (!mutate.isPending) mutate.mutate({ method: 'PATCH', path: `/milestones/${m.id}`, body: { done: !m.done } }) }} />
                   <span className="title">{m.title}</span>
                 </label>
                 {m.targetDate && <Badge icon="plans">Target {formatDate(m.targetDate)}</Badge>}
@@ -84,7 +85,7 @@ function CardView({ card, onRemove }: { card: LearningCard; onRemove: () => void
               onChange={(e) => setMilestone({ ...milestone, title: e.target.value })} />
             <input type="date" aria-label="Milestone target date" value={milestone.targetDate}
               onChange={(e) => setMilestone({ ...milestone, targetDate: e.target.value })} />
-            <Button type="submit" icon="plus">Add milestone</Button>
+            <Button type="submit" icon="plus" pending={mutate.isPending && mutate.variables?.path === '/milestones'}>Add milestone</Button>
           </form>
           {formError.milestone && <p className="field-error" role="alert">{formError.milestone}</p>}
 
@@ -100,7 +101,7 @@ function CardView({ card, onRemove }: { card: LearningCard; onRemove: () => void
           </ul>
           <form className="inline-form" onSubmit={addNote} noValidate>
             <textarea aria-label="New note" rows={2} placeholder="Write a note…" value={note} onChange={(e) => setNote(e.target.value)} />
-            <Button type="submit" icon="plus">Add note</Button>
+            <Button type="submit" icon="plus" pending={mutate.isPending && mutate.variables?.path === '/notes'}>Add note</Button>
           </form>
           {formError.note && <p className="field-error" role="alert">{formError.note}</p>}
         </div>
@@ -127,7 +128,7 @@ export default function LearningPage() {
         <h1>Learning Resources</h1>
         <Button variant="primary" icon="plus" onClick={() => setAdding(true)}>Add Learning Card</Button>
       </div>
-      {cards.isPending ? <Loading /> : cards.isError ? <ErrorState error={cards.error} onRetry={() => cards.refetch()} /> :
+      {cards.isPending ? <Loading variant="cards" count={2} /> : cards.isError ? <ErrorState error={cards.error} onRetry={() => cards.refetch()} /> :
         cards.data.length === 0 ? (
           <EmptyState title="No learning cards yet" text="Add a course, book or topic, then break it into milestones."
             action={<Button variant="primary" icon="plus" onClick={() => setAdding(true)}>Add Learning Card</Button>} />

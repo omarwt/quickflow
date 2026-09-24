@@ -4,8 +4,8 @@ import { api, get, type Task } from '../api/client'
 import TaskForm from '../components/TaskForm'
 import { Badge, Button, type Tone } from '../components/ds'
 import { ConfirmDialog, Dialog, EmptyState, ErrorState, Loading, useToast } from '../components/ui'
-import { formatDate, label } from '../lib/format'
-import { useRefresh } from '../lib/queries'
+import { label, relativeDay } from '../lib/format'
+import { useRefresh, useToday } from '../lib/queries'
 
 const STATUS_TONE: Record<Task['status'], Tone> = { TODO: 'neutral', IN_PROGRESS: 'accent', DONE: 'success' }
 
@@ -14,6 +14,7 @@ type Filters = { search: string; status: string; priority: string; due: string; 
 export default function TasksPage() {
   const toast = useToast()
   const refresh = useRefresh()
+  const today = useToday()
   const [f, setF] = useState<Filters>({ search: '', status: '', priority: '', due: '', sort: 'CREATED_AT', archived: false })
   const search = useDeferredValue(f.search)
   const [editing, setEditing] = useState<Task | 'new' | null>(null)
@@ -29,16 +30,21 @@ export default function TasksPage() {
   const action = useMutation({
     mutationFn: ({ task, op }: { task: Task; op: 'complete' | 'reopen' | 'archive' | 'restore' | 'delete' }) =>
       op === 'delete' ? api('DELETE', `/tasks/${task.id}`) : api('POST', `/tasks/${task.id}/${op}`),
+    // returning the refetch keeps the mutation pending until the list has the new state, so the
+    // optimistic checkbox below never flips back for a moment (UX-FEED)
     onSuccess: (_, { task, op }) => {
-      refresh('tasks')
       const done = { complete: 'completed', reopen: 'reopened', archive: 'archived', restore: 'restored', delete: 'deleted' }[op]
       toast(`"${task.title}" ${done}`)
       setDeleting(null)
+      return refresh('tasks')
     },
     onError: (e) => toast(e.message, 'error'),
   })
 
   const set = (patch: Partial<Filters>) => setF({ ...f, ...patch })
+  const busy = (t: Task, ...ops: string[]) => action.isPending && action.variables?.task.id === t.id && ops.includes(action.variables.op)
+  // the checkbox shows the requested state at once and settles on the server's answer
+  const isDone = (t: Task) => (busy(t, 'complete', 'reopen') ? action.variables?.op === 'complete' : t.status === 'DONE')
   const filtered = Boolean(search.trim() || f.status || f.priority || f.due)
 
   return (
@@ -66,33 +72,35 @@ export default function TasksPage() {
         <label className="check"><input type="checkbox" checked={f.archived} onChange={(e) => set({ archived: e.target.checked })} /> Show archived</label>
       </div>
 
-      {tasks.isPending ? <Loading /> : tasks.isError ? <ErrorState error={tasks.error} onRetry={() => tasks.refetch()} /> :
+      {tasks.isPending ? <Loading variant="rows" /> : tasks.isError ? <ErrorState error={tasks.error} onRetry={() => tasks.refetch()} /> :
         tasks.data.length === 0 ? (
           filtered || f.archived
-            ? <EmptyState title="No matching tasks" text={f.archived ? 'No archived tasks match.' : 'Try a different search or filter.'} />
+            ? <EmptyState title="No matching tasks" text={f.archived ? 'No archived tasks match these filters.' : 'Nothing matches this search and these filters.'}
+                action={<Button icon="x" onClick={() => setF({ search: '', status: '', priority: '', due: '', sort: f.sort, archived: false })}>Clear filters</Button>} />
             : <EmptyState title="No tasks yet" text="Add your first task to start tracking your work."
                 action={<Button variant="primary" icon="plus" onClick={() => setEditing('new')}>Add Task</Button>} />
         ) : (
           <ul className="list" aria-label="Tasks">
             {tasks.data.map((t) => (
-              <li key={t.id} className={`row${t.overdue ? ' overdue' : ''}${t.status === 'DONE' ? ' done' : ''}`}>
-                <input type="checkbox" aria-label={`Mark "${t.title}" ${t.status === 'DONE' ? 'not done' : 'done'}`} checked={t.status === 'DONE'}
-                  disabled={t.archived} onChange={() => action.mutate({ task: t, op: t.status === 'DONE' ? 'reopen' : 'complete' })} />
+              <li key={t.id} className={`row${t.overdue ? ' overdue' : ''}${isDone(t) ? ' done' : ''}`}>
+                <input type="checkbox" aria-label={`Mark "${t.title}" ${t.status === 'DONE' ? 'not done' : 'done'}`} checked={isDone(t)}
+                  aria-busy={busy(t, 'complete', 'reopen') || undefined} disabled={t.archived}
+                  onChange={() => { if (!busy(t, 'complete', 'reopen')) action.mutate({ task: t, op: t.status === 'DONE' ? 'reopen' : 'complete' }) }} />
                 <div className="main">
                   <div className="title">{t.title}</div>
                   {t.description && <div className="muted">{t.description}</div>}
                   <div className="meta">
                     <Badge tone={STATUS_TONE[t.status]}>{label(t.status)}</Badge>
                     <Badge tone={t.priority === 'HIGH' ? 'warning' : 'neutral'}>{label(t.priority)} priority</Badge>
-                    {t.dueDate && <Badge icon="plans">Due {formatDate(t.dueDate)}</Badge>}
+                    {t.dueDate && <Badge icon="plans" tone={!t.overdue && relativeDay(t.dueDate, today) === 'today' ? 'accent' : 'neutral'}>Due {relativeDay(t.dueDate, today)}</Badge>}
                     {t.overdue && <Badge tone="danger" icon="alert">Overdue</Badge>}
                   </div>
                 </div>
                 <div className="row-actions">
                   {!t.archived && <Button size="sm" variant="ghost" icon="pencil" onClick={() => setEditing(t)}>Edit</Button>}
                   {t.archived
-                    ? <Button size="sm" variant="ghost" icon="restore" onClick={() => action.mutate({ task: t, op: 'restore' })}>Restore</Button>
-                    : <Button size="sm" variant="ghost" icon="archive" onClick={() => action.mutate({ task: t, op: 'archive' })}>Archive</Button>}
+                    ? <Button size="sm" variant="ghost" icon="restore" pending={busy(t, 'restore')} onClick={() => action.mutate({ task: t, op: 'restore' })}>Restore</Button>
+                    : <Button size="sm" variant="ghost" icon="archive" pending={busy(t, 'archive')} onClick={() => action.mutate({ task: t, op: 'archive' })}>Archive</Button>}
                   <Button size="sm" variant="danger" icon="trash" onClick={() => setDeleting(t)}>Delete</Button>
                 </div>
               </li>
