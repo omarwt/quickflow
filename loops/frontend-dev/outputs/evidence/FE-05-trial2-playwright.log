@@ -1,0 +1,13 @@
+  [PASS] 1. Open /plans, headings and sections :: Heading 'Todo Plans', 'Active and upcoming' showed 'Soon' Not started with 'Starts in 1m 22s', 'Completed' showed 'Yesterday review' 0% complete
+  [PASS] 2. Create plan with nothing filled :: Errors 'Title is required' and 'Pick at least one task, habit or learning resource' shown
+  [PASS] 3. End before Start :: Error 'End date/time must be after the start date/time' shown
+  [PASS] 4. Create Deep work plan :: 'Plan "Deep work" created' toast; Deep work In progress, before Soon, Rest time 49m 32s, 0% complete · 0 of 3 items done, 3 items (Task/Habit/Learning)
+  [PASS] 5. Rest time counts down :: 49m 32s decreased to 49m 23s after 5s wait
+  [PASS] 6. Tick Write report :: 33% complete · 1 of 3 items done
+  [PASS] 7. Tick Morning run and Spring in Action :: 100% complete, status Completed, moved to Completed section
+  [PASS] 8. Untick Write report :: 67% complete, status In progress, back in Active and upcoming
+  [PASS] 9. /tasks reopened :: Write report shown as Todo/unchecked
+  [PASS] 10. Wait for Soon to start :: 'Plan "Soon" has started' toast appeared; Soon showed In progress with Rest time 58m 18s
+  [PASS] 11. Remove Yesterday review :: Confirmation dialog 'Remove plan' shown; after confirming, Yesterday review no longer listed ('No completed plans yet.')
+  [PASS] 12. Reload persistence :: Deep work (67%) and Soon still listed after reload; no second 'has started' message within 20s
+playwright phase-05: PASS (12 checks, session 6c639205-1ae8-450e-af4d-6bd3c341a63b, 2929507 tokens)

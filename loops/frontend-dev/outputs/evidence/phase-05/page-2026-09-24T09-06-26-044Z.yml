@@ -1,0 +1,93 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e5]: QuickFlow
+      - navigation "Main" [ref=e6]:
+        - link "Dashboard" [ref=e7] [cursor=pointer]:
+          - /url: /dashboard
+        - link "Tasks" [ref=e8] [cursor=pointer]:
+          - /url: /tasks
+        - link "Habits" [ref=e9] [cursor=pointer]:
+          - /url: /habits
+        - link "Learning Resources" [ref=e10] [cursor=pointer]:
+          - /url: /learning
+        - link "Todo Plans" [ref=e11] [cursor=pointer]:
+          - /url: /plans
+        - link "Settings" [ref=e12] [cursor=pointer]:
+          - /url: /settings
+    - main [ref=e13]:
+      - generic [ref=e14]:
+        - generic [ref=e15]:
+          - heading "Todo Plans" [level=1] [ref=e16]
+          - button "Create Plan" [active] [ref=e17] [cursor=pointer]
+        - heading "Active and upcoming" [level=2] [ref=e19]
+        - generic [ref=e20]:
+          - article "Deep work" [ref=e107]:
+            - generic [ref=e108]:
+              - heading "Deep work" [level=2] [ref=e109]
+              - generic [ref=e110]: In progress
+            - paragraph [ref=e111]: Priority 1 · Sep 24, 11:56 AM → Sep 24, 12:56 PM · est. 45 min
+            - paragraph [ref=e112]:
+              - text: "Rest time:"
+              - strong [ref=e113]: 49m 34s
+            - generic [ref=e114]:
+              - progressbar "Deep work progress" [ref=e115]
+              - paragraph [ref=e116]:
+                - strong [ref=e117]: 0%
+                - text: complete · 0 of 3 items done
+            - list [ref=e118]:
+              - listitem [ref=e119]:
+                - generic [ref=e120]:
+                  - 'checkbox "Plan item done: Write report" [ref=e121]'
+                  - generic [ref=e122]: Write report
+                - generic [ref=e123]: Task
+              - listitem [ref=e124]:
+                - generic [ref=e125]:
+                  - 'checkbox "Plan item done: Morning run" [ref=e126]'
+                  - generic [ref=e127]: Morning run
+                - generic [ref=e128]: Habit
+              - listitem [ref=e129]:
+                - generic [ref=e130]:
+                  - 'checkbox "Plan item done: Spring in Action" [ref=e131]'
+                  - generic [ref=e132]: Spring in Action
+                - generic [ref=e133]: Learning
+            - button "Remove" [ref=e135] [cursor=pointer]
+          - article "Soon" [ref=e21]:
+            - generic [ref=e22]:
+              - heading "Soon" [level=2] [ref=e23]
+              - generic [ref=e24]: Not started
+            - paragraph [ref=e25]: Priority 2 · Sep 24, 12:07 PM → Sep 24, 01:05 PM · est. 20 min
+            - paragraph [ref=e26]: Starts in 54s
+            - generic [ref=e27]:
+              - progressbar "Soon progress" [ref=e28]
+              - paragraph [ref=e29]:
+                - strong [ref=e30]: 0%
+                - text: complete · 0 of 1 items done
+            - list [ref=e31]:
+              - listitem [ref=e32]:
+                - generic [ref=e33]:
+                  - 'checkbox "Plan item done: Morning run" [ref=e34]'
+                  - generic [ref=e35]: Morning run
+                - generic [ref=e36]: Habit
+            - button "Remove" [ref=e38] [cursor=pointer]
+        - heading "Completed" [level=2] [ref=e39]
+        - article "Yesterday review" [ref=e41]:
+          - generic [ref=e42]:
+            - heading "Yesterday review" [level=2] [ref=e43]
+            - generic [ref=e44]: Completed
+          - paragraph [ref=e45]: Priority 3 · Sep 23, 10:05 AM → Sep 23, 11:05 AM · est. 30 min
+          - generic [ref=e46]:
+            - progressbar "Yesterday review progress" [ref=e47]
+            - paragraph [ref=e48]:
+              - strong [ref=e49]: 0%
+              - text: complete · 0 of 1 items done
+          - list [ref=e50]:
+            - listitem [ref=e51]:
+              - generic [ref=e52]:
+                - 'checkbox "Plan item done: Spring in Action" [ref=e53]'
+                - generic [ref=e54]: Spring in Action
+              - generic [ref=e55]: Learning
+          - button "Remove" [ref=e57] [cursor=pointer]
+  - status [ref=e137]:
+    - text: Plan "Deep work" created
+    - button "Dismiss" [ref=e138] [cursor=pointer]: ×

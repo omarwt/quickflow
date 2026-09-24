@@ -41,28 +41,47 @@ Input: `PRD.md` · Mode: prd · Status: **ready**
 - [x] T5 Verify with Playwright MCP
 - [x] T6 Document phase
 
-## FE-05 Todo plans page (pending)
+## FE-05 Todo plans page (done)
 
-- [ ] T1 Plan builder picking existing items
-- [ ] T2 Plan list grouped active/upcoming and completed
-- [ ] T3 Live rest time and progress
-- [ ] T4 Item toggles and remove
-- [ ] T5 Start-time notification
-- [ ] T6 Verify with Playwright MCP
-- [ ] T7 Document phase
+- [x] T1 Plan builder picking existing items
+- [x] T2 Plan list grouped active/upcoming and completed
+- [x] T3 Live rest time and progress
+- [x] T4 Item toggles and remove
+- [x] T5 Start-time notification
+- [x] T6 Verify with Playwright MCP
+- [x] T7 Document phase
 
-## FE-06 Dashboard page (pending)
+## FE-06 UI/UX audit and design system (pending)
+
+- [ ] T1 Baseline audit: Lighthouse (ux-audit.py) plus headless screenshots at 390 and 1280 px, findings ranked in docs/ui-ux-plan.md
+- [ ] T2 Design tokens for colour, type scale, spacing, radius, elevation and motion, in light and dark
+- [ ] T3 Shared components: Button variants and sizes, IconButton, Icon set, Badge, Card, Menu, Skeleton
+- [ ] T4 Move existing pages onto tokens and components with no behaviour change
+- [ ] T5 Verify: build, FE-01..05 Playwright regression, dark-theme scenario
+- [ ] T6 Document phase
+
+## FE-07 UI/UX improvements to existing pages (pending)
+
+- [ ] T1 Fix contrast and focus findings, add skip link and landmarks
+- [ ] T2 Mobile navigation without horizontal scroll, layouts from 360 px, touch targets
+- [ ] T3 Skeleton loading without layout shift, pending buttons, immediate toggle feedback
+- [ ] T4 Copy fixes: plurals, relative dates, clearer empty states and confirmations
+- [ ] T5 Verify: build, UX scenario (keyboard-only, 360 px, dark), FE-01..05 regression, ux-audit on the five pages
+- [ ] T6 Document phase
+
+## FE-08 Dashboard page (pending)
 
 - [ ] T1 Greeting and summary cards
 - [ ] T2 Today's tasks, overdue, habit checklist
 - [ ] T3 Active plans with live rest time, learning snapshot
 - [ ] T4 Quick-add actions
-- [ ] T5 Verify with Playwright MCP
+- [ ] T5 Verify with Playwright MCP and ux-audit on /dashboard
 - [ ] T6 Document phase
 
-## FE-07 End-to-end journey (pending)
+## FE-09 End-to-end journey and UX acceptance (pending)
 
 - [ ] T1 Full PRD journey on a fresh database
-- [ ] T2 Reload persistence and mobile width check
-- [ ] T3 Verify with Playwright MCP
-- [ ] T4 Document phase
+- [ ] T2 Reload persistence, keyboard-only and 360 px mobile run
+- [ ] T3 ux-audit on all six pages, mobile and desktop
+- [ ] T4 Verify with Playwright MCP
+- [ ] T5 Document phase

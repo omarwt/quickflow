@@ -41,6 +41,8 @@ Why:
   When the backend contract changes, the frontend stops compiling instead of breaking at runtime.
 - There's no component library. The six pages only need forms, lists, dialogs and toasts, and plain
   CSS with design tokens (`src/index.css`) covers that.
+  [ui-ux-plan.md](ui-ux-plan.md) (FE-06/FE-07) extends the tokens into a full design system, still
+  without a component library.
 
 Structure: `src/api` (client and generated types), `src/components` (layout and shared UI: dialog,
 toast, field, empty/error/loading states), `src/pages` (one file per page). The Vite dev server

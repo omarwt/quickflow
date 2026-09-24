@@ -1,8 +1,8 @@
 # Progress — frontend-dev
 
 Status: **ready** · Input: `PRD.md` (prd)
-Current phase: - · Completed: FE-01, FE-02, FE-03, FE-04 · Blocked: -
-Remaining: FE-05, FE-06, FE-07
+Current phase: - · Completed: FE-01, FE-02, FE-03, FE-04, FE-05 · Blocked: -
+Remaining: FE-06, FE-07, FE-08, FE-09
 
 ## FE-01 App shell and settings
 
@@ -95,3 +95,38 @@ Tests:
   - playwright: pass — `bash loops/_lib/playwright-verify.sh loops/frontend-dev/verification/phase-04.md` — outputs/evidence/FE-04-trial1-playwright.log
 
 Output: `outputs/phase-04-learning-resources-page.md`
+
+## FE-05 Todo plans page
+
+Status: done
+
+Start: 2026-09-24T12:00:00+03:00
+
+End: 2026-09-24T12:10:19+03:00
+
+Duration: 10m 19s
+
+Token consumption: 3,116,372 (input 20, output 14,533, cache write 48,390, cache read 3,053,429)
+
+Retries: 1/3
+
+Verification: PASS
+
+Tests:
+- trial 1 (2026-09-24T12:05:21+03:00): FAIL
+  - build: pass — `cd frontend && npm run build && npx vitest run` — outputs/evidence/FE-05-trial1-build.log
+  - seed: pass — `bash loops/frontend-dev/verification/phase-05-seed.sh` — outputs/evidence/FE-05-trial1-seed.log
+  - playwright: fail — `bash loops/_lib/playwright-verify.sh loops/frontend-dev/verification/phase-05.md` — outputs/evidence/FE-05-trial1-playwright.log
+- trial 2 (2026-09-24T12:08:19+03:00): PASS
+  - build: pass — `cd frontend && npm run build && npx vitest run` — outputs/evidence/FE-05-trial2-build.log
+  - seed: pass — `bash loops/frontend-dev/verification/phase-05-seed.sh` — outputs/evidence/FE-05-trial2-seed.log
+  - playwright: pass — `bash loops/_lib/playwright-verify.sh loops/frontend-dev/verification/phase-05.md` — outputs/evidence/FE-05-trial2-playwright.log
+
+Errors:
+- trial 1 failed: playwright
+- trial 1: step 10 failed - plan 'Soon' started while the verifier was on another step; the start toast auto-hid after 10 s and was never observed
+
+Fixes:
+- start notifications (info toasts) now stay until dismissed; they persist across page navigation because the toast provider sits above the routes
+
+Output: `outputs/phase-05-todo-plans-page.md`

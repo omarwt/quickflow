@@ -71,7 +71,8 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   const push = useCallback((text: string, kind: Toast['kind'] = 'success') => {
     const id = Date.now() + Math.random()
     setToasts((t) => [...t, { id, text, kind }])
-    setTimeout(() => setToasts((t) => t.filter((x) => x.id !== id)), kind === 'info' ? 10000 : 4000)
+    // info toasts (plan start notifications) stay until dismissed so they can't be missed
+    if (kind !== 'info') setTimeout(() => setToasts((t) => t.filter((x) => x.id !== id)), 4000)
   }, [])
   return (
     <ToastContext.Provider value={push}>

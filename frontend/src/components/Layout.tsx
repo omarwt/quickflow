@@ -1,4 +1,5 @@
 import { NavLink, Outlet } from 'react-router-dom'
+import StartNotifier from './StartNotifier'
 
 const NAV = [
   { to: '/dashboard', label: 'Dashboard' },
@@ -22,6 +23,7 @@ export default function Layout() {
           ))}
         </nav>
       </header>
+      <StartNotifier />
       <main className="content">
         <Outlet />
       </main>

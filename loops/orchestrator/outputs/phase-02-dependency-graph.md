@@ -34,20 +34,22 @@ flowchart LR
     FE03[FE-03 Habits page]
     FE04[FE-04 Learning page]
     FE05[FE-05 Todo plans page]
-    FE06[FE-06 Dashboard page]
-    FE07[FE-07 End-to-end journey]
+    FE06[FE-06 UI/UX audit + design system]
+    FE07[FE-07 UI/UX improvements]
+    FE08[FE-08 Dashboard page]
+    FE09[FE-09 End-to-end + UX acceptance]
   end
   BE01 --> BE02 & BE03 & BE04
   BE02 & BE03 & BE04 --> BE05 --> BE06 --> BE07
   FE01 --> FE02 & FE03 & FE04 & FE05
-  FE02 & FE03 & FE04 & FE05 --> FE06 --> FE07
+  FE02 & FE03 & FE04 & FE05 --> FE06 --> FE07 --> FE08 --> FE09
   BE01 -.-> FE01
   BE02 -.-> FE02
   BE03 -.-> FE03
   BE04 -.-> FE04
   BE05 -.-> FE05
-  BE06 -.-> FE06
-  BE07 -.-> FE07
+  BE06 -.-> FE08
+  BE07 -.-> FE09
 ```
 
 Solid arrows are dependencies inside one loop. Dotted arrows cross loops; in the frontend plan
@@ -68,8 +70,15 @@ until that backend phase is done.
 - **BE-07 is a regression pass.** It reruns every curl script on a fresh database and checks the
   500 ms budget (NFR-1). Its Swagger document is the final contract the frontend works against.
 - **The frontend mirrors the backend.** Each page waits for its own backend phase. The dashboard
-  page waits for the four feature pages it summarises, and FE-07 runs the PRD's end-to-end journey
+  page waits for the four feature pages it summarises, and FE-09 runs the PRD's end-to-end journey
   (TR-4) through Playwright MCP.
+- **UI/UX work sits between the feature pages and the dashboard** (added 2026-09-24, see
+  [docs/ui-ux-plan.md](../../../docs/ui-ux-plan.md)). FE-06 audits the five finished pages and moves them
+  onto a design system with no behaviour change. FE-07 fixes the audit findings (accessibility,
+  mobile, feedback). The dashboard (now FE-08) is then built on the finished design system, so it
+  isn't reworked afterwards, and FE-09 adds the Lighthouse gate (UX-AUDIT) to the final journey.
+  This replaced the original FE-06 Dashboard / FE-07 End-to-end numbering. These phases have no
+  backend dependency.
 
 ### Execution order and parallelism
 
@@ -79,8 +88,9 @@ until that backend phase is done.
 | 2 | BE-02, BE-03, BE-04 | FE-01 |
 | 3 | BE-05 | FE-02, FE-03, FE-04 |
 | 4 | BE-06 | FE-05 |
-| 5 | BE-07 | FE-06 |
-| 6 | – | FE-07 |
+| 5 | BE-07 | FE-06, FE-07 (UI/UX) |
+| 6 | – | FE-08 |
+| 7 | – | FE-09 |
 
 With one session, the orchestrator runs backend-dev to completion (OR-03) and then frontend-dev
 (OR-04). That way the frontend starts from the final Swagger document instead of chasing a

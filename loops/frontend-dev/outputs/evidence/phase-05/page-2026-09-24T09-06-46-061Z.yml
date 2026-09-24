@@ -1,0 +1,90 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e5]: QuickFlow
+      - navigation "Main" [ref=e6]:
+        - link "Dashboard" [ref=e7] [cursor=pointer]:
+          - /url: /dashboard
+        - link "Tasks" [ref=e8] [cursor=pointer]:
+          - /url: /tasks
+        - link "Habits" [ref=e9] [cursor=pointer]:
+          - /url: /habits
+        - link "Learning Resources" [ref=e10] [cursor=pointer]:
+          - /url: /learning
+        - link "Todo Plans" [ref=e11] [cursor=pointer]:
+          - /url: /plans
+        - link "Settings" [ref=e12] [cursor=pointer]:
+          - /url: /settings
+    - main [ref=e13]:
+      - generic [ref=e14]:
+        - generic [ref=e15]:
+          - heading "Todo Plans" [level=1] [ref=e16]
+          - button "Create Plan" [ref=e17] [cursor=pointer]
+        - heading "Active and upcoming" [level=2] [ref=e19]
+        - article "Soon" [ref=e21]:
+          - generic [ref=e22]:
+            - heading "Soon" [level=2] [ref=e23]
+            - generic [ref=e24]: Not started
+          - paragraph [ref=e25]: Priority 2 · Sep 24, 12:07 PM → Sep 24, 01:05 PM · est. 20 min
+          - paragraph [ref=e26]: Starts in 34s
+          - generic [ref=e27]:
+            - progressbar "Soon progress" [ref=e28]
+            - paragraph [ref=e29]:
+              - strong [ref=e30]: 0%
+              - text: complete · 0 of 1 items done
+          - list [ref=e31]:
+            - listitem [ref=e32]:
+              - generic [ref=e33]:
+                - 'checkbox "Plan item done: Morning run" [ref=e34]'
+                - generic [ref=e35]: Morning run
+              - generic [ref=e36]: Habit
+          - button "Remove" [ref=e38] [cursor=pointer]
+        - heading "Completed" [level=2] [ref=e39]
+        - generic [ref=e40]:
+          - article "Deep work" [ref=e142]:
+            - generic [ref=e143]:
+              - heading "Deep work" [level=2] [ref=e144]
+              - generic [ref=e145]: Completed
+            - paragraph [ref=e146]: Priority 1 · Sep 24, 11:56 AM → Sep 24, 12:56 PM · est. 45 min
+            - generic [ref=e147]:
+              - progressbar "Deep work progress" [ref=e148]
+              - paragraph [ref=e150]:
+                - strong [ref=e151]: 100%
+                - text: complete · 3 of 3 items done
+            - list [ref=e152]:
+              - listitem [ref=e153]:
+                - generic [ref=e154]:
+                  - 'checkbox "Plan item done: Write report" [checked] [ref=e155]'
+                  - generic [ref=e156]: Write report
+                - generic [ref=e157]: Task
+              - listitem [ref=e158]:
+                - generic [ref=e159]:
+                  - 'checkbox "Plan item done: Morning run" [checked] [ref=e160]'
+                  - generic [ref=e161]: Morning run
+                - generic [ref=e162]: Habit
+              - listitem [ref=e163]:
+                - generic [ref=e164]:
+                  - 'checkbox "Plan item done: Spring in Action" [checked] [ref=e165]'
+                  - generic [ref=e166]: Spring in Action
+                - generic [ref=e167]: Learning
+            - button "Remove" [ref=e169] [cursor=pointer]
+          - article "Yesterday review" [ref=e41]:
+            - generic [ref=e42]:
+              - heading "Yesterday review" [level=2] [ref=e43]
+              - generic [ref=e44]: Completed
+            - paragraph [ref=e45]: Priority 3 · Sep 23, 10:05 AM → Sep 23, 11:05 AM · est. 30 min
+            - generic [ref=e46]:
+              - progressbar "Yesterday review progress" [ref=e47]
+              - paragraph [ref=e48]:
+                - strong [ref=e49]: 0%
+                - text: complete · 0 of 1 items done
+            - list [ref=e50]:
+              - listitem [ref=e51]:
+                - generic [ref=e52]:
+                  - 'checkbox "Plan item done: Spring in Action" [ref=e53]'
+                  - generic [ref=e54]: Spring in Action
+                - generic [ref=e55]: Learning
+            - button "Remove" [ref=e57] [cursor=pointer]
+  - status [ref=e139]:
+    - text: Plan "Deep work" has started
+    - button "Dismiss" [ref=e140] [cursor=pointer]: ×

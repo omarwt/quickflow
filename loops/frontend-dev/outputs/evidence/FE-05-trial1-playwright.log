@@ -1,0 +1,13 @@
+  [PASS] 1. Open /plans, check heading/sections :: Heading 'Todo Plans', 'Active and upcoming' showing Soon as Not started with 'Starts in 1m 20s', 'Completed' showing Yesterday review at 0% complete
+  [PASS] 2. Submit empty create-plan form :: Errors 'Title is required' and 'Pick at least one task, habit or learning resource' shown
+  [PASS] 3. End before Start validation :: Error 'End date/time must be after the start date/time' shown
+  [PASS] 4. Create Deep work plan :: Toast 'Plan "Deep work" created'; Deep work shown In progress before Soon, Rest time 49m 16s, 0% complete · 0 of 3 items done, Task/Habit/Learning badges
+  [PASS] 5. Rest time counts down :: 49m 16s decreased to 49m 04s after 5s wait
+  [PASS] 6. Tick Write report :: 33% complete · 1 of 3 items done
+  [PASS] 7. Tick Morning run and Spring in Action :: 100% complete, status Completed, moved to Completed section
+  [PASS] 8. Untick Write report :: 67% complete, status back to In progress, moved to Active and upcoming
+  [PASS] 9. Check /tasks :: Write report shown as Todo/unchecked
+  [FAIL] 10. Wait for 'Plan "Soon" has started' message :: Soon plan had already transitioned to 'In progress' with a rest time by the time the page was returned to (start-time window elapsed during earlier steps); the toast text itself was never observed on screen
+  [PASS] 11. Remove Yesterday review :: Confirmation dialog 'Remove plan' shown with expected text; after confirming, Yesterday review no longer listed
+  [PASS] 12. Reload page :: Deep work (67%) and Soon still listed; no 'has started' toast appeared within 20s
+playwright phase-05: FAIL (12 checks, session 0859c15a-6012-43cb-82f5-28eb8b09ec21, 2905151 tokens)

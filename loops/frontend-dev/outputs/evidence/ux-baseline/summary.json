@@ -1,0 +1,203 @@
+[
+ {
+  "page": "/tasks",
+  "device": "mobile",
+  "scores": {
+   "accessibility": 100,
+   "best-practices": 100,
+   "seo": 82,
+   "agentic-browsing": 64
+  },
+  "cls": 0.095,
+  "fails": [
+   "seo 82 < 90"
+  ],
+  "failedAudits": [
+   "cumulative-layout-shift",
+   "meta-description",
+   "robots-txt",
+   "llms-txt"
+  ]
+ },
+ {
+  "page": "/tasks",
+  "device": "desktop",
+  "scores": {
+   "accessibility": 100,
+   "best-practices": 100,
+   "seo": 82,
+   "agentic-browsing": 67
+  },
+  "cls": 0,
+  "fails": [
+   "seo 82 < 90"
+  ],
+  "failedAudits": [
+   "meta-description",
+   "robots-txt",
+   "llms-txt"
+  ]
+ },
+ {
+  "page": "/habits",
+  "device": "mobile",
+  "scores": {
+   "accessibility": 95,
+   "best-practices": 100,
+   "seo": 82,
+   "agentic-browsing": 66
+  },
+  "cls": 0.046,
+  "fails": [
+   "seo 82 < 90"
+  ],
+  "failedAudits": [
+   "cumulative-layout-shift",
+   "color-contrast",
+   "meta-description",
+   "robots-txt",
+   "llms-txt"
+  ]
+ },
+ {
+  "page": "/habits",
+  "device": "desktop",
+  "scores": {
+   "accessibility": 95,
+   "best-practices": 100,
+   "seo": 82,
+   "agentic-browsing": 67
+  },
+  "cls": 0.0,
+  "fails": [
+   "seo 82 < 90"
+  ],
+  "failedAudits": [
+   "color-contrast",
+   "meta-description",
+   "robots-txt",
+   "llms-txt"
+  ]
+ },
+ {
+  "page": "/learning",
+  "device": "mobile",
+  "scores": {
+   "accessibility": 100,
+   "best-practices": 100,
+   "seo": 82,
+   "agentic-browsing": 66
+  },
+  "cls": 0.04,
+  "fails": [
+   "seo 82 < 90"
+  ],
+  "failedAudits": [
+   "cumulative-layout-shift",
+   "meta-description",
+   "robots-txt",
+   "llms-txt"
+  ]
+ },
+ {
+  "page": "/learning",
+  "device": "desktop",
+  "scores": {
+   "accessibility": 100,
+   "best-practices": 100,
+   "seo": 82,
+   "agentic-browsing": 67
+  },
+  "cls": 0,
+  "fails": [
+   "seo 82 < 90"
+  ],
+  "failedAudits": [
+   "meta-description",
+   "robots-txt",
+   "llms-txt"
+  ]
+ },
+ {
+  "page": "/plans",
+  "device": "mobile",
+  "scores": {
+   "accessibility": 96,
+   "best-practices": 100,
+   "seo": 82,
+   "agentic-browsing": 45
+  },
+  "cls": 0.317,
+  "fails": [
+   "seo 82 < 90",
+   "CLS 0.317 > 0.1"
+  ],
+  "failedAudits": [
+   "cumulative-layout-shift",
+   "color-contrast",
+   "meta-description",
+   "robots-txt",
+   "llms-txt"
+  ]
+ },
+ {
+  "page": "/plans",
+  "device": "desktop",
+  "scores": {
+   "accessibility": 96,
+   "best-practices": 100,
+   "seo": 82,
+   "agentic-browsing": 67
+  },
+  "cls": 0,
+  "fails": [
+   "seo 82 < 90"
+  ],
+  "failedAudits": [
+   "color-contrast",
+   "meta-description",
+   "robots-txt",
+   "llms-txt"
+  ]
+ },
+ {
+  "page": "/settings",
+  "device": "mobile",
+  "scores": {
+   "accessibility": 100,
+   "best-practices": 100,
+   "seo": 82,
+   "agentic-browsing": 47
+  },
+  "cls": 0.294,
+  "fails": [
+   "seo 82 < 90",
+   "CLS 0.294 > 0.1"
+  ],
+  "failedAudits": [
+   "cumulative-layout-shift",
+   "meta-description",
+   "robots-txt",
+   "llms-txt"
+  ]
+ },
+ {
+  "page": "/settings",
+  "device": "desktop",
+  "scores": {
+   "accessibility": 100,
+   "best-practices": 100,
+   "seo": 82,
+   "agentic-browsing": 67
+  },
+  "cls": 0,
+  "fails": [
+   "seo 82 < 90"
+  ],
+  "failedAudits": [
+   "meta-description",
+   "robots-txt",
+   "llms-txt"
+  ]
+ }
+]

@@ -55,6 +55,8 @@ data/
 # --- Logs ---------------------------------------------------------------------
 *.log
 !loops/**/outputs/evidence/*.log
+# Lighthouse HTML reports are large; the report.json and summary.json next to them are kept
+loops/**/outputs/evidence/ux-*/**/report.html
 
 # --- Editors and OS -----------------------------------------------------------
 .idea/

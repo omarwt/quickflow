@@ -133,3 +133,14 @@ select.compact { width: auto; padding: .25rem .4rem; font-size: .85rem; }
 .inline-form { display: flex; gap: .4rem; flex-wrap: wrap; }
 .inline-form input, .inline-form textarea { flex: 1; min-width: 140px; }
 .inline-form input[type=date] { flex: 0 1 160px; }
+
+/* plans */
+.plan { display: flex; flex-direction: column; gap: .5rem; }
+.plan p { margin: 0; }
+.plan.in_progress { border-color: var(--success); box-shadow: 0 0 0 2px rgba(31, 138, 76, .15); }
+.plan.completed { opacity: .85; }
+.rest { font-size: 1.05rem; }
+.rest strong { font-variant-numeric: tabular-nums; }
+.pickers { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: .75rem; margin-top: .4rem; }
+.picker { border: 1px solid var(--border); border-radius: 8px; padding: .5rem .75rem; margin: 0; display: flex; flex-direction: column; gap: .3rem; max-height: 180px; overflow: auto; }
+.picker legend { font-weight: 600; font-size: .9rem; }

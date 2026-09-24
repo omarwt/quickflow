@@ -19,7 +19,10 @@ Same layout as backend-dev: `task.md`, `progress.md`, `state/`, `plan.json`,
 
 ## Preconditions
 - Node.js and npm.
-- The Playwright MCP server is configured in `.mcp.json` (headless), and the `claude` CLI is on PATH for `playwright-verify.sh`.
+- The MCP servers in `.mcp.json`. All of them are headless with an isolated profile, so none of them opens your browser:
+  - `playwright`: user scenarios, run through `playwright-verify.sh`. It needs the `claude` CLI on PATH.
+  - `chrome-devtools`: Lighthouse, device/colour-scheme emulation, computed styles and performance traces. `ux-audit.py` uses it.
+  - `context7`: up-to-date library docs. Look APIs up here instead of recalling them.
 - The backend phases this feature needs are `done`. `loop.py` checks this through `ext:backend-dev/<ID>` dependencies.
 
 ## Process
@@ -32,6 +35,12 @@ Same layout as backend-dev: `task.md`, `progress.md`, `state/`, `plan.json`,
 - Read the OpenAPI spec and map each screen to the endpoints it uses. If a screen needs an endpoint that doesn't exist, that's a gap: record it and hand it back to backend-dev. Never fake data.
 - Pick the stack (follow the repo if it has one) and record it in `docs/architecture.md`.
 - Write `loops/frontend-dev/plan.json`. Phase 1 is the app shell: routing, navigation, API client, shared UI states. Then one phase per page/feature, each depending on its backend phase (e.g. `"dependsOn": ["FE-01", "ext:backend-dev/BE-02"]`). The last phase is an end-to-end journey.
+- Plan the UI/UX work as its own phases, and don't leave it as polish at the end:
+  - an **audit + design system** phase once the core pages exist. Its baseline is `ux-audit.py` plus screenshots at mobile and desktop width, and it produces tokens and shared components. The restyle must not change behaviour: the earlier scenarios have to pass unchanged.
+  - an **improvements** phase that fixes the ranked findings for accessibility, responsive layout and feedback.
+  - pages built after these phases use the design system from the start.
+  - the final phase adds the `ux-audit.py` gate for every page.
+  - write the plan and its findings to `docs/ui-ux-plan.md`.
 - `python3 loops/_lib/loop.py plan frontend-dev loops/frontend-dev/plan.json`
 
 **3. Run every phase in this cycle**
@@ -47,6 +56,12 @@ Same layout as backend-dev: `task.md`, `progress.md`, `state/`, `plan.json`,
      --check "playwright=bash loops/_lib/playwright-verify.sh loops/frontend-dev/verification/phase-NN.md http://localhost:5173"
    ```
    `playwright-verify.sh` runs the scenario through the Playwright MCP server in a separate headless session. It uses its own browser profile and never touches yours. The session has to end with a machine-readable verdict: the script exits 0 only if every step passed, saves screenshots to `outputs/evidence/`, and records the child session's ID in `execution-tracking.csv`.
+   UI/UX phases add the Lighthouse gate, plus regression runs of earlier scenarios:
+   ```
+     --check "ux=python3 loops/_lib/ux-audit.py --pages /tasks,/habits --out loops/frontend-dev/outputs/evidence/ux-FE-NN"
+     --check "regress-02=bash loops/_lib/playwright-verify.sh loops/frontend-dev/verification/phase-02.md"
+   ```
+   `ux-audit.py` drives chrome-devtools-mcp directly, with no LLM involved. It runs Lighthouse on every page, on mobile and desktop, and exits 0 only if accessibility ≥ 95, best practices ≥ 95, SEO ≥ 90 and CLS ≤ 0.1 (all can be changed with `--min`/`--max-cls`). The reports are kept in `--out`.
 7. On FAIL: investigate, fix, rebuild or restart, then run Playwright again. On PASS: complete the output, tick the tasks, and run `loop.py finish frontend-dev <ID>`.
 
 ## Testing

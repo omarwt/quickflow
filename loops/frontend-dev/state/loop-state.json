@@ -371,35 +371,153 @@
         {
           "id": "T1",
           "title": "Plan builder picking existing items",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T2",
           "title": "Plan list grouped active/upcoming and completed",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T3",
           "title": "Live rest time and progress",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T4",
           "title": "Item toggles and remove",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T5",
           "title": "Start-time notification",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T6",
           "title": "Verify with Playwright MCP",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T7",
+          "title": "Document phase",
+          "status": "done"
+        }
+      ],
+      "status": "done",
+      "failedTrials": 1,
+      "verification": "pass",
+      "runs": [
+        {
+          "at": "2026-09-24T12:05:21+03:00",
+          "result": "fail",
+          "checks": [
+            {
+              "name": "build",
+              "cmd": "cd frontend && npm run build && npx vitest run",
+              "result": "pass",
+              "log": "outputs/evidence/FE-05-trial1-build.log"
+            },
+            {
+              "name": "seed",
+              "cmd": "bash loops/frontend-dev/verification/phase-05-seed.sh",
+              "result": "pass",
+              "log": "outputs/evidence/FE-05-trial1-seed.log"
+            },
+            {
+              "name": "playwright",
+              "cmd": "bash loops/_lib/playwright-verify.sh loops/frontend-dev/verification/phase-05.md",
+              "result": "fail",
+              "log": "outputs/evidence/FE-05-trial1-playwright.log"
+            }
+          ],
+          "evidence": []
+        },
+        {
+          "at": "2026-09-24T12:08:19+03:00",
+          "result": "pass",
+          "checks": [
+            {
+              "name": "build",
+              "cmd": "cd frontend && npm run build && npx vitest run",
+              "result": "pass",
+              "log": "outputs/evidence/FE-05-trial2-build.log"
+            },
+            {
+              "name": "seed",
+              "cmd": "bash loops/frontend-dev/verification/phase-05-seed.sh",
+              "result": "pass",
+              "log": "outputs/evidence/FE-05-trial2-seed.log"
+            },
+            {
+              "name": "playwright",
+              "cmd": "bash loops/_lib/playwright-verify.sh loops/frontend-dev/verification/phase-05.md",
+              "result": "pass",
+              "log": "outputs/evidence/FE-05-trial2-playwright.log"
+            }
+          ],
+          "evidence": []
+        }
+      ],
+      "errors": [
+        "trial 1 failed: playwright",
+        "trial 1: step 10 failed - plan 'Soon' started while the verifier was on another step; the start toast auto-hid after 10 s and was never observed"
+      ],
+      "fixes": [
+        "start notifications (info toasts) now stay until dismissed; they persist across page navigation because the toast provider sits above the routes"
+      ],
+      "start": "2026-09-24T12:00:00+03:00",
+      "end": "2026-09-24T12:10:19+03:00",
+      "duration": "10m 19s",
+      "tokens": {
+        "input": 20,
+        "output": 14533,
+        "cache_write": 48390,
+        "cache_read": 3053429,
+        "total": 3116372
+      }
+    },
+    {
+      "id": "FE-06",
+      "title": "UI/UX audit and design system",
+      "dependsOn": [
+        "FE-02",
+        "FE-03",
+        "FE-04",
+        "FE-05"
+      ],
+      "requirements": [
+        "UX-DS",
+        "UX-THEME"
+      ],
+      "tasks": [
+        {
+          "id": "T1",
+          "title": "Baseline audit: Lighthouse (ux-audit.py) plus headless screenshots at 390 and 1280 px, findings ranked in docs/ui-ux-plan.md",
+          "status": "todo"
+        },
+        {
+          "id": "T2",
+          "title": "Design tokens for colour, type scale, spacing, radius, elevation and motion, in light and dark",
+          "status": "todo"
+        },
+        {
+          "id": "T3",
+          "title": "Shared components: Button variants and sizes, IconButton, Icon set, Badge, Card, Menu, Skeleton",
+          "status": "todo"
+        },
+        {
+          "id": "T4",
+          "title": "Move existing pages onto tokens and components with no behaviour change",
+          "status": "todo"
+        },
+        {
+          "id": "T5",
+          "title": "Verify: build, FE-01..05 Playwright regression, dark-theme scenario",
+          "status": "todo"
+        },
+        {
+          "id": "T6",
           "title": "Document phase",
           "status": "todo"
         }
@@ -412,13 +530,60 @@
       "fixes": []
     },
     {
-      "id": "FE-06",
+      "id": "FE-07",
+      "title": "UI/UX improvements to existing pages",
+      "dependsOn": [
+        "FE-06"
+      ],
+      "requirements": [
+        "UX-A11Y",
+        "UX-RESP",
+        "UX-FEED"
+      ],
+      "tasks": [
+        {
+          "id": "T1",
+          "title": "Fix contrast and focus findings, add skip link and landmarks",
+          "status": "todo"
+        },
+        {
+          "id": "T2",
+          "title": "Mobile navigation without horizontal scroll, layouts from 360 px, touch targets",
+          "status": "todo"
+        },
+        {
+          "id": "T3",
+          "title": "Skeleton loading without layout shift, pending buttons, immediate toggle feedback",
+          "status": "todo"
+        },
+        {
+          "id": "T4",
+          "title": "Copy fixes: plurals, relative dates, clearer empty states and confirmations",
+          "status": "todo"
+        },
+        {
+          "id": "T5",
+          "title": "Verify: build, UX scenario (keyboard-only, 360 px, dark), FE-01..05 regression, ux-audit on the five pages",
+          "status": "todo"
+        },
+        {
+          "id": "T6",
+          "title": "Document phase",
+          "status": "todo"
+        }
+      ],
+      "status": "pending",
+      "failedTrials": 0,
+      "verification": "pending",
+      "runs": [],
+      "errors": [],
+      "fixes": []
+    },
+    {
+      "id": "FE-08",
       "title": "Dashboard page",
       "dependsOn": [
-        "FE-02",
-        "FE-03",
-        "FE-04",
-        "FE-05",
+        "FE-07",
         "ext:backend-dev/BE-06"
       ],
       "requirements": [
@@ -453,7 +618,7 @@
         },
         {
           "id": "T5",
-          "title": "Verify with Playwright MCP",
+          "title": "Verify with Playwright MCP and ux-audit on /dashboard",
           "status": "todo"
         },
         {
@@ -470,16 +635,17 @@
       "fixes": []
     },
     {
-      "id": "FE-07",
-      "title": "End-to-end journey",
+      "id": "FE-09",
+      "title": "End-to-end journey and UX acceptance",
       "dependsOn": [
-        "FE-06",
+        "FE-08",
         "ext:backend-dev/BE-07"
       ],
       "requirements": [
         "TR-4",
         "DoD-2",
-        "NFR-1"
+        "NFR-1",
+        "UX-AUDIT"
       ],
       "tasks": [
         {
@@ -489,16 +655,21 @@
         },
         {
           "id": "T2",
-          "title": "Reload persistence and mobile width check",
+          "title": "Reload persistence, keyboard-only and 360 px mobile run",
           "status": "todo"
         },
         {
           "id": "T3",
-          "title": "Verify with Playwright MCP",
+          "title": "ux-audit on all six pages, mobile and desktop",
           "status": "todo"
         },
         {
           "id": "T4",
+          "title": "Verify with Playwright MCP",
+          "status": "todo"
+        },
+        {
+          "id": "T5",
           "title": "Document phase",
           "status": "todo"
         }
@@ -511,13 +682,14 @@
       "fixes": []
     }
   ],
-  "lastUpdated": "2026-09-24T11:56:20+03:00",
+  "lastUpdated": "2026-09-24T12:16:52+03:00",
   "currentPhase": null,
   "completedPhases": [
     "FE-01",
     "FE-02",
     "FE-03",
-    "FE-04"
+    "FE-04",
+    "FE-05"
   ],
   "blockedPhases": [],
   "retryCount": 0,
