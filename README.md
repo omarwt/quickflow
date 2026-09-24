@@ -3,25 +3,70 @@
 A personal productivity app covering tasks, habits, learning resources, time-boxed plans and a
 dashboard. It is built with reusable **Claude Loops**. The requirements are in [PRD.md](PRD.md).
 
-> The application has not been generated yet. Run the loops (below) to build it. The orchestrator's
-> final phase adds install, run and test instructions and the Swagger and frontend URLs to this README.
+## Status
+
+Built so far with the loops (details in each loop's `progress.md`):
+
+| Loop | Done | Remaining |
+|---|---|---|
+| orchestrator | OR-01 requirements analysis, OR-02 dependency graph, OR-03 backend delegation | OR-04 frontend delegation (in progress), OR-05 final verification |
+| backend-dev | BE-01 … BE-07, all verified with curl (202 assertions on fresh databases) and 14 unit tests | – |
+| frontend-dev | FE-01 app shell + Settings, verified with Playwright MCP | FE-02 Tasks, FE-03 Habits, FE-04 Learning, FE-05 Plans, FE-06 Dashboard, FE-07 end-to-end journey |
 
 ## Prerequisites
 
-- Claude Code CLI (`claude`)
-- Python 3.8+, `curl`, `jq`
-- Node.js 18+ and `npx` (for the Playwright MCP server in `.mcp.json`, and for the frontend)
-- Whatever toolchain the backend loop picks; it records the stack in `docs/architecture.md`
+- JDK 21+ and Maven 3.6+ (backend)
+- Node.js 18+ and npm (frontend, and `npx` for the Playwright MCP server)
+- Python 3.8+, `curl`, `jq` (loop tooling and curl verification scripts)
+- Claude Code CLI (`claude`), to run the loops and the headless Playwright checks
+
+## Run the application
+
+```bash
+# backend: http://localhost:8080 (data kept in backend/data/)
+backend/run.sh start              # add --fresh for an empty in-memory database
+backend/run.sh stop
+
+# frontend: http://localhost:5173 (proxies /api to the backend)
+cd frontend && npm install && npm run dev
+```
+
+| What | URL |
+|---|---|
+| Frontend | http://localhost:5173 |
+| Swagger UI | http://localhost:8080/swagger-ui.html |
+| OpenAPI JSON | http://localhost:8080/v3/api-docs (exported copy: `backend/openapi.json`) |
+| Health | http://localhost:8080/actuator/health |
+
+If `JAVA_HOME` points at an older JDK, `backend/run.sh` looks for a JDK 21 install. Configuration
+is through environment variables: `PORT`, `DB_URL`, `DB_PASSWORD`, `CORS_ORIGINS`.
+
+## Tests
+
+```bash
+backend/run.sh build                                     # compile + backend unit tests
+bash loops/backend-dev/verification/phase-07.sh          # every curl script on fresh databases,
+                                                         # latency check, Swagger export
+cd frontend && npm run build                             # type-check + production build
+bash loops/_lib/playwright-verify.sh loops/frontend-dev/verification/phase-01.md   # browser check
+```
+
+The browser checks run the Playwright MCP server **headless** in a separate Claude Code session
+with its own browser profile, so they never use your browser. Each scenario lists the steps and
+the results it expects, and the script exits 0 only if every step passed. Screenshots are saved to
+`loops/frontend-dev/outputs/evidence/`.
 
 ## Repository layout
 
 ```
 PRD.md                     requirements (source of truth)
-loops/                     reusable Claude Loops + loops/_lib/loop.py state keeper
-.mcp.json                  Playwright MCP server
+backend/                   Spring Boot API (run.sh, openapi.json)
+frontend/                  React + TypeScript app
+docs/architecture.md       stack and structure decisions
+loops/                     Claude Loops: orchestrator, backend-dev, frontend-dev, _lib (loop.py, helpers)
+.mcp.json                  Playwright MCP server (headless)
 .claude/settings.json      hook that logs every prompt to execution-tracking.csv
-execution-tracking.csv     prompts / sessions / phases / verification results
-backend/, frontend/, docs/ created by the loops
+execution-tracking.csv     prompts / session ids / phases / verification results
 ```
 
 ## Claude Loops
@@ -72,8 +117,9 @@ open Claude Code in the repo and say *"Run the backend-dev loop on PRD.md"*.
   verification runs, failed-trial count, errors and fixes. `task.md` and `progress.md` are generated
   from it every time it changes.
 - **Verification:** `loop.py verify` counts as one trial. Each `--check` command runs for real and its
-  exit code decides pass or fail. For browser tests the agent records what Playwright MCP showed with
-  `--manual playwright=pass|fail --evidence <screenshot>`. All logs go to `outputs/evidence/`.
+  exit code decides pass or fail. Browser tests run through `loops/_lib/playwright-verify.sh`, which
+  drives the Playwright MCP server in a headless child session (it never uses your browser) and exits 0
+  only when every scenario step passed. All logs and screenshots go to `outputs/evidence/`.
 - **Stop condition:** a phase ends when it has been verified, or after 3 failed trials. At that point it
   is marked `blocked` and the phases that depend on it become `blocked_by_dependency`. Independent
   phases keep running.
@@ -144,9 +190,9 @@ sequenceDiagram
     Agent->>LoopPy: start FE-NN (waits for ext:backend-dev phase)
     Agent->>Agent: implement screens, states, validation, API calls
     Agent->>App: build + run, get URL
-    Agent->>Playwright: navigate, click, fill, submit, snapshot
-    Playwright-->>Agent: observed UI + screenshots
-    Agent->>LoopPy: verify --check build --manual playwright=pass|fail --evidence
+    Agent->>LoopPy: verify --check build --check playwright
+    LoopPy->>Playwright: headless session runs verification/phase-NN.md
+    Playwright-->>LoopPy: VERDICT (PASS/FAIL per step) + screenshots
     alt pass
         Agent->>LoopPy: finish FE-NN
     else fail

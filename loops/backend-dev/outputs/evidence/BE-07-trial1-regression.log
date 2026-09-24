@@ -1,0 +1,32 @@
+## regression
+PASS loops/backend-dev/verification/phase-01.sh: curl suite: 25 passed, 0 failed
+PASS loops/backend-dev/verification/phase-02.sh: curl suite: 52 passed, 0 failed
+PASS loops/backend-dev/verification/phase-03.sh: curl suite: 36 passed, 0 failed
+PASS loops/backend-dev/verification/phase-04.sh: curl suite: 32 passed, 0 failed
+PASS loops/backend-dev/verification/phase-05.sh: curl suite: 44 passed, 0 failed
+PASS loops/backend-dev/verification/phase-06.sh: curl suite: 13 passed, 0 failed
+## latency (NFR-1: under 500 ms)
+PASS create task 11ms
+PASS update task 15ms
+PASS filter tasks 142ms
+PASS complete task 11ms
+PASS delete task 9ms
+PASS create habit 46ms
+PASS dashboard 62ms
+## swagger
+PASS documented /api/settings
+PASS documented /api/tasks
+PASS documented /api/tasks/{id}
+PASS documented /api/habits
+PASS documented /api/habits/{id}/completions
+PASS documented /api/learning-cards
+PASS documented /api/learning-cards/{id}/milestones
+PASS documented /api/learning-cards/{id}/notes
+PASS documented /api/plans
+PASS documented /api/plans/{id}/items/{itemId}
+PASS documented /api/plans/start-notifications
+PASS documented /api/plans/sources
+PASS documented /api/dashboard
+PASS every operation declares responses
+operations: 40, schemas: 27
+regression: PASS

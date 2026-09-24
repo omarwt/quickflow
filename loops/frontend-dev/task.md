@@ -4,15 +4,15 @@ Input: `PRD.md` · Mode: prd · Status: **ready**
 
 `[ ]` not started · `[-]` in progress · `[x]` completed · `[!]` blocked
 
-## FE-01 App shell and settings (pending)
+## FE-01 App shell and settings (done)
 
-- [ ] T1 Choose stack and record it in docs/architecture.md
-- [ ] T2 Project setup and API client from OpenAPI
-- [ ] T3 Layout with persistent navigation to six pages
-- [ ] T4 Shared loading, error, empty states and dialogs
-- [ ] T5 Settings page
-- [ ] T6 Verify with Playwright MCP
-- [ ] T7 Document phase
+- [x] T1 Choose stack and record it in docs/architecture.md
+- [x] T2 Project setup and API client from OpenAPI
+- [x] T3 Layout with persistent navigation to six pages
+- [x] T4 Shared loading, error, empty states and dialogs
+- [x] T5 Settings page
+- [x] T6 Verify with Playwright MCP
+- [x] T7 Document phase
 
 ## FE-02 Tasks page (pending)
 

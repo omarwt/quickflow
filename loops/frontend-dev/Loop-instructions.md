@@ -19,7 +19,7 @@ Same layout as backend-dev: `task.md`, `progress.md`, `state/`, `plan.json`,
 
 ## Preconditions
 - Node.js and npm.
-- The Playwright MCP server is configured in `.mcp.json` and its tools (`mcp__playwright__*`) are available in the session.
+- The Playwright MCP server is configured in `.mcp.json` (headless), and the `claude` CLI is on PATH for `playwright-verify.sh`.
 - The backend phases this feature needs are `done`. `loop.py` checks this through `ext:backend-dev/<ID>` dependencies.
 
 ## Process
@@ -39,14 +39,14 @@ Same layout as backend-dev: `task.md`, `progress.md`, `state/`, `plan.json`,
 2. Define the scope, acceptance criteria, screens/components and API calls in the phase output.
 3. Implement the UI, state management, validation, and loading/error/empty states, plus responsive layout and accessibility (labels, roles, keyboard access).
 4. Build and type-check, then run the app and note its URL.
-5. Verify in the browser with the Playwright MCP tools. Navigate, click, fill and submit forms, and check validation, the API-driven data, success and error states, navigation, and dialogs. Save screenshots to `loops/frontend-dev/outputs/evidence/`.
-6. Record the trial:
+5. Write the browser scenario `loops/frontend-dev/verification/phase-NN.md`: numbered steps a user would take, each with the result you expect to see. Cover navigation, forms and validation, data from the API, success, error and empty states, and dialogs. Mark the key steps `[screenshot]`.
+6. Verify. One `verify` call counts as one trial:
    ```
    python3 loops/_lib/loop.py verify frontend-dev <ID> \
      --check "build=cd frontend && npm run build" \
-     --manual "playwright=pass|fail" --evidence loops/frontend-dev/outputs/evidence/<file>.png
+     --check "playwright=bash loops/_lib/playwright-verify.sh loops/frontend-dev/verification/phase-NN.md http://localhost:5173"
    ```
-   Pass `--manual playwright=pass` only if every step you performed in the browser behaved as expected. Write the steps and what you observed in the phase output.
+   `playwright-verify.sh` runs the scenario through the Playwright MCP server in a separate headless session. It uses its own browser profile and never touches yours. The session has to end with a machine-readable verdict: the script exits 0 only if every step passed, saves screenshots to `outputs/evidence/`, and records the child session's ID in `execution-tracking.csv`.
 7. On FAIL: investigate, fix, rebuild or restart, then run Playwright again. On PASS: complete the output, tick the tasks, and run `loop.py finish frontend-dev <ID>`.
 
 ## Testing

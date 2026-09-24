@@ -19,45 +19,87 @@
         {
           "id": "T1",
           "title": "Choose stack and record it in docs/architecture.md",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T2",
           "title": "Project skeleton, config, persistence and migrations",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T3",
           "title": "Uniform error format and validation handling",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T4",
           "title": "Swagger/OpenAPI and CORS",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T5",
           "title": "Settings resource (profile, preferences, timezone)",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T6",
           "title": "Verify with curl",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T7",
           "title": "Document phase",
-          "status": "todo"
+          "status": "done"
         }
       ],
-      "status": "pending",
+      "status": "done",
       "failedTrials": 0,
-      "verification": "pending",
-      "runs": [],
+      "verification": "pass",
+      "runs": [
+        {
+          "at": "2026-09-24T10:40:58+03:00",
+          "result": "pass",
+          "checks": [
+            {
+              "name": "build",
+              "cmd": "backend/run.sh build",
+              "result": "pass",
+              "log": "outputs/evidence/BE-01-trial1-build.log"
+            },
+            {
+              "name": "start",
+              "cmd": "backend/run.sh start --fresh",
+              "result": "pass",
+              "log": "outputs/evidence/BE-01-trial1-start.log"
+            },
+            {
+              "name": "curl",
+              "cmd": "bash loops/backend-dev/verification/phase-01.sh",
+              "result": "pass",
+              "log": "outputs/evidence/BE-01-trial1-curl.log"
+            },
+            {
+              "name": "swagger",
+              "cmd": "curl -sf localhost:8080/v3/api-docs | jq -e '.paths[\"/api/settings\"].put'",
+              "result": "pass",
+              "log": "outputs/evidence/BE-01-trial1-swagger.log"
+            }
+          ],
+          "evidence": []
+        }
+      ],
       "errors": [],
-      "fixes": []
+      "fixes": [],
+      "start": "2026-09-24T10:39:03+03:00",
+      "end": "2026-09-24T10:41:16+03:00",
+      "duration": "2m 13s",
+      "tokens": {
+        "input": 8,
+        "output": 12528,
+        "cache_write": 13418,
+        "cache_read": 1236474,
+        "total": 1262428
+      }
     },
     {
       "id": "BE-02",
@@ -90,40 +132,82 @@
         {
           "id": "T1",
           "title": "Task model and migration",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T2",
           "title": "CRUD, complete/reopen, archive/restore, delete",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T3",
           "title": "Search, filters, sorting, overdue",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T4",
           "title": "Unit tests for task rules",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T5",
           "title": "Verify with curl",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T6",
           "title": "Document phase",
-          "status": "todo"
+          "status": "done"
         }
       ],
-      "status": "pending",
+      "status": "done",
       "failedTrials": 0,
-      "verification": "pending",
-      "runs": [],
+      "verification": "pass",
+      "runs": [
+        {
+          "at": "2026-09-24T10:43:04+03:00",
+          "result": "pass",
+          "checks": [
+            {
+              "name": "build",
+              "cmd": "backend/run.sh build",
+              "result": "pass",
+              "log": "outputs/evidence/BE-02-trial1-build.log"
+            },
+            {
+              "name": "start",
+              "cmd": "backend/run.sh start --fresh",
+              "result": "pass",
+              "log": "outputs/evidence/BE-02-trial1-start.log"
+            },
+            {
+              "name": "curl",
+              "cmd": "bash loops/backend-dev/verification/phase-02.sh",
+              "result": "pass",
+              "log": "outputs/evidence/BE-02-trial1-curl.log"
+            },
+            {
+              "name": "swagger",
+              "cmd": "curl -sf localhost:8080/v3/api-docs | jq -e '.paths[\"/api/tasks\"].get and .paths[\"/api/tasks/{id}/complete\"].post and .paths[\"/api/tasks/{id}/archive\"].post'",
+              "result": "pass",
+              "log": "outputs/evidence/BE-02-trial1-swagger.log"
+            }
+          ],
+          "evidence": []
+        }
+      ],
       "errors": [],
-      "fixes": []
+      "fixes": [],
+      "start": "2026-09-24T10:42:07+03:00",
+      "end": "2026-09-24T10:43:25+03:00",
+      "duration": "1m 18s",
+      "tokens": {
+        "input": 4,
+        "output": 5278,
+        "cache_write": 10628,
+        "cache_read": 646114,
+        "total": 662024
+      }
     },
     {
       "id": "BE-03",
@@ -148,45 +232,87 @@
         {
           "id": "T1",
           "title": "Habit and completion models, unique habit/date",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T2",
           "title": "CRUD, activate/deactivate",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T3",
           "title": "Complete/undo for a date, duplicate prevention",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T4",
           "title": "Progress: streak and current period",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T5",
           "title": "Unit tests for streak rules",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T6",
           "title": "Verify with curl",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T7",
           "title": "Document phase",
-          "status": "todo"
+          "status": "done"
         }
       ],
-      "status": "pending",
+      "status": "done",
       "failedTrials": 0,
-      "verification": "pending",
-      "runs": [],
+      "verification": "pass",
+      "runs": [
+        {
+          "at": "2026-09-24T10:45:14+03:00",
+          "result": "pass",
+          "checks": [
+            {
+              "name": "build",
+              "cmd": "backend/run.sh build",
+              "result": "pass",
+              "log": "outputs/evidence/BE-03-trial1-build.log"
+            },
+            {
+              "name": "start",
+              "cmd": "backend/run.sh start --fresh",
+              "result": "pass",
+              "log": "outputs/evidence/BE-03-trial1-start.log"
+            },
+            {
+              "name": "curl",
+              "cmd": "bash loops/backend-dev/verification/phase-03.sh",
+              "result": "pass",
+              "log": "outputs/evidence/BE-03-trial1-curl.log"
+            },
+            {
+              "name": "swagger",
+              "cmd": "curl -sf localhost:8080/v3/api-docs | jq -e '.paths[\"/api/habits/{id}/completions\"].post and .paths[\"/api/habits/{id}/deactivate\"].post'",
+              "result": "pass",
+              "log": "outputs/evidence/BE-03-trial1-swagger.log"
+            }
+          ],
+          "evidence": []
+        }
+      ],
       "errors": [],
-      "fixes": []
+      "fixes": [],
+      "start": "2026-09-24T10:44:20+03:00",
+      "end": "2026-09-24T10:45:31+03:00",
+      "duration": "1m 11s",
+      "tokens": {
+        "input": 4,
+        "output": 4128,
+        "cache_write": 10545,
+        "cache_read": 672238,
+        "total": 686915
+      }
     },
     {
       "id": "BE-04",
@@ -211,40 +337,82 @@
         {
           "id": "T1",
           "title": "Card, milestone and note models",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T2",
           "title": "Card CRUD",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T3",
           "title": "Milestones: add, complete, remove",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T4",
           "title": "Notes: add, remove",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T5",
           "title": "Verify with curl",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T6",
           "title": "Document phase",
-          "status": "todo"
+          "status": "done"
         }
       ],
-      "status": "pending",
+      "status": "done",
       "failedTrials": 0,
-      "verification": "pending",
-      "runs": [],
+      "verification": "pass",
+      "runs": [
+        {
+          "at": "2026-09-24T10:47:12+03:00",
+          "result": "pass",
+          "checks": [
+            {
+              "name": "build",
+              "cmd": "backend/run.sh build",
+              "result": "pass",
+              "log": "outputs/evidence/BE-04-trial1-build.log"
+            },
+            {
+              "name": "start",
+              "cmd": "backend/run.sh start --fresh",
+              "result": "pass",
+              "log": "outputs/evidence/BE-04-trial1-start.log"
+            },
+            {
+              "name": "curl",
+              "cmd": "bash loops/backend-dev/verification/phase-04.sh",
+              "result": "pass",
+              "log": "outputs/evidence/BE-04-trial1-curl.log"
+            },
+            {
+              "name": "swagger",
+              "cmd": "curl -sf localhost:8080/v3/api-docs | jq -e '.paths[\"/api/learning-cards/{id}/milestones/{milestoneId}\"].patch and .paths[\"/api/learning-cards/{id}/notes\"].post'",
+              "result": "pass",
+              "log": "outputs/evidence/BE-04-trial1-swagger.log"
+            }
+          ],
+          "evidence": []
+        }
+      ],
       "errors": [],
-      "fixes": []
+      "fixes": [],
+      "start": "2026-09-24T10:46:23+03:00",
+      "end": "2026-09-24T10:47:33+03:00",
+      "duration": "1m 10s",
+      "tokens": {
+        "input": 4,
+        "output": 3723,
+        "cache_write": 9324,
+        "cache_read": 695835,
+        "total": 708886
+      }
     },
     {
       "id": "BE-05",
@@ -289,50 +457,92 @@
         {
           "id": "T1",
           "title": "Plan and plan-item models",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T2",
           "title": "Create from existing items with validation",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T3",
           "title": "Status, progress and rest-time rules",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T4",
           "title": "Item toggle with BR-13 propagation",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T5",
           "title": "Remove, history, start notifications",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T6",
           "title": "Unit tests for plan lifecycle",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T7",
           "title": "Verify with curl",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T8",
           "title": "Document phase",
-          "status": "todo"
+          "status": "done"
         }
       ],
-      "status": "pending",
+      "status": "done",
       "failedTrials": 0,
-      "verification": "pending",
-      "runs": [],
+      "verification": "pass",
+      "runs": [
+        {
+          "at": "2026-09-24T10:50:21+03:00",
+          "result": "pass",
+          "checks": [
+            {
+              "name": "build",
+              "cmd": "backend/run.sh build",
+              "result": "pass",
+              "log": "outputs/evidence/BE-05-trial1-build.log"
+            },
+            {
+              "name": "start",
+              "cmd": "backend/run.sh start --fresh",
+              "result": "pass",
+              "log": "outputs/evidence/BE-05-trial1-start.log"
+            },
+            {
+              "name": "curl",
+              "cmd": "bash loops/backend-dev/verification/phase-05.sh",
+              "result": "pass",
+              "log": "outputs/evidence/BE-05-trial1-curl.log"
+            },
+            {
+              "name": "swagger",
+              "cmd": "curl -sf localhost:8080/v3/api-docs | jq -e '.paths[\"/api/plans\"].post and .paths[\"/api/plans/{id}/items/{itemId}\"].patch and .paths[\"/api/plans/start-notifications\"].get'",
+              "result": "pass",
+              "log": "outputs/evidence/BE-05-trial1-swagger.log"
+            }
+          ],
+          "evidence": []
+        }
+      ],
       "errors": [],
-      "fixes": []
+      "fixes": [],
+      "start": "2026-09-24T10:48:20+03:00",
+      "end": "2026-09-24T10:50:44+03:00",
+      "duration": "2m 24s",
+      "tokens": {
+        "input": 8,
+        "output": 13301,
+        "cache_write": 16916,
+        "cache_read": 1449252,
+        "total": 1479477
+      }
     },
     {
       "id": "BE-06",
@@ -355,30 +565,72 @@
         {
           "id": "T1",
           "title": "Dashboard aggregate endpoint",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T2",
           "title": "Unit test for completion percentage",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T3",
           "title": "Verify with curl, cross-checking list endpoints",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T4",
           "title": "Document phase",
-          "status": "todo"
+          "status": "done"
         }
       ],
-      "status": "pending",
+      "status": "done",
       "failedTrials": 0,
-      "verification": "pending",
-      "runs": [],
+      "verification": "pass",
+      "runs": [
+        {
+          "at": "2026-09-24T10:52:09+03:00",
+          "result": "pass",
+          "checks": [
+            {
+              "name": "build",
+              "cmd": "backend/run.sh build",
+              "result": "pass",
+              "log": "outputs/evidence/BE-06-trial1-build.log"
+            },
+            {
+              "name": "start",
+              "cmd": "backend/run.sh start --fresh",
+              "result": "pass",
+              "log": "outputs/evidence/BE-06-trial1-start.log"
+            },
+            {
+              "name": "curl",
+              "cmd": "bash loops/backend-dev/verification/phase-06.sh",
+              "result": "pass",
+              "log": "outputs/evidence/BE-06-trial1-curl.log"
+            },
+            {
+              "name": "swagger",
+              "cmd": "curl -sf localhost:8080/v3/api-docs | jq -e '.paths[\"/api/dashboard\"].get'",
+              "result": "pass",
+              "log": "outputs/evidence/BE-06-trial1-swagger.log"
+            }
+          ],
+          "evidence": []
+        }
+      ],
       "errors": [],
-      "fixes": []
+      "fixes": [],
+      "start": "2026-09-24T10:51:16+03:00",
+      "end": "2026-09-24T10:52:25+03:00",
+      "duration": "1m 09s",
+      "tokens": {
+        "input": 4,
+        "output": 4088,
+        "cache_write": 6845,
+        "cache_read": 753553,
+        "total": 764490
+      }
     },
     {
       "id": "BE-07",
@@ -393,42 +645,80 @@
         {
           "id": "T1",
           "title": "Run every curl script on a fresh database",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T2",
           "title": "Check response times under 500 ms",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T3",
           "title": "Confirm Swagger documents every endpoint",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T4",
           "title": "Verify",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T5",
           "title": "Document phase",
-          "status": "todo"
+          "status": "done"
         }
       ],
-      "status": "pending",
+      "status": "done",
       "failedTrials": 0,
-      "verification": "pending",
-      "runs": [],
+      "verification": "pass",
+      "runs": [
+        {
+          "at": "2026-09-24T10:54:38+03:00",
+          "result": "pass",
+          "checks": [
+            {
+              "name": "build",
+              "cmd": "backend/run.sh build",
+              "result": "pass",
+              "log": "outputs/evidence/BE-07-trial1-build.log"
+            },
+            {
+              "name": "regression",
+              "cmd": "bash loops/backend-dev/verification/phase-07.sh",
+              "result": "pass",
+              "log": "outputs/evidence/BE-07-trial1-regression.log"
+            }
+          ],
+          "evidence": []
+        }
+      ],
       "errors": [],
-      "fixes": []
+      "fixes": [],
+      "start": "2026-09-24T10:52:45+03:00",
+      "end": "2026-09-24T10:54:59+03:00",
+      "duration": "2m 14s",
+      "tokens": {
+        "input": 4,
+        "output": 1436,
+        "cache_write": 3210,
+        "cache_read": 768908,
+        "total": 773558
+      }
     }
   ],
-  "lastUpdated": "2026-09-24T10:31:33+03:00",
+  "lastUpdated": "2026-09-24T10:54:59+03:00",
   "currentPhase": null,
-  "completedPhases": [],
+  "completedPhases": [
+    "BE-01",
+    "BE-02",
+    "BE-03",
+    "BE-04",
+    "BE-05",
+    "BE-06",
+    "BE-07"
+  ],
   "blockedPhases": [],
   "retryCount": 0,
   "verificationStatus": "-",
-  "status": "ready"
+  "status": "completed"
 }

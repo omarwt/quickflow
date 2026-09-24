@@ -1,0 +1,29 @@
+{
+  "tags": [
+    "Settings"
+  ],
+  "summary": "Update profile and preferences",
+  "operationId": "update",
+  "requestBody": {
+    "content": {
+      "application/json": {
+        "schema": {
+          "$ref": "#/components/schemas/Settings"
+        }
+      }
+    },
+    "required": true
+  },
+  "responses": {
+    "400": {
+      "description": "Validation failed",
+      "content": {
+        "*/*": {
+          "schema": {
+            "$ref": "#/components/schemas/Settings"
+          }
+        }
+      }
+    }
+  }
+}

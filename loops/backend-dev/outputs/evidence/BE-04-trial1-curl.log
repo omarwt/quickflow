@@ -1,0 +1,86 @@
+## cards (US-LRN-1, US-LRN-2, FR-05, BR-8)
+> curl -X POST 'http://localhost:8080/api/learning-cards' -d '{"title":" Spring in Action ","description":"Book, Manning"}'
+< 201 {"id":1,"title":"Spring in Action","description":"Book, Manning","status":"NOT_STARTED","createdAt":"2026-09-24T07:47:11.146Z","milestones":[],"notes":[],"milestonesDone":0,"milestonesTotal":0}
+  PASS add card (HTTP 201)
+  PASS defaults
+> curl -X POST 'http://localhost:8080/api/learning-cards' -d '{"title":"Rust course","status":"IN_PROGRESS"}'
+< 201 {"id":2,"title":"Rust course","description":null,"status":"IN_PROGRESS","createdAt":"2026-09-24T07:47:11.266Z","milestones":[],"notes":[],"milestonesDone":0,"milestonesTotal":0}
+  PASS add with status (HTTP 201)
+> curl -X POST 'http://localhost:8080/api/learning-cards' -d '{"description":"no title"}'
+< 400 {"type":"about:blank","title":"Bad Request","status":400,"detail":"Validation failed","instance":"/api/learning-cards","errors":[{"field":"title","message":"Title is required"}]}
+  PASS title required (HTTP 400)
+  PASS title field error
+> curl -X POST 'http://localhost:8080/api/learning-cards' -d '{"title":"x","status":"DONE"}'
+< 400 {"type":"about:blank","title":"Bad Request","status":400,"detail":"Invalid value 'DONE'; allowed values: NOT_STARTED, IN_PROGRESS, COMPLETED","instance":"/api/learning-cards","errors":[{"field":"status","message":"Invalid value 'DONE'; allowed values: NOT_STARTED, IN_PROGRESS, COMPLETED"}]}
+  PASS invalid status (HTTP 400)
+  PASS allowed values
+> curl -X PUT 'http://localhost:8080/api/learning-cards/1' -d '{"title":"Spring in Action","description":"Book","status":"IN_PROGRESS"}'
+< 200 {"id":1,"title":"Spring in Action","description":"Book","status":"IN_PROGRESS","createdAt":"2026-09-24T07:47:11.146Z","milestones":[],"notes":[],"milestonesDone":0,"milestonesTotal":0}
+  PASS update (HTTP 200)
+  PASS status changed
+> curl -X GET 'http://localhost:8080/api/learning-cards'
+< 200 [{"id":1,"title":"Spring in Action","description":"Book","status":"IN_PROGRESS","createdAt":"2026-09-24T07:47:11.146Z","milestones":[],"notes":[],"milestonesDone":0,"milestonesTotal":0},{"id":2,"title":"Rust course","description":null,"status":"IN_PROGRESS","createdAt":"2026-09-24T07:47:11.266Z","milestones":[],"notes":[],"milestonesDone":0,"milestonesTotal":0}]
+  PASS list
+## milestones (US-LRN-3, US-LRN-4, FR-06, BR-9)
+> curl -X POST 'http://localhost:8080/api/learning-cards/1/milestones' -d '{"title":"Chapter 1","targetDate":"2026-10-01"}'
+< 201 {"id":1,"title":"Spring in Action","description":"Book","status":"IN_PROGRESS","createdAt":"2026-09-24T07:47:11.146Z","milestones":[{"id":1,"title":"Chapter 1","done":false,"targetDate":"2026-10-01","completedAt":null}],"notes":[],"milestonesDone":0,"milestonesTotal":1}
+  PASS add milestone (HTTP 201)
+  PASS milestone saved
+> curl -X POST 'http://localhost:8080/api/learning-cards/1/milestones' -d '{"title":"Chapter 2"}'
+< 201 {"id":1,"title":"Spring in Action","description":"Book","status":"IN_PROGRESS","createdAt":"2026-09-24T07:47:11.146Z","milestones":[{"id":1,"title":"Chapter 1","done":false,"targetDate":"2026-10-01","completedAt":null},{"id":2,"title":"Chapter 2","done":false,"targetDate":null,"completedAt":null}],"notes":[],"milestonesDone":0,"milestonesTotal":2}
+  PASS target date optional
+> curl -X POST 'http://localhost:8080/api/learning-cards/1/milestones' -d '{"title":""}'
+< 400 {"type":"about:blank","title":"Bad Request","status":400,"detail":"Validation failed","instance":"/api/learning-cards/1/milestones","errors":[{"field":"title","message":"Title is required"}]}
+  PASS milestone title required (HTTP 400)
+> curl -X PATCH 'http://localhost:8080/api/learning-cards/1/milestones/1' -d '{"done":true}'
+< 200 {"id":1,"title":"Spring in Action","description":"Book","status":"IN_PROGRESS","createdAt":"2026-09-24T07:47:11.146Z","milestones":[{"id":1,"title":"Chapter 1","done":true,"targetDate":"2026-10-01","completedAt":"2026-09-24T07:47:11.591Z"},{"id":2,"title":"Chapter 2","done":false,"targetDate":null,"completedAt":null}],"notes":[],"milestonesDone":1,"milestonesTotal":2}
+  PASS complete milestone (HTTP 200)
+  PASS done, completedAt set, title kept
+> curl -X PATCH 'http://localhost:8080/api/learning-cards/1/milestones/1' -d '{"done":false}'
+< 200 {"id":1,"title":"Spring in Action","description":"Book","status":"IN_PROGRESS","createdAt":"2026-09-24T07:47:11.146Z","milestones":[{"id":1,"title":"Chapter 1","done":false,"targetDate":"2026-10-01","completedAt":null},{"id":2,"title":"Chapter 2","done":false,"targetDate":null,"completedAt":null}],"notes":[],"milestonesDone":0,"milestonesTotal":2}
+  PASS reopen clears completedAt
+> curl -X PATCH 'http://localhost:8080/api/learning-cards/1/milestones/1' -d '{"title":"Ch. 1","targetDate":"2026-10-05"}'
+< 200 {"id":1,"title":"Spring in Action","description":"Book","status":"IN_PROGRESS","createdAt":"2026-09-24T07:47:11.146Z","milestones":[{"id":1,"title":"Ch. 1","done":false,"targetDate":"2026-10-05","completedAt":null},{"id":2,"title":"Chapter 2","done":false,"targetDate":null,"completedAt":null}],"notes":[],"milestonesDone":0,"milestonesTotal":2}
+  PASS rename and re-date
+> curl -X PATCH 'http://localhost:8080/api/learning-cards/2/milestones/1' -d '{"done":true}'
+< 404 {"type":"about:blank","title":"Not Found","status":404,"detail":"Milestone 1 on card 2 not found","instance":"/api/learning-cards/2/milestones/1"}
+  PASS milestone through the wrong card is 404 (HTTP 404)
+> curl -X DELETE 'http://localhost:8080/api/learning-cards/1/milestones/2'
+< 200 {"id":1,"title":"Spring in Action","description":"Book","status":"IN_PROGRESS","createdAt":"2026-09-24T07:47:11.146Z","milestones":[{"id":1,"title":"Ch. 1","done":false,"targetDate":"2026-10-05","completedAt":null}],"notes":[],"milestonesDone":0,"milestonesTotal":1}
+  PASS remove milestone (HTTP 200)
+  PASS removed
+> curl -X DELETE 'http://localhost:8080/api/learning-cards/1/milestones/2'
+< 404 {"type":"about:blank","title":"Not Found","status":404,"detail":"Milestone 2 on card 1 not found","instance":"/api/learning-cards/1/milestones/2"}
+  PASS remove twice (HTTP 404)
+## notes (US-LRN-5)
+> curl -X POST 'http://localhost:8080/api/learning-cards/1/notes' -d '{"text":"Chapter 1 covers DI"}'
+< 201 {"id":1,"title":"Spring in Action","description":"Book","status":"IN_PROGRESS","createdAt":"2026-09-24T07:47:11.146Z","milestones":[{"id":1,"title":"Ch. 1","done":false,"targetDate":"2026-10-05","completedAt":null}],"notes":[{"id":1,"text":"Chapter 1 covers DI","createdAt":"2026-09-24T07:47:11.730Z"}],"milestonesDone":0,"milestonesTotal":1}
+  PASS add note (HTTP 201)
+  PASS note with timestamp
+> curl -X POST 'http://localhost:8080/api/learning-cards/1/notes' -d '{"text":"  "}'
+< 400 {"type":"about:blank","title":"Bad Request","status":400,"detail":"Validation failed","instance":"/api/learning-cards/1/notes","errors":[{"field":"text","message":"Text is required"}]}
+  PASS blank note rejected (HTTP 400)
+> curl -X DELETE 'http://localhost:8080/api/learning-cards/2/notes/1'
+< 404 {"type":"about:blank","title":"Not Found","status":404,"detail":"Note 1 on card 2 not found","instance":"/api/learning-cards/2/notes/1"}
+  PASS note through the wrong card is 404 (HTTP 404)
+> curl -X DELETE 'http://localhost:8080/api/learning-cards/1/notes/1'
+< 200 {"id":1,"title":"Spring in Action","description":"Book","status":"IN_PROGRESS","createdAt":"2026-09-24T07:47:11.146Z","milestones":[{"id":1,"title":"Ch. 1","done":false,"targetDate":"2026-10-05","completedAt":null}],"notes":[],"milestonesDone":0,"milestonesTotal":1}
+  PASS remove note (HTTP 200)
+  PASS note removed
+## delete card
+> curl -X POST 'http://localhost:8080/api/learning-cards/1/notes' -d '{"text":"keep"}'
+< 201 {"id":1,"title":"Spring in Action","description":"Book","status":"IN_PROGRESS","createdAt":"2026-09-24T07:47:11.146Z","milestones":[{"id":1,"title":"Ch. 1","done":false,"targetDate":"2026-10-05","completedAt":null}],"notes":[{"id":2,"text":"keep","createdAt":"2026-09-24T07:47:11.826Z"}],"milestonesDone":0,"milestonesTotal":1}
+> curl -X DELETE 'http://localhost:8080/api/learning-cards/1'
+< 204 
+  PASS remove card (HTTP 204)
+> curl -X GET 'http://localhost:8080/api/learning-cards/1'
+< 404 {"type":"about:blank","title":"Not Found","status":404,"detail":"Learning card 1 not found","instance":"/api/learning-cards/1"}
+  PASS card gone (HTTP 404)
+> curl -X POST 'http://localhost:8080/api/learning-cards/1/milestones' -d '{"title":"x"}'
+< 404 {"type":"about:blank","title":"Not Found","status":404,"detail":"Learning card 1 not found","instance":"/api/learning-cards/1/milestones"}
+  PASS milestones of a deleted card (HTTP 404)
+> curl -X GET 'http://localhost:8080/api/learning-cards'
+< 200 [{"id":2,"title":"Rust course","description":null,"status":"IN_PROGRESS","createdAt":"2026-09-24T07:47:11.266Z","milestones":[],"notes":[],"milestonesDone":0,"milestonesTotal":0}]
+  PASS only the other card left
+
+curl suite: 32 passed, 0 failed

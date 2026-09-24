@@ -159,25 +159,55 @@
         {
           "id": "T1",
           "title": "Run backend-dev loop",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T2",
           "title": "Verify all backend phases are done",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T3",
           "title": "Document phase output",
-          "status": "todo"
+          "status": "done"
         }
       ],
-      "status": "pending",
+      "status": "done",
       "failedTrials": 0,
-      "verification": "pending",
-      "runs": [],
+      "verification": "pass",
+      "runs": [
+        {
+          "at": "2026-09-24T10:55:08+03:00",
+          "result": "pass",
+          "checks": [
+            {
+              "name": "backend-complete",
+              "cmd": "jq -e '.status == \"completed\" and (.blockedPhases | length) == 0' loops/backend-dev/state/loop-state.json",
+              "result": "pass",
+              "log": "outputs/evidence/OR-03-trial1-backend-complete.log"
+            },
+            {
+              "name": "contract",
+              "cmd": "jq -e '[.paths[] | keys[]] | length >= 40' backend/openapi.json",
+              "result": "pass",
+              "log": "outputs/evidence/OR-03-trial1-contract.log"
+            }
+          ],
+          "evidence": []
+        }
+      ],
       "errors": [],
-      "fixes": []
+      "fixes": [],
+      "start": "2026-09-24T10:39:03+03:00",
+      "end": "2026-09-24T10:55:24+03:00",
+      "duration": "16m 21s",
+      "tokens": {
+        "input": 52,
+        "output": 78668,
+        "cache_write": 84145,
+        "cache_read": 9094994,
+        "total": 9257859
+      }
     },
     {
       "id": "OR-04",
@@ -192,7 +222,7 @@
         {
           "id": "T1",
           "title": "Run frontend-dev loop",
-          "status": "todo"
+          "status": "in_progress"
         },
         {
           "id": "T2",
@@ -205,12 +235,13 @@
           "status": "todo"
         }
       ],
-      "status": "pending",
+      "status": "in_progress",
       "failedTrials": 0,
       "verification": "pending",
       "runs": [],
       "errors": [],
-      "fixes": []
+      "fixes": [],
+      "start": "2026-09-24T10:55:48+03:00"
     },
     {
       "id": "OR-05",
@@ -261,14 +292,15 @@
       "fixes": []
     }
   ],
-  "lastUpdated": "2026-09-24T10:32:22+03:00",
-  "currentPhase": null,
+  "lastUpdated": "2026-09-24T10:55:48+03:00",
+  "currentPhase": "OR-04",
   "completedPhases": [
     "OR-01",
-    "OR-02"
+    "OR-02",
+    "OR-03"
   ],
   "blockedPhases": [],
   "retryCount": 0,
-  "verificationStatus": "-",
-  "status": "ready"
+  "verificationStatus": "pending",
+  "status": "in_progress"
 }

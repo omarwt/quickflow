@@ -1,0 +1,12 @@
+Warning: no stdin data received in 3s, proceeding without it. If piping from a slow command, redirect stdin explicitly: < /dev/null to skip, or wait longer.
+  [PASS] 1. Open / -> /dashboard with Dashboard heading :: URL became /dashboard, heading 'Dashboard' shown
+  [PASS] 2. Nav has exactly 6 expected links :: Dashboard, Tasks, Habits, Learning Resources, Todo Plans, Settings present, no extras
+  [PASS] 3. Click each nav link -> correct route/heading :: /tasks->Tasks, /habits->Habits, /learning->Learning Resources, /plans->Todo Plans, /settings->Settings all matched
+  [PASS] 4. Settings shows default values :: Display name 'QuickFlow user', Timezone UTC selected, Default view Dashboard selected, checkbox checked
+  [PASS] 5. Clear Display name and save -> inline error, nothing saved :: Alert 'Display name is required' shown, no 'Settings saved' toast appeared
+  [PASS] 6. Invalid email -> server inline error :: Alert 'Email must be a valid address' shown under Email field
+  [PASS] 7. Valid full update -> Settings saved :: 'Settings saved' status toast appeared; fields set to Omar/omar@example.com/Asia/Dubai/Todo Plans/unchecked
+  [PASS] 8. Reload /settings -> persisted values :: After reload: Omar, omar@example.com, Asia/Dubai selected, Todo Plans selected, checkbox unchecked
+  [PASS] 9. Open / -> opens on default view /plans :: URL became /plans
+  [PASS] 10. Resize to 390x844 -> nav usable :: Nav with all 6 links visible at 390x844; clicking Tasks navigated to /tasks with Tasks heading
+playwright phase-01: PASS (10 checks, session 6219c9e2-8255-4e8b-b14a-2a3fa32dfb7c, 3611069 tokens)

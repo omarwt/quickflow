@@ -1,6 +1,6 @@
 # Tasks — orchestrator
 
-Input: `PRD.md` · Mode: prd · Status: **ready**
+Input: `PRD.md` · Mode: prd · Status: **in_progress**
 
 `[ ]` not started · `[-]` in progress · `[x]` completed · `[!]` blocked
 
@@ -22,15 +22,15 @@ Input: `PRD.md` · Mode: prd · Status: **ready**
 - [x] T5 Verify every requirement is planned
 - [x] T6 Document phase output
 
-## OR-03 Backend delegation (pending)
+## OR-03 Backend delegation (done)
 
-- [ ] T1 Run backend-dev loop
-- [ ] T2 Verify all backend phases are done
-- [ ] T3 Document phase output
+- [x] T1 Run backend-dev loop
+- [x] T2 Verify all backend phases are done
+- [x] T3 Document phase output
 
-## OR-04 Frontend delegation (pending)
+## OR-04 Frontend delegation (in_progress)
 
-- [ ] T1 Run frontend-dev loop
+- [-] T1 Run frontend-dev loop
 - [ ] T2 Verify all frontend phases are done
 - [ ] T3 Document phase output
 

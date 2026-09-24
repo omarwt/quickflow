@@ -1,0 +1,100 @@
+## create (US-HAB-1, US-HAB-2, BR-6)
+> curl -X POST 'http://localhost:8080/api/habits' -d '{"name":" Morning run ","description":"5 km","frequency":"DAILY"}'
+< 201 {"id":1,"name":"Morning run","description":"5 km","frequency":"DAILY","createdAt":"2026-09-24T07:45:12.042Z","active":true,"progress":{"completedToday":false,"completedThisPeriod":false,"currentStreak":0,"totalCompletions":0}}
+  PASS create daily (HTTP 201)
+  PASS defaults and empty progress
+> curl -X POST 'http://localhost:8080/api/habits' -d '{"name":"Weekly review","frequency":"WEEKLY"}'
+< 201 {"id":2,"name":"Weekly review","description":null,"frequency":"WEEKLY","createdAt":"2026-09-24T07:45:12.408Z","active":true,"progress":{"completedToday":false,"completedThisPeriod":false,"currentStreak":0,"totalCompletions":0}}
+  PASS create weekly (HTTP 201)
+> curl -X POST 'http://localhost:8080/api/habits' -d '{"name":"nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn","frequency":"DAILY"}'
+< 201 {"id":3,"name":"nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn","description":null,"frequency":"DAILY","createdAt":"2026-09-24T07:45:12.430Z","active":true,"progress":{"completedToday":false,"completedThisPeriod":false,"currentStreak":0,"totalCompletions":0}}
+  PASS 150-char name accepted (HTTP 201)
+> curl -X POST 'http://localhost:8080/api/habits' -d '{"name":"nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn","frequency":"DAILY"}'
+< 400 {"type":"about:blank","title":"Bad Request","status":400,"detail":"Validation failed","instance":"/api/habits","errors":[{"field":"name","message":"Name must be at most 150 characters"}]}
+  PASS 151-char name rejected (HTTP 400)
+> curl -X POST 'http://localhost:8080/api/habits' -d '{"frequency":"DAILY"}'
+< 400 {"type":"about:blank","title":"Bad Request","status":400,"detail":"Validation failed","instance":"/api/habits","errors":[{"field":"name","message":"Name is required"}]}
+  PASS missing name (HTTP 400)
+  PASS name field error
+> curl -X POST 'http://localhost:8080/api/habits' -d '{"name":"x"}'
+< 400 {"type":"about:blank","title":"Bad Request","status":400,"detail":"Validation failed","instance":"/api/habits","errors":[{"field":"frequency","message":"Frequency is required"}]}
+  PASS missing frequency (HTTP 400)
+> curl -X POST 'http://localhost:8080/api/habits' -d '{"name":"x","frequency":"MONTHLY"}'
+< 400 {"type":"about:blank","title":"Bad Request","status":400,"detail":"Invalid value 'MONTHLY'; allowed values: DAILY, WEEKLY","instance":"/api/habits","errors":[{"field":"frequency","message":"Invalid value 'MONTHLY'; allowed values: DAILY, WEEKLY"}]}
+  PASS invalid frequency (HTTP 400)
+  PASS allowed values
+## complete (US-HAB-3, FR-04, BR-7)
+> curl -X POST 'http://localhost:8080/api/habits/1/completions'
+< 201 {"id":1,"name":"Morning run","description":"5 km","frequency":"DAILY","createdAt":"2026-09-24T07:45:12.042Z","active":true,"progress":{"completedToday":true,"completedThisPeriod":true,"currentStreak":1,"totalCompletions":1}}
+  PASS complete today (HTTP 201)
+  PASS progress updated
+> curl -X POST 'http://localhost:8080/api/habits/1/completions' -d '{"date":"2026-09-24"}'
+< 409 {"type":"about:blank","title":"Conflict","status":409,"detail":"Habit 1 is already completed for 2026-09-24","instance":"/api/habits/1/completions"}
+  PASS duplicate same date rejected (HTTP 409)
+> curl -X GET 'http://localhost:8080/api/habits/1/completions'
+< 200 [{"id":1,"habitId":1,"completionDate":"2026-09-24","createdAt":"2026-09-24T07:45:12.567Z"}]
+  PASS only one record
+> curl -X POST 'http://localhost:8080/api/habits/1/completions' -d '{"date":"2026-09-25"}'
+< 400 {"type":"about:blank","title":"Bad Request","status":400,"detail":"A habit cannot be completed for a future date","instance":"/api/habits/1/completions","errors":[{"field":"date","message":"A habit cannot be completed for a future date"}]}
+  PASS future date rejected (HTTP 400)
+  PASS date field error
+> curl -X POST 'http://localhost:8080/api/habits/99999/completions'
+< 404 {"type":"about:blank","title":"Not Found","status":404,"detail":"Habit 99999 not found","instance":"/api/habits/99999/completions"}
+  PASS unknown habit (HTTP 404)
+## progress (US-HAB-4)
+> curl -X POST 'http://localhost:8080/api/habits/1/completions' -d '{"date":"2026-09-23"}'
+< 201 {"id":1,"name":"Morning run","description":"5 km","frequency":"DAILY","createdAt":"2026-09-24T07:45:12.042Z","active":true,"progress":{"completedToday":true,"completedThisPeriod":true,"currentStreak":2,"totalCompletions":2}}
+  PASS backfill yesterday (HTTP 201)
+> curl -X POST 'http://localhost:8080/api/habits/1/completions' -d '{"date":"2026-09-22"}'
+< 201 {"id":1,"name":"Morning run","description":"5 km","frequency":"DAILY","createdAt":"2026-09-24T07:45:12.042Z","active":true,"progress":{"completedToday":true,"completedThisPeriod":true,"currentStreak":3,"totalCompletions":3}}
+  PASS 3-day streak
+> curl -X POST 'http://localhost:8080/api/habits/1/completions' -d '{"date":"2026-09-19"}'
+< 201 {"id":1,"name":"Morning run","description":"5 km","frequency":"DAILY","createdAt":"2026-09-24T07:45:12.042Z","active":true,"progress":{"completedToday":true,"completedThisPeriod":true,"currentStreak":3,"totalCompletions":4}}
+  PASS gap does not extend streak
+> curl -X DELETE 'http://localhost:8080/api/habits/1/completions/2026-09-24'
+< 200 {"id":1,"name":"Morning run","description":"5 km","frequency":"DAILY","createdAt":"2026-09-24T07:45:12.042Z","active":true,"progress":{"completedToday":false,"completedThisPeriod":false,"currentStreak":2,"totalCompletions":3}}
+  PASS undo today (HTTP 200)
+  PASS streak alive until day ends
+> curl -X DELETE 'http://localhost:8080/api/habits/1/completions/2026-09-24'
+< 404 {"type":"about:blank","title":"Not Found","status":404,"detail":"Completion of habit 1 on 2026-09-24 not found","instance":"/api/habits/1/completions/2026-09-24"}
+  PASS undo twice (HTTP 404)
+> curl -X POST 'http://localhost:8080/api/habits/2/completions'
+< 201 {"id":2,"name":"Weekly review","description":null,"frequency":"WEEKLY","createdAt":"2026-09-24T07:45:12.408Z","active":true,"progress":{"completedToday":true,"completedThisPeriod":true,"currentStreak":1,"totalCompletions":1}}
+  PASS weekly done this week
+## update / deactivate / delete (US-HAB-5, FR-03)
+> curl -X PUT 'http://localhost:8080/api/habits/2' -d '{"name":"Weekly planning","frequency":"WEEKLY"}'
+< 200 {"id":2,"name":"Weekly planning","description":null,"frequency":"WEEKLY","createdAt":"2026-09-24T07:45:12.408Z","active":true,"progress":{"completedToday":true,"completedThisPeriod":true,"currentStreak":1,"totalCompletions":1}}
+  PASS update (HTTP 200)
+  PASS renamed
+> curl -X PUT 'http://localhost:8080/api/habits/2' -d '{"name":"","frequency":"WEEKLY"}'
+< 400 {"type":"about:blank","title":"Bad Request","status":400,"detail":"Validation failed","instance":"/api/habits/2","errors":[{"field":"name","message":"Name is required"}]}
+  PASS update validates (HTTP 400)
+> curl -X POST 'http://localhost:8080/api/habits/3/deactivate'
+< 200 {"id":3,"name":"nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn","description":null,"frequency":"DAILY","createdAt":"2026-09-24T07:45:12.430Z","active":false,"progress":{"completedToday":false,"completedThisPeriod":false,"currentStreak":0,"totalCompletions":0}}
+  PASS deactivated
+> curl -X POST 'http://localhost:8080/api/habits/3/completions'
+< 409 {"type":"about:blank","title":"Conflict","status":409,"detail":"Habit 3 is inactive","instance":"/api/habits/3/completions"}
+  PASS inactive habit cannot be completed (HTTP 409)
+> curl -X GET 'http://localhost:8080/api/habits?active=true'
+< 200 [{"id":1,"name":"Morning run","description":"5 km","frequency":"DAILY","createdAt":"2026-09-24T07:45:12.042Z","active":true,"progress":{"completedToday":false,"completedThisPeriod":false,"currentStreak":2,"totalCompletions":3}},{"id":2,"name":"Weekly planning","description":null,"frequency":"WEEKLY","createdAt":"2026-09-24T07:45:12.408Z","active":true,"progress":{"completedToday":true,"completedThisPeriod":true,"currentStreak":1,"totalCompletions":1}}]
+  PASS active filter
+> curl -X GET 'http://localhost:8080/api/habits?active=false'
+< 200 [{"id":3,"name":"nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn","description":null,"frequency":"DAILY","createdAt":"2026-09-24T07:45:12.430Z","active":false,"progress":{"completedToday":false,"completedThisPeriod":false,"currentStreak":0,"totalCompletions":0}}]
+  PASS inactive filter
+> curl -X POST 'http://localhost:8080/api/habits/3/activate'
+< 200 {"id":3,"name":"nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn","description":null,"frequency":"DAILY","createdAt":"2026-09-24T07:45:12.430Z","active":true,"progress":{"completedToday":false,"completedThisPeriod":false,"currentStreak":0,"totalCompletions":0}}
+  PASS reactivated
+> curl -X DELETE 'http://localhost:8080/api/habits/1'
+< 204 
+  PASS delete (HTTP 204)
+> curl -X GET 'http://localhost:8080/api/habits/1'
+< 404 {"type":"about:blank","title":"Not Found","status":404,"detail":"Habit 1 not found","instance":"/api/habits/1"}
+  PASS deleted habit gone (HTTP 404)
+> curl -X GET 'http://localhost:8080/api/habits/1/completions'
+< 404 {"type":"about:blank","title":"Not Found","status":404,"detail":"Habit 1 not found","instance":"/api/habits/1/completions"}
+  PASS its completions gone (HTTP 404)
+> curl -X GET 'http://localhost:8080/api/habits'
+< 200 [{"id":2,"name":"Weekly planning","description":null,"frequency":"WEEKLY","createdAt":"2026-09-24T07:45:12.408Z","active":true,"progress":{"completedToday":true,"completedThisPeriod":true,"currentStreak":1,"totalCompletions":1}},{"id":3,"name":"nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn","description":null,"frequency":"DAILY","createdAt":"2026-09-24T07:45:12.430Z","active":true,"progress":{"completedToday":false,"completedThisPeriod":false,"currentStreak":0,"totalCompletions":0}}]
+  PASS list shrinks
+
+curl suite: 36 passed, 0 failed

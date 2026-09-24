@@ -1,0 +1,149 @@
+## create (US-TASK-1, BR-1, BR-2)
+> curl -X POST 'http://localhost:8080/api/tasks' -d '{"title":" Write report ","description":"Q3","priority":"HIGH","dueDate":"2026-09-24"}'
+< 201 {"id":1,"title":"Write report","description":"Q3","status":"TODO","priority":"HIGH","dueDate":"2026-09-24","createdAt":"2026-09-24T07:43:01.824Z","updatedAt":"2026-09-24T07:43:01.824Z","completedAt":null,"archived":false,"overdue":false}
+  PASS create (HTTP 201)
+  PASS defaults, trimmed, due today not overdue
+> curl -X POST 'http://localhost:8080/api/tasks' -d '{"title":"Minimal"}'
+< 201 {"id":2,"title":"Minimal","description":null,"status":"TODO","priority":"MEDIUM","dueDate":null,"createdAt":"2026-09-24T07:43:02.019Z","updatedAt":"2026-09-24T07:43:02.019Z","completedAt":null,"archived":false,"overdue":false}
+  PASS title only (HTTP 201)
+  PASS priority defaults to MEDIUM
+> curl -X POST 'http://localhost:8080/api/tasks' -d '{"title":"Pay bills","priority":"LOW","dueDate":"2026-09-23"}'
+< 201 {"id":3,"title":"Pay bills","description":null,"status":"TODO","priority":"LOW","dueDate":"2026-09-23","createdAt":"2026-09-24T07:43:02.045Z","updatedAt":"2026-09-24T07:43:02.045Z","completedAt":null,"archived":false,"overdue":true}
+  PASS due yesterday is overdue
+> curl -X POST 'http://localhost:8080/api/tasks' -d '{"title":"Plan trip","status":"IN_PROGRESS","dueDate":"2026-09-25"}'
+< 201 {"id":4,"title":"Plan trip","description":null,"status":"IN_PROGRESS","priority":"MEDIUM","dueDate":"2026-09-25","createdAt":"2026-09-24T07:43:02.079Z","updatedAt":"2026-09-24T07:43:02.079Z","completedAt":null,"archived":false,"overdue":false}
+> curl -X POST 'http://localhost:8080/api/tasks' -d '{"title":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}'
+< 201 {"id":5,"title":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","description":null,"status":"TODO","priority":"MEDIUM","dueDate":null,"createdAt":"2026-09-24T07:43:02.105Z","updatedAt":"2026-09-24T07:43:02.105Z","completedAt":null,"archived":false,"overdue":false}
+  PASS 200-char title accepted (HTTP 201)
+## validation (BR-1..3)
+> curl -X POST 'http://localhost:8080/api/tasks' -d '{"description":"x"}'
+< 400 {"type":"about:blank","title":"Bad Request","status":400,"detail":"Validation failed","instance":"/api/tasks","errors":[{"field":"title","message":"Title is required"}]}
+  PASS missing title (HTTP 400)
+  PASS title field error
+> curl -X POST 'http://localhost:8080/api/tasks' -d '{"title":"   "}'
+< 400 {"type":"about:blank","title":"Bad Request","status":400,"detail":"Validation failed","instance":"/api/tasks","errors":[{"field":"title","message":"Title is required"}]}
+  PASS blank title (HTTP 400)
+> curl -X POST 'http://localhost:8080/api/tasks' -d '{"title":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}'
+< 400 {"type":"about:blank","title":"Bad Request","status":400,"detail":"Validation failed","instance":"/api/tasks","errors":[{"field":"title","message":"Title must be at most 200 characters"}]}
+  PASS 201-char title rejected (HTTP 400)
+> curl -X POST 'http://localhost:8080/api/tasks' -d '{"title":"x","description":"ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"}'
+< 400 {"type":"about:blank","title":"Bad Request","status":400,"detail":"Validation failed","instance":"/api/tasks","errors":[{"field":"description","message":"Description must be at most 2000 characters"}]}
+  PASS description over 2000 (HTTP 400)
+  PASS description field error
+> curl -X POST 'http://localhost:8080/api/tasks' -d '{"title":"x","status":"FINISHED"}'
+< 400 {"type":"about:blank","title":"Bad Request","status":400,"detail":"Invalid value 'FINISHED'; allowed values: TODO, IN_PROGRESS, DONE","instance":"/api/tasks","errors":[{"field":"status","message":"Invalid value 'FINISHED'; allowed values: TODO, IN_PROGRESS, DONE"}]}
+  PASS invalid status (HTTP 400)
+  PASS allowed statuses listed
+> curl -X POST 'http://localhost:8080/api/tasks' -d '{"title":"x","priority":"URGENT"}'
+< 400 {"type":"about:blank","title":"Bad Request","status":400,"detail":"Invalid value 'URGENT'; allowed values: LOW, MEDIUM, HIGH","instance":"/api/tasks","errors":[{"field":"priority","message":"Invalid value 'URGENT'; allowed values: LOW, MEDIUM, HIGH"}]}
+  PASS invalid priority (HTTP 400)
+> curl -X POST 'http://localhost:8080/api/tasks' -d '{"title":"x","dueDate":"31-12-2026"}'
+< 400 {"type":"about:blank","title":"Bad Request","status":400,"detail":"Invalid value '31-12-2026'","instance":"/api/tasks","errors":[{"field":"dueDate","message":"Invalid value '31-12-2026'"}]}
+  PASS bad date format (HTTP 400)
+## read / update (US-TASK-2)
+> curl -X GET 'http://localhost:8080/api/tasks/1'
+< 200 {"id":1,"title":"Write report","description":"Q3","status":"TODO","priority":"HIGH","dueDate":"2026-09-24","createdAt":"2026-09-24T07:43:01.824Z","updatedAt":"2026-09-24T07:43:01.824Z","completedAt":null,"archived":false,"overdue":false}
+  PASS get (HTTP 200)
+  PASS right task
+> curl -X PUT 'http://localhost:8080/api/tasks/1' -d '{"title":"Write Q3 report","status":"IN_PROGRESS","priority":"MEDIUM","dueDate":"2026-09-24"}'
+< 200 {"id":1,"title":"Write Q3 report","description":null,"status":"IN_PROGRESS","priority":"MEDIUM","dueDate":"2026-09-24","createdAt":"2026-09-24T07:43:01.824Z","updatedAt":"2026-09-24T07:43:02.346Z","completedAt":null,"archived":false,"overdue":false}
+  PASS update (HTTP 200)
+  PASS fields replaced
+> curl -X PUT 'http://localhost:8080/api/tasks/1' -d '{"title":""}'
+< 400 {"type":"about:blank","title":"Bad Request","status":400,"detail":"Validation failed","instance":"/api/tasks/1","errors":[{"field":"title","message":"Title is required"}]}
+  PASS update validates (HTTP 400)
+> curl -X PUT 'http://localhost:8080/api/tasks/99999' -d '{"title":"x"}'
+< 404 {"type":"about:blank","title":"Not Found","status":404,"detail":"Task 99999 not found","instance":"/api/tasks/99999"}
+  PASS update unknown id (HTTP 404)
+## complete / reopen (US-TASK-3, BR-5)
+> curl -X POST 'http://localhost:8080/api/tasks/3/complete'
+< 200 {"id":3,"title":"Pay bills","description":null,"status":"DONE","priority":"LOW","dueDate":"2026-09-23","createdAt":"2026-09-24T07:43:02.045Z","updatedAt":"2026-09-24T07:43:02.421Z","completedAt":"2026-09-24T07:43:02.421Z","archived":false,"overdue":false}
+  PASS complete (HTTP 200)
+  PASS done, completedAt set, not overdue
+> curl -X POST 'http://localhost:8080/api/tasks/3/reopen'
+< 200 {"id":3,"title":"Pay bills","description":null,"status":"TODO","priority":"LOW","dueDate":"2026-09-23","createdAt":"2026-09-24T07:43:02.045Z","updatedAt":"2026-09-24T07:43:02.457Z","completedAt":null,"archived":false,"overdue":true}
+  PASS reopened, overdue again
+> curl -X PUT 'http://localhost:8080/api/tasks/4' -d '{"title":"Plan trip","status":"DONE","dueDate":"2026-09-25"}'
+< 200 {"id":4,"title":"Plan trip","description":null,"status":"DONE","priority":"MEDIUM","dueDate":"2026-09-25","createdAt":"2026-09-24T07:43:02.079Z","updatedAt":"2026-09-24T07:43:02.487Z","completedAt":"2026-09-24T07:43:02.487Z","archived":false,"overdue":false}
+  PASS DONE via update sets completedAt
+> curl -X POST 'http://localhost:8080/api/tasks/99999/complete'
+< 404 {"type":"about:blank","title":"Not Found","status":404,"detail":"Task 99999 not found","instance":"/api/tasks/99999/complete"}
+  PASS complete unknown id (HTTP 404)
+## search / filter (US-TASK-5..7, FR-02)
+> curl -X GET 'http://localhost:8080/api/tasks?search=REPORT'
+< 200 [{"id":1,"title":"Write Q3 report","description":null,"status":"IN_PROGRESS","priority":"MEDIUM","dueDate":"2026-09-24","createdAt":"2026-09-24T07:43:01.824Z","updatedAt":"2026-09-24T07:43:02.346Z","completedAt":null,"archived":false,"overdue":false}]
+  PASS case-insensitive search
+> curl -X GET 'http://localhost:8080/api/tasks?search=%25'
+< 200 []
+  PASS wildcards escaped
+> curl -X GET 'http://localhost:8080/api/tasks?status=DONE'
+< 200 [{"id":4,"title":"Plan trip","description":null,"status":"DONE","priority":"MEDIUM","dueDate":"2026-09-25","createdAt":"2026-09-24T07:43:02.079Z","updatedAt":"2026-09-24T07:43:02.487Z","completedAt":"2026-09-24T07:43:02.487Z","archived":false,"overdue":false}]
+  PASS status filter
+> curl -X GET 'http://localhost:8080/api/tasks?priority=LOW'
+< 200 [{"id":3,"title":"Pay bills","description":null,"status":"TODO","priority":"LOW","dueDate":"2026-09-23","createdAt":"2026-09-24T07:43:02.045Z","updatedAt":"2026-09-24T07:43:02.457Z","completedAt":null,"archived":false,"overdue":true}]
+  PASS priority filter
+> curl -X GET 'http://localhost:8080/api/tasks?status=TODO&priority=LOW'
+< 200 [{"id":3,"title":"Pay bills","description":null,"status":"TODO","priority":"LOW","dueDate":"2026-09-23","createdAt":"2026-09-24T07:43:02.045Z","updatedAt":"2026-09-24T07:43:02.457Z","completedAt":null,"archived":false,"overdue":true}]
+  PASS combined filters
+> curl -X GET 'http://localhost:8080/api/tasks?due=OVERDUE'
+< 200 [{"id":3,"title":"Pay bills","description":null,"status":"TODO","priority":"LOW","dueDate":"2026-09-23","createdAt":"2026-09-24T07:43:02.045Z","updatedAt":"2026-09-24T07:43:02.457Z","completedAt":null,"archived":false,"overdue":true}]
+  PASS overdue
+> curl -X GET 'http://localhost:8080/api/tasks?due=TODAY'
+< 200 [{"id":1,"title":"Write Q3 report","description":null,"status":"IN_PROGRESS","priority":"MEDIUM","dueDate":"2026-09-24","createdAt":"2026-09-24T07:43:01.824Z","updatedAt":"2026-09-24T07:43:02.346Z","completedAt":null,"archived":false,"overdue":false}]
+  PASS due today
+> curl -X GET 'http://localhost:8080/api/tasks?due=UPCOMING'
+< 200 [{"id":4,"title":"Plan trip","description":null,"status":"DONE","priority":"MEDIUM","dueDate":"2026-09-25","createdAt":"2026-09-24T07:43:02.079Z","updatedAt":"2026-09-24T07:43:02.487Z","completedAt":"2026-09-24T07:43:02.487Z","archived":false,"overdue":false}]
+  PASS upcoming
+> curl -X GET 'http://localhost:8080/api/tasks?due=NONE'
+< 200 [{"id":5,"title":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","description":null,"status":"TODO","priority":"MEDIUM","dueDate":null,"createdAt":"2026-09-24T07:43:02.105Z","updatedAt":"2026-09-24T07:43:02.105Z","completedAt":null,"archived":false,"overdue":false},{"id":2,"title":"Minimal","description":null,"status":"TODO","priority":"MEDIUM","dueDate":null,"createdAt":"2026-09-24T07:43:02.019Z","updatedAt":"2026-09-24T07:43:02.019Z","comp
+  PASS no due date
+> curl -X GET 'http://localhost:8080/api/tasks?dueFrom=2026-09-23&dueTo=2026-09-24'
+< 200 [{"id":3,"title":"Pay bills","description":null,"status":"TODO","priority":"LOW","dueDate":"2026-09-23","createdAt":"2026-09-24T07:43:02.045Z","updatedAt":"2026-09-24T07:43:02.457Z","completedAt":null,"archived":false,"overdue":true},{"id":1,"title":"Write Q3 report","description":null,"status":"IN_PROGRESS","priority":"MEDIUM","dueDate":"2026-09-24","createdAt":"2026-09-24T07:43:01.824Z","updatedAt":"2026-09-24T07:43:02.346Z","completedAt":null,"archived":false,"overdue":false}]
+  PASS date range
+> curl -X GET 'http://localhost:8080/api/tasks?dueFrom=2026-09-25&dueTo=2026-09-23'
+< 400 {"type":"about:blank","title":"Bad Request","status":400,"detail":"dueFrom must not be after dueTo","instance":"/api/tasks","errors":[{"field":"dueFrom","message":"dueFrom must not be after dueTo"}]}
+  PASS inverted range (HTTP 400)
+> curl -X GET 'http://localhost:8080/api/tasks?status=BOGUS'
+< 400 {"type":"about:blank","title":"Bad Request","status":400,"detail":"Invalid value 'BOGUS'; allowed values: TODO, IN_PROGRESS, DONE","instance":"/api/tasks","errors":[{"field":"status","message":"Invalid value 'BOGUS'; allowed values: TODO, IN_PROGRESS, DONE"}]}
+  PASS bad status param (HTTP 400)
+  PASS param field error
+## sort
+> curl -X GET 'http://localhost:8080/api/tasks?sort=DUE_DATE&direction=ASC'
+< 200 [{"id":3,"title":"Pay bills","description":null,"status":"TODO","priority":"LOW","dueDate":"2026-09-23","createdAt":"2026-09-24T07:43:02.045Z","updatedAt":"2026-09-24T07:43:02.457Z","completedAt":null,"archived":false,"overdue":true},{"id":1,"title":"Write Q3 report","description":null,"status":"IN_PROGRESS","priority":"MEDIUM","dueDate":"2026-09-24","createdAt":"2026-09-24T07:43:01.824Z","updatedAt":"2026-09-24T07:43:02.346Z","completedAt":null,"archived":false,"overdue":false},{"id":4,"title":"Plan trip","description":null,"status":"DONE","priority":"MEDIUM","dueDate":"2026-09-25","createdAt
+  PASS due asc, undated last
+> curl -X GET 'http://localhost:8080/api/tasks?sort=DUE_DATE&direction=DESC'
+< 200 [{"id":4,"title":"Plan trip","description":null,"status":"DONE","priority":"MEDIUM","dueDate":"2026-09-25","createdAt":"2026-09-24T07:43:02.079Z","updatedAt":"2026-09-24T07:43:02.487Z","completedAt":"2026-09-24T07:43:02.487Z","archived":false,"overdue":false},{"id":1,"title":"Write Q3 report","description":null,"status":"IN_PROGRESS","priority":"MEDIUM","dueDate":"2026-09-24","createdAt":"2026-09-24T07:43:01.824Z","updatedAt":"2026-09-24T07:43:02.346Z","completedAt":null,"archived":false,"overdue":false},{"id":3,"title":"Pay bills","description":null,"status":"TODO","priority":"LOW","dueDate":
+  PASS due desc, undated last
+> curl -X GET 'http://localhost:8080/api/tasks?direction=ASC'
+< 200 [{"id":1,"title":"Write Q3 report","description":null,"status":"IN_PROGRESS","priority":"MEDIUM","dueDate":"2026-09-24","createdAt":"2026-09-24T07:43:01.824Z","updatedAt":"2026-09-24T07:43:02.346Z","completedAt":null,"archived":false,"overdue":false},{"id":2,"title":"Minimal","description":null,"status":"TODO","priority":"MEDIUM","dueDate":null,"createdAt":"2026-09-24T07:43:02.019Z","updatedAt":"2026-09-24T07:43:02.019Z","completedAt":null,"archived":false,"overdue":false},{"id":3,"title":"Pay bills","description":null,"status":"TODO","priority":"LOW","dueDate":"2026-09-23","createdAt":"2026-0
+  PASS created asc
+> curl -X GET 'http://localhost:8080/api/tasks'
+< 200 [{"id":5,"title":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","description":null,"status":"TODO","priority":"MEDIUM","dueDate":null,"createdAt":"2026-09-24T07:43:02.105Z","updatedAt":"2026-09-24T07:43:02.105Z","completedAt":null,"archived":false,"overdue":false},{"id":4,"title":"Plan trip","description":null,"status":"DONE","priority":"MEDIUM","dueDate":"2026-09-25","createdAt":"2026-09-24T07:43:02.079Z","updatedAt":"2026-09-24T07:43:02.4
+  PASS default newest first
+## archive / restore / delete (US-TASK-4, BR-4, BR-14)
+> curl -X POST 'http://localhost:8080/api/tasks/2/archive'
+< 200 {"id":2,"title":"Minimal","description":null,"status":"TODO","priority":"MEDIUM","dueDate":null,"createdAt":"2026-09-24T07:43:02.019Z","updatedAt":"2026-09-24T07:43:03.126Z","completedAt":null,"archived":true,"overdue":false}
+  PASS archived
+> curl -X GET 'http://localhost:8080/api/tasks'
+< 200 [{"id":5,"title":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","description":null,"status":"TODO","priority":"MEDIUM","dueDate":null,"createdAt":"2026-09-24T07:43:02.105Z","updatedAt":"2026-09-24T07:43:02.105Z","completedAt":null,"archived":false,"overdue":false},{"id":4,"title":"Plan trip","description":null,"status":"DONE","priority":"MEDIUM","dueDate":"2026-09-25","createdAt":"2026-09-24T07:43:02.079Z","updatedAt":"2026-09-24T07:43:02.4
+  PASS hidden from default list
+> curl -X GET 'http://localhost:8080/api/tasks?archived=true'
+< 200 [{"id":2,"title":"Minimal","description":null,"status":"TODO","priority":"MEDIUM","dueDate":null,"createdAt":"2026-09-24T07:43:02.019Z","updatedAt":"2026-09-24T07:43:03.126Z","completedAt":null,"archived":true,"overdue":false}]
+  PASS archived view
+> curl -X POST 'http://localhost:8080/api/tasks/2/restore'
+< 200 {"id":2,"title":"Minimal","description":null,"status":"TODO","priority":"MEDIUM","dueDate":null,"createdAt":"2026-09-24T07:43:02.019Z","updatedAt":"2026-09-24T07:43:03.192Z","completedAt":null,"archived":false,"overdue":false}
+  PASS restored
+> curl -X DELETE 'http://localhost:8080/api/tasks/5'
+< 204 
+  PASS delete (HTTP 204)
+> curl -X GET 'http://localhost:8080/api/tasks/5'
+< 404 {"type":"about:blank","title":"Not Found","status":404,"detail":"Task 5 not found","instance":"/api/tasks/5"}
+  PASS deleted task not returned (HTTP 404)
+> curl -X GET 'http://localhost:8080/api/tasks'
+< 200 [{"id":4,"title":"Plan trip","description":null,"status":"DONE","priority":"MEDIUM","dueDate":"2026-09-25","createdAt":"2026-09-24T07:43:02.079Z","updatedAt":"2026-09-24T07:43:02.487Z","completedAt":"2026-09-24T07:43:02.487Z","archived":false,"overdue":false},{"id":3,"title":"Pay bills","description":null,"status":"TODO","priority":"LOW","dueDate":"2026-09-23","createdAt":"2026-09-24T07:43:02.045Z","updatedAt":"2026-09-24T07:43:02.457Z","completedAt":null,"archived":false,"overdue":true},{"id":2,"title":"Minimal","description":null,"status":"TODO","priority":"MEDIUM","dueDate":null,"createdAt"
+  PASS deleted task not listed
+> curl -X DELETE 'http://localhost:8080/api/tasks/5'
+< 404 {"type":"about:blank","title":"Not Found","status":404,"detail":"Task 5 not found","instance":"/api/tasks/5"}
+  PASS second delete 404 (HTTP 404)
+
+curl suite: 52 passed, 0 failed

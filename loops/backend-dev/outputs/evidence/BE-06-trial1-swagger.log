@@ -1,0 +1,19 @@
+{
+  "tags": [
+    "Dashboard"
+  ],
+  "summary": "Summary of tasks, habits, plans and learning for today",
+  "operationId": "get_5",
+  "responses": {
+    "200": {
+      "description": "OK",
+      "content": {
+        "*/*": {
+          "schema": {
+            "$ref": "#/components/schemas/Dashboard"
+          }
+        }
+      }
+    }
+  }
+}

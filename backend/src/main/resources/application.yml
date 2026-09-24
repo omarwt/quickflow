@@ -1,0 +1,33 @@
+server:
+  port: ${PORT:8080}
+  error:
+    include-stacktrace: never
+
+spring:
+  application:
+    name: quickflow
+  datasource:
+    # File database so data survives restarts (NFR-3). Override with DB_URL.
+    url: ${DB_URL:jdbc:h2:file:./data/quickflow}
+    username: sa
+    password: ${DB_PASSWORD:}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  mvc:
+    problemdetails:
+      enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+quickflow:
+  cors-origins: ${CORS_ORIGINS:http://localhost:5173}

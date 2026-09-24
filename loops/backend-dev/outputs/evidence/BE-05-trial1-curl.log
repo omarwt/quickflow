@@ -1,0 +1,142 @@
+## sources
+> curl -X POST 'http://localhost:8080/api/tasks' -d '{"title":"Write report"}'
+< 201 {"id":1,"title":"Write report","description":null,"status":"TODO","priority":"MEDIUM","dueDate":null,"createdAt":"2026-09-24T07:50:19.431Z","updatedAt":"2026-09-24T07:50:19.431Z","completedAt":null,"archived":false,"overdue":false}
+> curl -X POST 'http://localhost:8080/api/tasks' -d '{"title":"Archived one"}'
+< 201 {"id":2,"title":"Archived one","description":null,"status":"TODO","priority":"MEDIUM","dueDate":null,"createdAt":"2026-09-24T07:50:19.546Z","updatedAt":"2026-09-24T07:50:19.546Z","completedAt":null,"archived":false,"overdue":false}
+> curl -X POST 'http://localhost:8080/api/tasks/2/archive'
+< 200 {"id":2,"title":"Archived one","description":null,"status":"TODO","priority":"MEDIUM","dueDate":null,"createdAt":"2026-09-24T07:50:19.546Z","updatedAt":"2026-09-24T07:50:19.566Z","completedAt":null,"archived":true,"overdue":false}
+> curl -X POST 'http://localhost:8080/api/habits' -d '{"name":"Read","frequency":"DAILY"}'
+< 201 {"id":1,"name":"Read","description":null,"frequency":"DAILY","createdAt":"2026-09-24T07:50:19.590Z","active":true,"progress":{"completedToday":false,"completedThisPeriod":false,"currentStreak":0,"totalCompletions":0}}
+> curl -X POST 'http://localhost:8080/api/habits' -d '{"name":"Old","frequency":"DAILY"}'
+< 201 {"id":2,"name":"Old","description":null,"frequency":"DAILY","createdAt":"2026-09-24T07:50:19.703Z","active":true,"progress":{"completedToday":false,"completedThisPeriod":false,"currentStreak":0,"totalCompletions":0}}
+> curl -X POST 'http://localhost:8080/api/habits/2/deactivate'
+< 200 {"id":2,"name":"Old","description":null,"frequency":"DAILY","createdAt":"2026-09-24T07:50:19.703Z","active":false,"progress":{"completedToday":false,"completedThisPeriod":false,"currentStreak":0,"totalCompletions":0}}
+> curl -X POST 'http://localhost:8080/api/learning-cards' -d '{"title":"Kotlin book"}'
+< 201 {"id":1,"title":"Kotlin book","description":null,"status":"NOT_STARTED","createdAt":"2026-09-24T07:50:19.746Z","milestones":[],"notes":[],"milestonesDone":0,"milestonesTotal":0}
+> curl -X GET 'http://localhost:8080/api/plans/sources'
+< 200 {"tasks":[{"id":1,"title":"Write report"}],"habits":[{"id":1,"title":"Read"}],"learningResources":[{"id":1,"title":"Kotlin book"}]}
+  PASS sources (HTTP 200)
+  PASS archived tasks and inactive habits not selectable
+## create (US-PLAN-1..4, BR-10, BR-11)
+> curl -X POST 'http://localhost:8080/api/plans' -d '{"title":"Deep work","items":[{"sourceType":"TASK","sourceId":1},{"sourceType":"HABIT","sourceId":1},{"sourceType":"LEARNING_RESOURCE","sourceId":1}],"estimatedMinutes":90,"startDateTime":"2026-09-24T07:20:19Z","endDateTime":"2026-09-24T09:20:19Z","priorityOrder":2}'
+< 201 {"id":1,"title":"Deep work","estimatedMinutes":90,"startDateTime":"2026-09-24T07:20:19Z","endDateTime":"2026-09-24T09:20:19Z","priorityOrder":2,"status":"IN_PROGRESS","createdAt":"2026-09-24T07:50:19.903Z","items":[{"id":1,"sourceType":"TASK","sourceId":1,"title":"Write report","done":false,"sourceAvailable":true},{"id":2,"sourceType":"HABIT","sourceId":1,"title":"Read","done":false,"sourceAvailable":true},{"id":3,"sourceType":"LEARNING_RESOURCE","sourceId":1,"title":"Kotlin book","done":false,"sourceAvailable":true}],"doneCount":0,"totalCount":3,"progressPercent":0,"restSeconds":5399,"startNo
+  PASS create in-progress plan (HTTP 201)
+  PASS fields and status
+  PASS rest time counts to end
+  PASS items resolved
+> curl -X POST 'http://localhost:8080/api/plans' -d '{"title":"Tomorrow","items":[{"sourceType":"TASK","sourceId":1}],"estimatedMinutes":60,"startDateTime":"2026-09-25T07:50:19Z","endDateTime":"2026-09-25T09:50:19Z","priorityOrder":1}'
+< 201 {"id":2,"title":"Tomorrow","estimatedMinutes":60,"startDateTime":"2026-09-25T07:50:19Z","endDateTime":"2026-09-25T09:50:19Z","priorityOrder":1,"status":"NOT_STARTED","createdAt":"2026-09-24T07:50:19.960Z","items":[{"id":4,"sourceType":"TASK","sourceId":1,"title":"Write report","done":false,"sourceAvailable":true}],"doneCount":0,"totalCount":1,"progressPercent":0,"restSeconds":null,"startNotified":false,"serverTime":"2026-09-24T07:50:19.963Z"}
+  PASS future plan not started, no rest time (BR-12)
+> curl -X POST 'http://localhost:8080/api/plans' -d '{"title":"Yesterday","items":[{"sourceType":"LEARNING_RESOURCE","sourceId":1}],"estimatedMinutes":60,"startDateTime":"2026-09-24T04:50:19Z","endDateTime":"2026-09-24T06:50:19Z","priorityOrder":3}'
+< 201 {"id":3,"title":"Yesterday","estimatedMinutes":60,"startDateTime":"2026-09-24T04:50:19Z","endDateTime":"2026-09-24T06:50:19Z","priorityOrder":3,"status":"COMPLETED","createdAt":"2026-09-24T07:50:19.983Z","items":[{"id":5,"sourceType":"LEARNING_RESOURCE","sourceId":1,"title":"Kotlin book","done":false,"sourceAvailable":true}],"doneCount":0,"totalCount":1,"progressPercent":0,"restSeconds":null,"startNotified":false,"serverTime":"2026-09-24T07:50:19.986Z"}
+  PASS past plan completed at 0%
+> curl -X POST 'http://localhost:8080/api/plans' -d '{"title":"x","items":[],"estimatedMinutes":60,"startDateTime":"2026-09-24T07:20:19Z","endDateTime":"2026-09-24T09:20:19Z","priorityOrder":1}'
+< 400 {"type":"about:blank","title":"Bad Request","status":400,"detail":"Validation failed","instance":"/api/plans","errors":[{"field":"items","message":"A plan needs at least one item"}]}
+  PASS no items (BR-10) (HTTP 400)
+  PASS items field error
+> curl -X POST 'http://localhost:8080/api/plans' -d '{"title":"x","items":[{"sourceType":"TASK","sourceId":99999}],"estimatedMinutes":60,"startDateTime":"2026-09-24T07:20:19Z","endDateTime":"2026-09-24T09:20:19Z","priorityOrder":1}'
+< 400 {"type":"about:blank","title":"Bad Request","status":400,"detail":"TASK 99999 does not exist or cannot be planned","instance":"/api/plans","errors":[{"field":"items[0]","message":"TASK 99999 does not exist or cannot be planned"}]}
+  PASS unknown source (BR-10) (HTTP 400)
+  PASS item field error
+> curl -X POST 'http://localhost:8080/api/plans' -d '{"title":"x","items":[{"sourceType":"TASK","sourceId":2}],"estimatedMinutes":60,"startDateTime":"2026-09-24T07:20:19Z","endDateTime":"2026-09-24T09:20:19Z","priorityOrder":1}'
+< 400 {"type":"about:blank","title":"Bad Request","status":400,"detail":"TASK 2 does not exist or cannot be planned","instance":"/api/plans","errors":[{"field":"items[0]","message":"TASK 2 does not exist or cannot be planned"}]}
+  PASS archived task rejected (HTTP 400)
+> curl -X POST 'http://localhost:8080/api/plans' -d '{"title":"x","items":[{"sourceType":"HABIT","sourceId":2}],"estimatedMinutes":60,"startDateTime":"2026-09-24T07:20:19Z","endDateTime":"2026-09-24T09:20:19Z","priorityOrder":1}'
+< 400 {"type":"about:blank","title":"Bad Request","status":400,"detail":"HABIT 2 does not exist or cannot be planned","instance":"/api/plans","errors":[{"field":"items[0]","message":"HABIT 2 does not exist or cannot be planned"}]}
+  PASS inactive habit rejected (HTTP 400)
+> curl -X POST 'http://localhost:8080/api/plans' -d '{"title":"x","items":[{"sourceType":"TASK","sourceId":1},{"sourceType":"TASK","sourceId":1}],"estimatedMinutes":60,"startDateTime":"2026-09-24T07:20:19Z","endDateTime":"2026-09-24T09:20:19Z","priorityOrder":1}'
+< 400 {"type":"about:blank","title":"Bad Request","status":400,"detail":"The same TASK is listed twice","instance":"/api/plans","errors":[{"field":"items[1]","message":"The same TASK is listed twice"}]}
+  PASS duplicate item rejected (HTTP 400)
+> curl -X POST 'http://localhost:8080/api/plans' -d '{"title":"x","items":[{"sourceType":"TASK","sourceId":1}],"estimatedMinutes":60,"startDateTime":"2026-09-24T09:20:19Z","endDateTime":"2026-09-24T07:20:19Z","priorityOrder":1}'
+< 400 {"type":"about:blank","title":"Bad Request","status":400,"detail":"End date/time must be after the start date/time","instance":"/api/plans","errors":[{"field":"endDateTime","message":"End date/time must be after the start date/time"}]}
+  PASS end before start (BR-11) (HTTP 400)
+  PASS endDateTime field error
+> curl -X POST 'http://localhost:8080/api/plans' -d '{"title":"x","items":[{"sourceType":"TASK","sourceId":1}],"estimatedMinutes":60,"startDateTime":"2026-09-24T07:20:19Z","endDateTime":"2026-09-24T07:20:19Z","priorityOrder":1}'
+< 400 {"type":"about:blank","title":"Bad Request","status":400,"detail":"End date/time must be after the start date/time","instance":"/api/plans","errors":[{"field":"endDateTime","message":"End date/time must be after the start date/time"}]}
+  PASS end equal to start (HTTP 400)
+> curl -X POST 'http://localhost:8080/api/plans' -d '{"title":"x","items":[{"sourceType":"TASK","sourceId":1}],"estimatedMinutes":60,"startDateTime":"2026-09-24T07:20:19Z","endDateTime":"2026-09-24T09:20:19Z","priorityOrder":0}'
+< 400 {"type":"about:blank","title":"Bad Request","status":400,"detail":"Validation failed","instance":"/api/plans","errors":[{"field":"priorityOrder","message":"Priority order must be 1 or more"}]}
+  PASS priority 0 rejected (HTTP 400)
+> curl -X POST 'http://localhost:8080/api/plans' -d '{"title":"x","items":[{"sourceType":"TASK","sourceId":1}],"estimatedMinutes":0,"startDateTime":"2026-09-24T07:20:19Z","endDateTime":"2026-09-24T09:20:19Z","priorityOrder":1}'
+< 400 {"type":"about:blank","title":"Bad Request","status":400,"detail":"Validation failed","instance":"/api/plans","errors":[{"field":"estimatedMinutes","message":"Estimated duration must be at least 1 minute"}]}
+  PASS duration 0 rejected (HTTP 400)
+> curl -X POST 'http://localhost:8080/api/plans' -d '{"title":"x","items":[{"sourceType":"BOOK","sourceId":1}],"estimatedMinutes":60,"startDateTime":"2026-09-24T07:20:19Z","endDateTime":"2026-09-24T09:20:19Z","priorityOrder":1}'
+< 400 {"type":"about:blank","title":"Bad Request","status":400,"detail":"Invalid value 'BOOK'; allowed values: TASK, HABIT, LEARNING_RESOURCE","instance":"/api/plans","errors":[{"field":"items.[0].sourceType","message":"Invalid value 'BOOK'; allowed values: TASK, HABIT, LEARNING_RESOURCE"}]}
+  PASS invalid source type (HTTP 400)
+## item done + BR-13 (US-PLAN-5, US-PLAN-9, FR-08)
+> curl -X PATCH 'http://localhost:8080/api/plans/1/items/1' -d '{"done":true}'
+< 200 {"id":1,"title":"Deep work","estimatedMinutes":90,"startDateTime":"2026-09-24T07:20:19Z","endDateTime":"2026-09-24T09:20:19Z","priorityOrder":2,"status":"IN_PROGRESS","createdAt":"2026-09-24T07:50:19.903Z","items":[{"id":1,"sourceType":"TASK","sourceId":1,"title":"Write report","done":true,"sourceAvailable":true},{"id":2,"sourceType":"HABIT","sourceId":1,"title":"Read","done":false,"sourceAvailable":true},{"id":3,"sourceType":"LEARNING_RESOURCE","sourceId":1,"title":"Kotlin book","done":false,"sourceAvailable":true}],"doneCount":1,"totalCount":3,"progressPercent":33,"restSeconds":5398,"startNo
+  PASS task item done (HTTP 200)
+  PASS progress 33%
+> curl -X GET 'http://localhost:8080/api/tasks/1'
+< 200 {"id":1,"title":"Write report","description":null,"status":"DONE","priority":"MEDIUM","dueDate":null,"createdAt":"2026-09-24T07:50:19.431Z","updatedAt":"2026-09-24T07:50:20.249Z","completedAt":"2026-09-24T07:50:20.249Z","archived":false,"overdue":false}
+  PASS task item completed the task
+> curl -X PATCH 'http://localhost:8080/api/plans/1/items/2' -d '{"done":true}'
+< 200 {"id":1,"title":"Deep work","estimatedMinutes":90,"startDateTime":"2026-09-24T07:20:19Z","endDateTime":"2026-09-24T09:20:19Z","priorityOrder":2,"status":"IN_PROGRESS","createdAt":"2026-09-24T07:50:19.903Z","items":[{"id":1,"sourceType":"TASK","sourceId":1,"title":"Write report","done":true,"sourceAvailable":true},{"id":2,"sourceType":"HABIT","sourceId":1,"title":"Read","done":true,"sourceAvailable":true},{"id":3,"sourceType":"LEARNING_RESOURCE","sourceId":1,"title":"Kotlin book","done":false,"sourceAvailable":true}],"doneCount":2,"totalCount":3,"progressPercent":67,"restSeconds":5398,"startNot
+  PASS progress 67%
+> curl -X GET 'http://localhost:8080/api/habits/1/completions'
+< 200 [{"id":1,"habitId":1,"completionDate":"2026-09-24","createdAt":"2026-09-24T07:50:20.294Z"}]
+  PASS habit item recorded today's completion
+> curl -X PATCH 'http://localhost:8080/api/plans/1/items/2' -d '{"done":false}'
+< 200 {"id":1,"title":"Deep work","estimatedMinutes":90,"startDateTime":"2026-09-24T07:20:19Z","endDateTime":"2026-09-24T09:20:19Z","priorityOrder":2,"status":"IN_PROGRESS","createdAt":"2026-09-24T07:50:19.903Z","items":[{"id":1,"sourceType":"TASK","sourceId":1,"title":"Write report","done":true,"sourceAvailable":true},{"id":2,"sourceType":"HABIT","sourceId":1,"title":"Read","done":false,"sourceAvailable":true},{"id":3,"sourceType":"LEARNING_RESOURCE","sourceId":1,"title":"Kotlin book","done":false,"sourceAvailable":true}],"doneCount":1,"totalCount":3,"progressPercent":33,"restSeconds":5398,"startNo
+> curl -X GET 'http://localhost:8080/api/habits/1/completions'
+< 200 []
+  PASS undo removes today's completion
+> curl -X PATCH 'http://localhost:8080/api/plans/1/items/2' -d '{"done":true}'
+< 200 {"id":1,"title":"Deep work","estimatedMinutes":90,"startDateTime":"2026-09-24T07:20:19Z","endDateTime":"2026-09-24T09:20:19Z","priorityOrder":2,"status":"IN_PROGRESS","createdAt":"2026-09-24T07:50:19.903Z","items":[{"id":1,"sourceType":"TASK","sourceId":1,"title":"Write report","done":true,"sourceAvailable":true},{"id":2,"sourceType":"HABIT","sourceId":1,"title":"Read","done":true,"sourceAvailable":true},{"id":3,"sourceType":"LEARNING_RESOURCE","sourceId":1,"title":"Kotlin book","done":false,"sourceAvailable":true}],"doneCount":2,"totalCount":3,"progressPercent":67,"restSeconds":5398,"startNot
+> curl -X PATCH 'http://localhost:8080/api/plans/1/items/3' -d '{"done":true}'
+< 200 {"id":1,"title":"Deep work","estimatedMinutes":90,"startDateTime":"2026-09-24T07:20:19Z","endDateTime":"2026-09-24T09:20:19Z","priorityOrder":2,"status":"COMPLETED","createdAt":"2026-09-24T07:50:19.903Z","items":[{"id":1,"sourceType":"TASK","sourceId":1,"title":"Write report","done":true,"sourceAvailable":true},{"id":2,"sourceType":"HABIT","sourceId":1,"title":"Read","done":true,"sourceAvailable":true},{"id":3,"sourceType":"LEARNING_RESOURCE","sourceId":1,"title":"Kotlin book","done":true,"sourceAvailable":true}],"doneCount":3,"totalCount":3,"progressPercent":100,"restSeconds":null,"startNotif
+  PASS all done -> COMPLETED
+> curl -X GET 'http://localhost:8080/api/learning-cards/1'
+< 200 {"id":1,"title":"Kotlin book","description":null,"status":"NOT_STARTED","createdAt":"2026-09-24T07:50:19.746Z","milestones":[],"notes":[],"milestonesDone":0,"milestonesTotal":0}
+  PASS learning item leaves the card unchanged
+> curl -X PATCH 'http://localhost:8080/api/plans/1/items/1' -d '{"done":false}'
+< 200 {"id":1,"title":"Deep work","estimatedMinutes":90,"startDateTime":"2026-09-24T07:20:19Z","endDateTime":"2026-09-24T09:20:19Z","priorityOrder":2,"status":"IN_PROGRESS","createdAt":"2026-09-24T07:50:19.903Z","items":[{"id":1,"sourceType":"TASK","sourceId":1,"title":"Write report","done":false,"sourceAvailable":true},{"id":2,"sourceType":"HABIT","sourceId":1,"title":"Read","done":true,"sourceAvailable":true},{"id":3,"sourceType":"LEARNING_RESOURCE","sourceId":1,"title":"Kotlin book","done":true,"sourceAvailable":true}],"doneCount":2,"totalCount":3,"progressPercent":67,"restSeconds":5398,"startNot
+  PASS undo reopens plan
+> curl -X GET 'http://localhost:8080/api/tasks/1'
+< 200 {"id":1,"title":"Write report","description":null,"status":"TODO","priority":"MEDIUM","dueDate":null,"createdAt":"2026-09-24T07:50:19.431Z","updatedAt":"2026-09-24T07:50:20.459Z","completedAt":null,"archived":false,"overdue":false}
+  PASS task reopened
+> curl -X PATCH 'http://localhost:8080/api/plans/1/items/99999' -d '{"done":true}'
+< 404 {"type":"about:blank","title":"Not Found","status":404,"detail":"Item 99999 in plan 1 not found","instance":"/api/plans/1/items/99999"}
+  PASS unknown item (HTTP 404)
+> curl -X PATCH 'http://localhost:8080/api/plans/1/items/1' -d '{}'
+< 400 {"type":"about:blank","title":"Bad Request","status":400,"detail":"Validation failed","instance":"/api/plans/1/items/1","errors":[{"field":"done","message":"done is required"}]}
+  PASS done required (HTTP 400)
+## deleted source keeps the item (I-5)
+> curl -X DELETE 'http://localhost:8080/api/learning-cards/1'
+< 204 
+> curl -X GET 'http://localhost:8080/api/plans/1'
+< 200 {"id":1,"title":"Deep work","estimatedMinutes":90,"startDateTime":"2026-09-24T07:20:19Z","endDateTime":"2026-09-24T09:20:19Z","priorityOrder":2,"status":"IN_PROGRESS","createdAt":"2026-09-24T07:50:19.903Z","items":[{"id":1,"sourceType":"TASK","sourceId":1,"title":"Write report","done":false,"sourceAvailable":true},{"id":2,"sourceType":"HABIT","sourceId":1,"title":"Read","done":true,"sourceAvailable":true},{"id":3,"sourceType":"LEARNING_RESOURCE","sourceId":1,"title":"Kotlin book","done":true,"sourceAvailable":false}],"doneCount":2,"totalCount":3,"progressPercent":67,"restSeconds":5398,"startNo
+  PASS snapshot title, still counted
+## grouping, history, notifications (US-PLAN-7, US-PLAN-10)
+> curl -X GET 'http://localhost:8080/api/plans?group=ACTIVE'
+< 200 [{"id":2,"title":"Tomorrow","estimatedMinutes":60,"startDateTime":"2026-09-25T07:50:19Z","endDateTime":"2026-09-25T09:50:19Z","priorityOrder":1,"status":"NOT_STARTED","createdAt":"2026-09-24T07:50:19.960Z","items":[{"id":4,"sourceType":"TASK","sourceId":1,"title":"Write report","done":false,"sourceAvailable":true}],"doneCount":0,"totalCount":1,"progressPercent":0,"restSeconds":null,"startNotified":false,"serverTime":"2026-09-24T07:50:20.571Z"},{"id":1,"title":"Deep work","estimatedMinutes":90,"startDateTime":"2026-09-24T07:20:19Z","endDateTime":"2026-09-24T09:20:19Z","priorityOrder":2,"status"
+  PASS active sorted by priority
+> curl -X GET 'http://localhost:8080/api/plans?group=COMPLETED'
+< 200 [{"id":3,"title":"Yesterday","estimatedMinutes":60,"startDateTime":"2026-09-24T04:50:19Z","endDateTime":"2026-09-24T06:50:19Z","priorityOrder":3,"status":"COMPLETED","createdAt":"2026-09-24T07:50:19.983Z","items":[{"id":5,"sourceType":"LEARNING_RESOURCE","sourceId":1,"title":"Kotlin book","done":false,"sourceAvailable":false}],"doneCount":0,"totalCount":1,"progressPercent":0,"restSeconds":null,"startNotified":false,"serverTime":"2026-09-24T07:50:20.615Z"}]
+  PASS history with completion %
+> curl -X GET 'http://localhost:8080/api/plans/start-notifications'
+< 200 [{"id":1,"title":"Deep work","estimatedMinutes":90,"startDateTime":"2026-09-24T07:20:19Z","endDateTime":"2026-09-24T09:20:19Z","priorityOrder":2,"status":"IN_PROGRESS","createdAt":"2026-09-24T07:50:19.903Z","items":[{"id":1,"sourceType":"TASK","sourceId":1,"title":"Write report","done":false,"sourceAvailable":true},{"id":2,"sourceType":"HABIT","sourceId":1,"title":"Read","done":true,"sourceAvailable":true},{"id":3,"sourceType":"LEARNING_RESOURCE","sourceId":1,"title":"Kotlin book","done":true,"sourceAvailable":false}],"doneCount":2,"totalCount":3,"progressPercent":67,"restSeconds":5398,"startN
+  PASS started plan needs a notification
+> curl -X POST 'http://localhost:8080/api/plans/1/start-notification/ack'
+< 200 {"id":1,"title":"Deep work","estimatedMinutes":90,"startDateTime":"2026-09-24T07:20:19Z","endDateTime":"2026-09-24T09:20:19Z","priorityOrder":2,"status":"IN_PROGRESS","createdAt":"2026-09-24T07:50:19.903Z","items":[{"id":1,"sourceType":"TASK","sourceId":1,"title":"Write report","done":false,"sourceAvailable":true},{"id":2,"sourceType":"HABIT","sourceId":1,"title":"Read","done":true,"sourceAvailable":true},{"id":3,"sourceType":"LEARNING_RESOURCE","sourceId":1,"title":"Kotlin book","done":true,"sourceAvailable":false}],"doneCount":2,"totalCount":3,"progressPercent":67,"restSeconds":5398,"startNo
+  PASS ack (HTTP 200)
+  PASS acknowledged
+> curl -X GET 'http://localhost:8080/api/plans/start-notifications'
+< 200 []
+  PASS notified only once
+> curl -X POST 'http://localhost:8080/api/plans/2/start-notification/ack'
+< 409 {"type":"about:blank","title":"Conflict","status":409,"detail":"Plan 2 has not started yet","instance":"/api/plans/2/start-notification/ack"}
+  PASS cannot ack a plan that hasn't started (HTTP 409)
+## remove (US-PLAN-6)
+> curl -X DELETE 'http://localhost:8080/api/plans/2'
+< 204 
+  PASS remove plan (HTTP 204)
+> curl -X GET 'http://localhost:8080/api/plans/2'
+< 404 {"type":"about:blank","title":"Not Found","status":404,"detail":"Plan 2 not found","instance":"/api/plans/2"}
+  PASS removed plan gone (HTTP 404)
+> curl -X GET 'http://localhost:8080/api/tasks/1'
+< 200 {"id":1,"title":"Write report","description":null,"status":"TODO","priority":"MEDIUM","dueDate":null,"createdAt":"2026-09-24T07:50:19.431Z","updatedAt":"2026-09-24T07:50:20.459Z","completedAt":null,"archived":false,"overdue":false}
+  PASS removing a plan leaves its task (HTTP 200)
+
+curl suite: 44 passed, 0 failed

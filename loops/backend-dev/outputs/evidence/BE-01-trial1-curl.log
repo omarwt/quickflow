@@ -1,0 +1,51 @@
+> curl -X GET 'http://localhost:8080/actuator/health'
+< 200 {"status":"UP"}
+  PASS health (HTTP 200)
+  PASS status UP
+> curl -X GET 'http://localhost:8080/v3/api-docs'
+< 200 {"openapi":"3.0.1","info":{"title":"QuickFlow API","description":"Single-user productivity API: tasks, habits, learning resources, plans, dashboard. Errors are RFC 7807 problem+json; validation errors list {field, message} in `errors`.","version":"1.0.0"},"servers":[{"url":"http://localhost:8080","description":"Generated server url"}],"paths":{"/api/settings":{"get":{"tags":["Settings"],"summary":"Get profile and preferences","operationId":"get","responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/Settings"}}}}}},"put":{"tags":["Settings"],"summary":"
+  PASS OpenAPI document (HTTP 200)
+  PASS API title
+  PASS Swagger UI (HTTP 200)
+> curl -X GET 'http://localhost:8080/api/settings'
+< 200 {"displayName":"QuickFlow user","email":null,"timezone":"UTC","notificationsEnabled":true,"defaultView":"DASHBOARD"}
+  PASS get settings (HTTP 200)
+  PASS defaults
+> curl -X PUT 'http://localhost:8080/api/settings' -d '{"displayName":" Omar ","email":"omar@example.com","timezone":"Asia/Dubai","notificationsEnabled":false,"defaultView":"PLANS"}'
+< 200 {"displayName":"Omar","email":"omar@example.com","timezone":"Asia/Dubai","notificationsEnabled":false,"defaultView":"PLANS"}
+  PASS update settings (HTTP 200)
+  PASS saved and trimmed
+> curl -X GET 'http://localhost:8080/api/settings'
+< 200 {"displayName":"Omar","email":"omar@example.com","timezone":"Asia/Dubai","notificationsEnabled":false,"defaultView":"PLANS"}
+  PASS persisted
+> curl -X PUT 'http://localhost:8080/api/settings' -d '{"displayName":"","timezone":"UTC","notificationsEnabled":true,"defaultView":"TASKS"}'
+< 400 {"type":"about:blank","title":"Bad Request","status":400,"detail":"Validation failed","instance":"/api/settings","errors":[{"field":"displayName","message":"Display name is required"}]}
+  PASS blank name (HTTP 400)
+  PASS field error displayName
+> curl -X PUT 'http://localhost:8080/api/settings' -d '{"displayName":"x","timezone":"Mars/Base","notificationsEnabled":true,"defaultView":"TASKS"}'
+< 400 {"type":"about:blank","title":"Bad Request","status":400,"detail":"Unknown timezone 'Mars/Base'","instance":"/api/settings","errors":[{"field":"timezone","message":"Unknown timezone 'Mars/Base'"}]}
+  PASS unknown timezone (HTTP 400)
+  PASS field error timezone
+> curl -X PUT 'http://localhost:8080/api/settings' -d '{"displayName":"x","email":"nope","timezone":"UTC","notificationsEnabled":true,"defaultView":"TASKS"}'
+< 400 {"type":"about:blank","title":"Bad Request","status":400,"detail":"Validation failed","instance":"/api/settings","errors":[{"field":"email","message":"Email must be a valid address"}]}
+  PASS bad email (HTTP 400)
+  PASS field error email
+> curl -X PUT 'http://localhost:8080/api/settings' -d '{"displayName":"x","timezone":"UTC","notificationsEnabled":true,"defaultView":"CALENDAR"}'
+< 400 {"type":"about:blank","title":"Bad Request","status":400,"detail":"Invalid value 'CALENDAR'; allowed values: DASHBOARD, TASKS, HABITS, LEARNING, PLANS","instance":"/api/settings","errors":[{"field":"defaultView","message":"Invalid value 'CALENDAR'; allowed values: DASHBOARD, TASKS, HABITS, LEARNING, PLANS"}]}
+  PASS invalid enum (HTTP 400)
+  PASS allowed values listed
+> curl -X PUT 'http://localhost:8080/api/settings' -d '{"displayName": '
+< 400 {"type":"about:blank","title":"Bad Request","status":400,"detail":"Malformed JSON request body","instance":"/api/settings"}
+  PASS malformed JSON (HTTP 400)
+> curl -X GET 'http://localhost:8080/api/nope'
+< 404 {"type":"about:blank","title":"Not Found","status":404,"detail":"No static resource api/nope.","instance":"/api/nope"}
+  PASS unknown route (HTTP 404)
+  PASS problem body
+  PASS problem+json content type
+> curl -X DELETE 'http://localhost:8080/api/settings'
+< 405 {"type":"about:blank","title":"Method Not Allowed","status":405,"detail":"Method 'DELETE' is not supported.","instance":"/api/settings"}
+  PASS method not allowed (HTTP 405)
+  PASS CORS allows frontend
+  PASS CORS blocks others
+
+curl suite: 25 passed, 0 failed

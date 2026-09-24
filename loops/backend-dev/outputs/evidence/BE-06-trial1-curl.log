@@ -1,0 +1,67 @@
+> curl -X GET 'http://localhost:8080/api/dashboard'
+< 200 {"displayName":"QuickFlow user","today":"2026-09-24","serverTime":"2026-09-24T07:52:07.514Z","tasks":{"dueToday":[],"overdue":[],"completedToday":0,"total":0,"done":0,"completionPercent":0},"habits":{"today":[],"active":0,"completedToday":0},"plans":{"inProgress":[],"notStarted":0,"completed":0},"learning":{"cardsByStatus":{"NOT_STARTED":0,"IN_PROGRESS":0,"COMPLETED":0},"milestonesDone":0,"milestonesTotal":0,"milestonesCompletedLast7Days":0}}
+  PASS empty dashboard (HTTP 200)
+  PASS all zero on empty data
+## seed
+> curl -X POST 'http://localhost:8080/api/tasks' -d '{"title":"Due today","dueDate":"2026-09-24"}'
+< 201 {"id":1,"title":"Due today","description":null,"status":"TODO","priority":"MEDIUM","dueDate":"2026-09-24","createdAt":"2026-09-24T07:52:07.789Z","updatedAt":"2026-09-24T07:52:07.789Z","completedAt":null,"archived":false,"overdue":false}
+> curl -X POST 'http://localhost:8080/api/tasks' -d '{"title":"Late","dueDate":"2026-09-23"}'
+< 201 {"id":2,"title":"Late","description":null,"status":"TODO","priority":"MEDIUM","dueDate":"2026-09-23","createdAt":"2026-09-24T07:52:07.848Z","updatedAt":"2026-09-24T07:52:07.848Z","completedAt":null,"archived":false,"overdue":true}
+> curl -X POST 'http://localhost:8080/api/tasks' -d '{"title":"Someday"}'
+< 201 {"id":3,"title":"Someday","description":null,"status":"TODO","priority":"MEDIUM","dueDate":null,"createdAt":"2026-09-24T07:52:07.871Z","updatedAt":"2026-09-24T07:52:07.871Z","completedAt":null,"archived":false,"overdue":false}
+> curl -X POST 'http://localhost:8080/api/tasks' -d '{"title":"Archived"}'
+< 201 {"id":4,"title":"Archived","description":null,"status":"TODO","priority":"MEDIUM","dueDate":null,"createdAt":"2026-09-24T07:52:07.895Z","updatedAt":"2026-09-24T07:52:07.895Z","completedAt":null,"archived":false,"overdue":false}
+> curl -X POST 'http://localhost:8080/api/tasks/4/complete'
+< 200 {"id":4,"title":"Archived","description":null,"status":"DONE","priority":"MEDIUM","dueDate":null,"createdAt":"2026-09-24T07:52:07.895Z","updatedAt":"2026-09-24T07:52:07.913Z","completedAt":"2026-09-24T07:52:07.913Z","archived":false,"overdue":false}
+> curl -X POST 'http://localhost:8080/api/tasks/4/archive'
+< 200 {"id":4,"title":"Archived","description":null,"status":"DONE","priority":"MEDIUM","dueDate":null,"createdAt":"2026-09-24T07:52:07.895Z","updatedAt":"2026-09-24T07:52:07.959Z","completedAt":"2026-09-24T07:52:07.913Z","archived":true,"overdue":false}
+> curl -X POST 'http://localhost:8080/api/tasks/3/complete'
+< 200 {"id":3,"title":"Someday","description":null,"status":"DONE","priority":"MEDIUM","dueDate":null,"createdAt":"2026-09-24T07:52:07.871Z","updatedAt":"2026-09-24T07:52:07.972Z","completedAt":"2026-09-24T07:52:07.972Z","archived":false,"overdue":false}
+> curl -X POST 'http://localhost:8080/api/habits' -d '{"name":"Run","frequency":"DAILY"}'
+< 201 {"id":1,"name":"Run","description":null,"frequency":"DAILY","createdAt":"2026-09-24T07:52:08.008Z","active":true,"progress":{"completedToday":false,"completedThisPeriod":false,"currentStreak":0,"totalCompletions":0}}
+> curl -X POST 'http://localhost:8080/api/habits/1/completions'
+< 201 {"id":1,"name":"Run","description":null,"frequency":"DAILY","createdAt":"2026-09-24T07:52:08.008Z","active":true,"progress":{"completedToday":true,"completedThisPeriod":true,"currentStreak":1,"totalCompletions":1}}
+> curl -X POST 'http://localhost:8080/api/habits' -d '{"name":"Review","frequency":"WEEKLY"}'
+< 201 {"id":2,"name":"Review","description":null,"frequency":"WEEKLY","createdAt":"2026-09-24T07:52:08.078Z","active":true,"progress":{"completedToday":false,"completedThisPeriod":false,"currentStreak":0,"totalCompletions":0}}
+> curl -X POST 'http://localhost:8080/api/habits' -d '{"name":"Off","frequency":"DAILY"}'
+< 201 {"id":3,"name":"Off","description":null,"frequency":"DAILY","createdAt":"2026-09-24T07:52:08.099Z","active":true,"progress":{"completedToday":false,"completedThisPeriod":false,"currentStreak":0,"totalCompletions":0}}
+> curl -X POST 'http://localhost:8080/api/habits/3/deactivate'
+< 200 {"id":3,"name":"Off","description":null,"frequency":"DAILY","createdAt":"2026-09-24T07:52:08.099Z","active":false,"progress":{"completedToday":false,"completedThisPeriod":false,"currentStreak":0,"totalCompletions":0}}
+> curl -X POST 'http://localhost:8080/api/learning-cards' -d '{"title":"Book","status":"IN_PROGRESS"}'
+< 201 {"id":1,"title":"Book","description":null,"status":"IN_PROGRESS","createdAt":"2026-09-24T07:52:08.149Z","milestones":[],"notes":[],"milestonesDone":0,"milestonesTotal":0}
+> curl -X POST 'http://localhost:8080/api/learning-cards/1/milestones' -d '{"title":"Ch1"}'
+< 201 {"id":1,"title":"Book","description":null,"status":"IN_PROGRESS","createdAt":"2026-09-24T07:52:08.149Z","milestones":[{"id":1,"title":"Ch1","done":false,"targetDate":null,"completedAt":null}],"notes":[],"milestonesDone":0,"milestonesTotal":1}
+> curl -X POST 'http://localhost:8080/api/learning-cards/1/milestones' -d '{"title":"Ch2"}'
+< 201 {"id":1,"title":"Book","description":null,"status":"IN_PROGRESS","createdAt":"2026-09-24T07:52:08.149Z","milestones":[{"id":1,"title":"Ch1","done":false,"targetDate":null,"completedAt":null},{"id":2,"title":"Ch2","done":false,"targetDate":null,"completedAt":null}],"notes":[],"milestonesDone":0,"milestonesTotal":2}
+> curl -X PATCH 'http://localhost:8080/api/learning-cards/1/milestones/1' -d '{"done":true}'
+< 200 {"id":1,"title":"Book","description":null,"status":"IN_PROGRESS","createdAt":"2026-09-24T07:52:08.149Z","milestones":[{"id":1,"title":"Ch1","done":true,"targetDate":null,"completedAt":"2026-09-24T07:52:08.264Z"},{"id":2,"title":"Ch2","done":false,"targetDate":null,"completedAt":null}],"notes":[],"milestonesDone":1,"milestonesTotal":2}
+> curl -X POST 'http://localhost:8080/api/learning-cards' -d '{"title":"Course"}'
+< 201 {"id":2,"title":"Course","description":null,"status":"NOT_STARTED","createdAt":"2026-09-24T07:52:08.292Z","milestones":[],"notes":[],"milestonesDone":0,"milestonesTotal":0}
+> curl -X POST 'http://localhost:8080/api/plans' -d '{"title":"Now","items":[{"sourceType":"TASK","sourceId":1},{"sourceType":"LEARNING_RESOURCE","sourceId":1}],"estimatedMinutes":60,"startDateTime":"2026-09-24T07:42:08Z","endDateTime":"2026-09-24T08:42:08Z","priorityOrder":1}'
+< 201 {"id":1,"title":"Now","estimatedMinutes":60,"startDateTime":"2026-09-24T07:42:08Z","endDateTime":"2026-09-24T08:42:08Z","priorityOrder":1,"status":"IN_PROGRESS","createdAt":"2026-09-24T07:52:08.390Z","items":[{"id":1,"sourceType":"TASK","sourceId":1,"title":"Due today","done":false,"sourceAvailable":true},{"id":2,"sourceType":"LEARNING_RESOURCE","sourceId":1,"title":"Book","done":false,"sourceAvailable":true}],"doneCount":0,"totalCount":2,"progressPercent":0,"restSeconds":2999,"startNotified":false,"serverTime":"2026-09-24T07:52:08.399Z"}
+> curl -X POST 'http://localhost:8080/api/plans' -d '{"title":"Later","items":[{"sourceType":"HABIT","sourceId":2}],"estimatedMinutes":30,"startDateTime":"2026-09-25T07:52:08Z","endDateTime":"2026-09-25T08:52:08Z","priorityOrder":2}'
+< 201 {"id":2,"title":"Later","estimatedMinutes":30,"startDateTime":"2026-09-25T07:52:08Z","endDateTime":"2026-09-25T08:52:08Z","priorityOrder":2,"status":"NOT_STARTED","createdAt":"2026-09-24T07:52:08.443Z","items":[{"id":3,"sourceType":"HABIT","sourceId":2,"title":"Review","done":false,"sourceAvailable":true}],"doneCount":0,"totalCount":1,"progressPercent":0,"restSeconds":null,"startNotified":false,"serverTime":"2026-09-24T07:52:08.455Z"}
+## tasks (US-DASH-1, US-DASH-2, US-DASH-4)
+> curl -X GET 'http://localhost:8080/api/dashboard'
+< 200 {"displayName":"QuickFlow user","today":"2026-09-24","serverTime":"2026-09-24T07:52:08.547Z","tasks":{"dueToday":[{"id":1,"title":"Due today","description":null,"status":"TODO","priority":"MEDIUM","dueDate":"2026-09-24","createdAt":"2026-09-24T07:52:07.789Z","updatedAt":"2026-09-24T07:52:07.789Z","completedAt":null,"archived":false,"overdue":false}],"overdue":[{"id":2,"title":"Late","description":null,"status":"TODO","priority":"MEDIUM","dueDate":"2026-09-23","createdAt":"2026-09-24T07:52:07.848Z","updatedAt":"2026-09-24T07:52:07.848Z","completedAt":null,"archived":false,"overdue":true}],"comp
+  PASS due today matches ?due=TODAY
+  PASS overdue matches ?due=OVERDUE
+  PASS totals match task list (archived excluded)
+  PASS 33% done, 1 completed today (archived one excluded)
+## habits (US-DASH-3)
+  PASS active habits match ?active=true
+  PASS completed today matches
+## plans (US-DASH-5)
+  PASS plan counts
+  PASS rest time and progress
+## learning (US-DASH-6)
+  PASS learning snapshot
+## item change shows up immediately (FR-08)
+> curl -X PATCH 'http://localhost:8080/api/plans/1/items/1' -d '{"done":true}'
+< 200 {"id":1,"title":"Now","estimatedMinutes":60,"startDateTime":"2026-09-24T07:42:08Z","endDateTime":"2026-09-24T08:42:08Z","priorityOrder":1,"status":"IN_PROGRESS","createdAt":"2026-09-24T07:52:08.390Z","items":[{"id":1,"sourceType":"TASK","sourceId":1,"title":"Due today","done":true,"sourceAvailable":true},{"id":2,"sourceType":"LEARNING_RESOURCE","sourceId":1,"title":"Book","done":false,"sourceAvailable":true}],"doneCount":1,"totalCount":2,"progressPercent":50,"restSeconds":2999,"startNotified":false,"serverTime":"2026-09-24T07:52:08.743Z"}
+> curl -X GET 'http://localhost:8080/api/dashboard'
+< 200 {"displayName":"QuickFlow user","today":"2026-09-24","serverTime":"2026-09-24T07:52:08.762Z","tasks":{"dueToday":[{"id":1,"title":"Due today","description":null,"status":"DONE","priority":"MEDIUM","dueDate":"2026-09-24","createdAt":"2026-09-24T07:52:07.789Z","updatedAt":"2026-09-24T07:52:08.742Z","completedAt":"2026-09-24T07:52:08.742Z","archived":false,"overdue":false}],"overdue":[{"id":2,"title":"Late","description":null,"status":"TODO","priority":"MEDIUM","dueDate":"2026-09-23","createdAt":"2026-09-24T07:52:07.848Z","updatedAt":"2026-09-24T07:52:07.848Z","completedAt":null,"archived":false,
+  PASS plan progress updated on dashboard
+  PASS task completed through the plan counts
+
+curl suite: 13 passed, 0 failed
