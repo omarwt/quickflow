@@ -281,40 +281,70 @@
         {
           "id": "T1",
           "title": "Card grid and add form",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T2",
           "title": "Expandable card with milestones",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T3",
           "title": "Notes",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T4",
           "title": "Remove card, empty state",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T5",
           "title": "Verify with Playwright MCP",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T6",
           "title": "Document phase",
-          "status": "todo"
+          "status": "done"
         }
       ],
-      "status": "pending",
+      "status": "done",
       "failedTrials": 0,
-      "verification": "pending",
-      "runs": [],
+      "verification": "pass",
+      "runs": [
+        {
+          "at": "2026-09-24T11:55:53+03:00",
+          "result": "pass",
+          "checks": [
+            {
+              "name": "build",
+              "cmd": "cd frontend && npm run build",
+              "result": "pass",
+              "log": "outputs/evidence/FE-04-trial1-build.log"
+            },
+            {
+              "name": "playwright",
+              "cmd": "bash loops/_lib/playwright-verify.sh loops/frontend-dev/verification/phase-04.md",
+              "result": "pass",
+              "log": "outputs/evidence/FE-04-trial1-playwright.log"
+            }
+          ],
+          "evidence": []
+        }
+      ],
       "errors": [],
-      "fixes": []
+      "fixes": [],
+      "start": "2026-09-24T11:52:47+03:00",
+      "end": "2026-09-24T11:56:20+03:00",
+      "duration": "3m 33s",
+      "tokens": {
+        "input": 6,
+        "output": 3040,
+        "cache_write": 8533,
+        "cache_read": 1398123,
+        "total": 1409702
+      }
     },
     {
       "id": "FE-05",
@@ -481,12 +511,13 @@
       "fixes": []
     }
   ],
-  "lastUpdated": "2026-09-24T11:43:53+03:00",
+  "lastUpdated": "2026-09-24T11:56:20+03:00",
   "currentPhase": null,
   "completedPhases": [
     "FE-01",
     "FE-02",
-    "FE-03"
+    "FE-03",
+    "FE-04"
   ],
   "blockedPhases": [],
   "retryCount": 0,

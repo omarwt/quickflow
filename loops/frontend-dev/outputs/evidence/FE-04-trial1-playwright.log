@@ -1,0 +1,13 @@
+  [PASS] 1. Open /learning, empty state :: Heading 'Learning Resources' and empty state 'No learning cards yet' with 'Add Learning Card' button shown
+  [PASS] 2. Add card with empty title :: Inline error 'Title is required' shown, dialog stayed open
+  [PASS] 3. Add 'Spring in Action' card :: Card shows title, description 'Book by Craig Walls', status 'Not started', '0 of 0 milestones done'
+  [PASS] 4. Add 'Rust course' card :: Two cards present: Spring in Action and Rust course (In progress)
+  [PASS] 5. Show details on Spring in Action :: Milestones section 'No milestones yet...' and Notes section 'No notes yet.' shown
+  [PASS] 6. Add milestone with empty title :: Error 'Milestone title is required' shown
+  [PASS] 7. Add Chapter 1 (with date) and Chapter 2 (no date) :: Both listed, Chapter 1 shows 'Target Dec 1, 2026' badge, card shows '0 of 2 milestones done'
+  [PASS] 8. Tick Chapter 1 :: Chapter 1 struck through, card shows '1 of 2 milestones done' with partly filled progress bar (screenshot 08-chapter1-done.png)
+  [PASS] 9. Remove Chapter 2 :: Only Chapter 1 remains, card shows '1 of 1 milestones done'
+  [PASS] 10. Add/remove notes :: First note listed with date/time; second note added then removed, leaving only the first note
+  [PASS] 11. Change status and reload :: After reload, status still 'In progress'; Show details reveals Chapter 1 milestone and note still present (screenshot 11-after-reload.png)
+  [PASS] 12. Remove Rust course :: Confirmation dialog 'Remove learning card' appeared; after confirming, only Spring in Action remains
+playwright phase-04: PASS (12 checks, session ea62f35f-5ea6-4f35-985c-5c824629fb8f, 2981422 tokens)

@@ -1,8 +1,8 @@
 # Progress — frontend-dev
 
 Status: **ready** · Input: `PRD.md` (prd)
-Current phase: - · Completed: FE-01, FE-02, FE-03 · Blocked: -
-Remaining: FE-04, FE-05, FE-06, FE-07
+Current phase: - · Completed: FE-01, FE-02, FE-03, FE-04 · Blocked: -
+Remaining: FE-05, FE-06, FE-07
 
 ## FE-01 App shell and settings
 
@@ -72,3 +72,26 @@ Tests:
   - playwright: pass — `bash loops/_lib/playwright-verify.sh loops/frontend-dev/verification/phase-03.md` — outputs/evidence/FE-03-trial1-playwright.log
 
 Output: `outputs/phase-03-habits-page.md`
+
+## FE-04 Learning resources page
+
+Status: done
+
+Start: 2026-09-24T11:52:47+03:00
+
+End: 2026-09-24T11:56:20+03:00
+
+Duration: 3m 33s
+
+Token consumption: 1,409,702 (input 6, output 3,040, cache write 8,533, cache read 1,398,123)
+
+Retries: 0/3
+
+Verification: PASS
+
+Tests:
+- trial 1 (2026-09-24T11:55:53+03:00): PASS
+  - build: pass — `cd frontend && npm run build` — outputs/evidence/FE-04-trial1-build.log
+  - playwright: pass — `bash loops/_lib/playwright-verify.sh loops/frontend-dev/verification/phase-04.md` — outputs/evidence/FE-04-trial1-playwright.log
+
+Output: `outputs/phase-04-learning-resources-page.md`

@@ -32,14 +32,14 @@ Input: `PRD.md` · Mode: prd · Status: **ready**
 - [x] T5 Verify with Playwright MCP
 - [x] T6 Document phase
 
-## FE-04 Learning resources page (pending)
+## FE-04 Learning resources page (done)
 
-- [ ] T1 Card grid and add form
-- [ ] T2 Expandable card with milestones
-- [ ] T3 Notes
-- [ ] T4 Remove card, empty state
-- [ ] T5 Verify with Playwright MCP
-- [ ] T6 Document phase
+- [x] T1 Card grid and add form
+- [x] T2 Expandable card with milestones
+- [x] T3 Notes
+- [x] T4 Remove card, empty state
+- [x] T5 Verify with Playwright MCP
+- [x] T6 Document phase
 
 ## FE-05 Todo plans page (pending)
 

@@ -1,0 +1,57 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]: QuickFlow
+    - navigation "Main" [ref=e6]:
+      - link "Dashboard" [ref=e7] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Tasks" [ref=e8] [cursor=pointer]:
+        - /url: /tasks
+      - link "Habits" [ref=e9] [cursor=pointer]:
+        - /url: /habits
+      - link "Learning Resources" [ref=e10] [cursor=pointer]:
+        - /url: /learning
+      - link "Todo Plans" [ref=e11] [cursor=pointer]:
+        - /url: /plans
+      - link "Settings" [ref=e12] [cursor=pointer]:
+        - /url: /settings
+  - main [ref=e13]:
+    - generic [ref=e14]:
+      - generic [ref=e15]:
+        - heading "Learning Resources" [level=1] [ref=e16]
+        - button "Add Learning Card" [ref=e17] [cursor=pointer]
+      - article "Spring in Action" [ref=e44]:
+        - generic [ref=e45]:
+          - heading "Spring in Action" [level=2] [ref=e46]
+          - combobox "Status of Spring in Action" [ref=e47]:
+            - option "Not started" [selected]
+            - option "In progress"
+            - option "Completed"
+        - paragraph [ref=e48]: Book by Craig Walls
+        - generic [ref=e49]:
+          - progressbar "Spring in Action milestones" [ref=e50]
+          - paragraph [ref=e51]: 0 of 0 milestones done
+        - generic [ref=e52]:
+          - button "Show details" [ref=e53] [cursor=pointer]
+          - button "Remove" [ref=e54] [cursor=pointer]
+      - dialog [ref=e23]:
+        - generic [ref=e24]:
+          - heading "Add learning card" [level=2] [ref=e25]
+          - button "Close" [active] [ref=e26] [cursor=pointer]: ×
+        - generic [ref=e58]:
+          - generic [ref=e59]:
+            - generic [ref=e60]: Title
+            - textbox "Title" [ref=e61]:
+              - /placeholder: e.g. Designing Data-Intensive Applications
+          - generic [ref=e62]:
+            - generic [ref=e63]: Description or source
+            - textbox "Description or source A link, book, course or topic" [ref=e64]
+            - generic [ref=e65]: A link, book, course or topic
+          - generic [ref=e66]:
+            - generic [ref=e67]: Status
+            - combobox "Status" [ref=e68]:
+              - option "Not started" [selected]
+              - option "In progress"
+              - option "Completed"
+          - generic [ref=e69]:
+            - button "Cancel" [ref=e70] [cursor=pointer]
+            - button "Add card" [ref=e71] [cursor=pointer]
