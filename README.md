@@ -3,16 +3,6 @@
 A personal productivity app covering tasks, habits, learning resources, time-boxed plans and a
 dashboard. It is built with reusable **Claude Loops**. The requirements are in [PRD.md](PRD.md).
 
-## Status
-
-Built so far with the loops (details in each loop's `progress.md`):
-
-| Loop | Done | Remaining |
-|---|---|---|
-| orchestrator | OR-01 requirements analysis, OR-02 dependency graph, OR-03 backend delegation | OR-04 frontend delegation (in progress), OR-05 final verification |
-| backend-dev | BE-01 … BE-07, all verified with curl (202 assertions on fresh databases) and 14 unit tests | – |
-| frontend-dev | FE-01 app shell + Settings, verified with Playwright MCP | FE-02 Tasks, FE-03 Habits, FE-04 Learning, FE-05 Plans, FE-06 Dashboard, FE-07 end-to-end journey |
-
 ## Prerequisites
 
 - JDK 21+ and Maven 3.6+ (backend)

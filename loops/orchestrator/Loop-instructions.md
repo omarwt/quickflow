@@ -23,7 +23,7 @@ PRD → analysis → dependency graph → backend-dev → Swagger/OpenAPI → fr
 3. **OR-02:** build the dependency graph. Write `loops/backend-dev/plan.json` and `loops/frontend-dev/plan.json` from it, then init and plan both loops. Frontend phases depend on their backend phase through `ext:backend-dev/<ID>`.
 4. **OR-03:** run backend-dev (follow its Loop-instructions in this session, or run `loops/run.sh backend-dev ...`). OR-03 is verified once `loop.py status backend-dev` shows every phase done.
 5. **OR-04:** run frontend-dev the same way.
-6. **OR-05:** final verification on a fresh database: build, unit tests, every curl script, and the full user journey through Playwright MCP. Then write `docs/architecture.md`, `docs/implementation-guide.md` and update the root `README.md`: add how to install, run and test the app, plus the Swagger and frontend URLs. Keep its existing Claude Loops section; it is the only README in the project.
+6. **OR-05:** final verification on a fresh database: build, unit tests, every curl script, and the full user journey through Playwright MCP. Then write `docs/architecture.md`, `docs/implementation-guide.md` and update the root `README.md`: add how to install, run and test the app, plus the Swagger and frontend URLs. Keep its existing Claude Loops section; it is the only README in the project. Never put progress or status in the README; that belongs in each loop's `progress.md`.
 
 Each orchestrator phase uses the same `start → verify → finish` commands as the worker loops.
 

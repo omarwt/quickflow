@@ -113,40 +113,70 @@
         {
           "id": "T1",
           "title": "Task list with search, filters, sort",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T2",
           "title": "Add/edit form with validation",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T3",
           "title": "Complete, archive, restore, delete",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T4",
           "title": "Empty state",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T5",
           "title": "Verify with Playwright MCP",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T6",
           "title": "Document phase",
-          "status": "todo"
+          "status": "done"
         }
       ],
-      "status": "pending",
+      "status": "done",
       "failedTrials": 0,
-      "verification": "pending",
-      "runs": [],
+      "verification": "pass",
+      "runs": [
+        {
+          "at": "2026-09-24T11:16:58+03:00",
+          "result": "pass",
+          "checks": [
+            {
+              "name": "build",
+              "cmd": "cd frontend && npm run build",
+              "result": "pass",
+              "log": "outputs/evidence/FE-02-trial1-build.log"
+            },
+            {
+              "name": "playwright",
+              "cmd": "bash loops/_lib/playwright-verify.sh loops/frontend-dev/verification/phase-02.md",
+              "result": "pass",
+              "log": "outputs/evidence/FE-02-trial1-playwright.log"
+            }
+          ],
+          "evidence": []
+        }
+      ],
       "errors": [],
-      "fixes": []
+      "fixes": [],
+      "start": "2026-09-24T11:13:48+03:00",
+      "end": "2026-09-24T11:17:22+03:00",
+      "duration": "3m 34s",
+      "tokens": {
+        "input": 8,
+        "output": 9088,
+        "cache_write": 10132,
+        "cache_read": 1761264,
+        "total": 1780492
+      }
     },
     {
       "id": "FE-03",
@@ -421,10 +451,11 @@
       "fixes": []
     }
   ],
-  "lastUpdated": "2026-09-24T11:07:37+03:00",
+  "lastUpdated": "2026-09-24T11:17:22+03:00",
   "currentPhase": null,
   "completedPhases": [
-    "FE-01"
+    "FE-01",
+    "FE-02"
   ],
   "blockedPhases": [],
   "retryCount": 0,

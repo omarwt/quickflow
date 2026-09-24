@@ -1,0 +1,14 @@
+
+> quickflow-frontend@0.0.0 build
+> tsc -b && vite build
+
+vite v8.3.0 building client environment for production...
+transforming...
+✓ 81 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.45 kB │ gzip:  0.29 kB
+dist/assets/index-CK-nIp0M.css    5.00 kB │ gzip:  1.52 kB
+dist/assets/index-DEKOFq-R.js   309.55 kB │ gzip: 96.50 kB
+
+✓ built in 170ms

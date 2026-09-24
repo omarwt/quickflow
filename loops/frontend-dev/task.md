@@ -14,14 +14,14 @@ Input: `PRD.md` · Mode: prd · Status: **ready**
 - [x] T6 Verify with Playwright MCP
 - [x] T7 Document phase
 
-## FE-02 Tasks page (pending)
+## FE-02 Tasks page (done)
 
-- [ ] T1 Task list with search, filters, sort
-- [ ] T2 Add/edit form with validation
-- [ ] T3 Complete, archive, restore, delete
-- [ ] T4 Empty state
-- [ ] T5 Verify with Playwright MCP
-- [ ] T6 Document phase
+- [x] T1 Task list with search, filters, sort
+- [x] T2 Add/edit form with validation
+- [x] T3 Complete, archive, restore, delete
+- [x] T4 Empty state
+- [x] T5 Verify with Playwright MCP
+- [x] T6 Document phase
 
 ## FE-03 Habits page (pending)
 

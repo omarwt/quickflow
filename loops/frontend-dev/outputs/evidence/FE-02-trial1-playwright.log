@@ -1,0 +1,15 @@
+  [PASS] 1. Open /tasks, empty state :: Heading Tasks, empty state 'No tasks yet' with Add Task button
+  [PASS] 2. Submit empty title :: Inline error 'Title is required' shown, dialog stayed open
+  [PASS] 3. Add 'Write report' task :: Dialog closed, toast 'Task "Write report" added', badges Todo/High priority/Due Sep 24, 2026
+  [PASS] 4. Add 'Pay bills' with yesterday's date :: Listed with Overdue badge, Due Sep 23, 2026
+  [PASS] 5. Add 'Plan trip' no due date :: Three tasks listed
+  [PASS] 6. Search 'report' :: Only 'Write report' shown
+  [PASS] 7. Priority filter Low :: Only 'Pay bills' shown
+  [PASS] 8. Due date filter Overdue :: Only 'Pay bills' shown
+  [PASS] 9. Complete 'Pay bills' :: Toast '"Pay bills" completed', Done badge, strikethrough visible in screenshot, Overdue badge gone
+  [PASS] 10. Status filter Done :: Only 'Pay bills' shown
+  [PASS] 11. Edit 'Plan trip' :: List shows 'Plan summer trip' with 'In progress'
+  [PASS] 12. Archive/restore 'Plan summer trip' :: Disappeared from list; with Show archived only it listed with Restore button; after Restore + untick, back in main list
+  [PASS] 13. Delete 'Write report' :: Confirmation dialog 'Delete task' shown; after confirming, task gone, two tasks remain
+  [PASS] 14. Reload page :: Same two tasks persisted: 'Plan summer trip' (In progress), 'Pay bills' (Done)
+playwright phase-02: PASS (14 checks, session e8145d11-1d50-44a7-990d-771ac3d34bdb, 4097017 tokens)

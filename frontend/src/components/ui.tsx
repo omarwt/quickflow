@@ -89,3 +89,18 @@ export function ToastProvider({ children }: { children: ReactNode }) {
 }
 
 export const useToast = () => useContext(ToastContext)
+
+/** Confirmation step for destructive actions. */
+export function ConfirmDialog({ title, text, confirmLabel, open, onConfirm, onCancel, busy }: {
+  title: string; text: string; confirmLabel: string; open: boolean; onConfirm: () => void; onCancel: () => void; busy?: boolean
+}) {
+  return (
+    <Dialog title={title} open={open} onClose={onCancel}>
+      <p>{text}</p>
+      <div className="actions">
+        <button type="button" onClick={onCancel}>Cancel</button>
+        <button type="button" className="primary danger-fill" onClick={onConfirm} disabled={busy}>{confirmLabel}</button>
+      </div>
+    </Dialog>
+  )
+}

@@ -1,0 +1,46 @@
+- generic [ref=f1e3]:
+  - banner [ref=f1e4]:
+    - generic [ref=f1e5]: QuickFlow
+    - navigation "Main" [ref=f1e6]:
+      - link "Dashboard" [ref=f1e7] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Tasks" [ref=f1e8] [cursor=pointer]:
+        - /url: /tasks
+      - link "Habits" [ref=f1e9] [cursor=pointer]:
+        - /url: /habits
+      - link "Learning Resources" [ref=f1e10] [cursor=pointer]:
+        - /url: /learning
+      - link "Todo Plans" [ref=f1e11] [cursor=pointer]:
+        - /url: /plans
+      - link "Settings" [ref=f1e12] [cursor=pointer]:
+        - /url: /settings
+  - main [ref=f1e13]:
+    - generic [ref=f1e14]:
+      - generic [ref=f1e15]:
+        - heading "Tasks" [level=1] [ref=f1e16]
+        - button "Add Task" [ref=f1e17] [cursor=pointer]
+      - search [ref=f1e18]:
+        - searchbox "Search tasks" [ref=f1e19]
+        - combobox "Status filter" [ref=f1e20]:
+          - option "All statuses" [selected]
+          - option "Todo"
+          - option "In progress"
+          - option "Done"
+        - combobox "Priority filter" [ref=f1e21]:
+          - option "All priorities" [selected]
+          - option "High"
+          - option "Medium"
+          - option "Low"
+        - combobox "Due date filter" [ref=f1e22]:
+          - option "Any due date" [selected]
+          - option "Due today"
+          - option "Overdue"
+          - option "Upcoming"
+          - option "No due date"
+        - combobox "Sort" [ref=f1e23]:
+          - option "Newest first" [selected]
+          - option "By due date"
+        - generic [ref=f1e24]:
+          - checkbox "Show archived" [ref=f1e25]
+          - text: Show archived
+      - status [ref=f1e26]: Loading…
