@@ -1,0 +1,48 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]: QuickFlow
+    - navigation "Main" [ref=e9]:
+      - link "Dashboard" [ref=e10] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Tasks" [ref=e16] [cursor=pointer]:
+        - /url: /tasks
+      - link "Habits" [ref=e20] [cursor=pointer]:
+        - /url: /habits
+      - link "Learning Resources" [ref=e23] [cursor=pointer]:
+        - /url: /learning
+      - link "Todo Plans" [ref=e26] [cursor=pointer]:
+        - /url: /plans
+      - link "Settings" [ref=e30] [cursor=pointer]:
+        - /url: /settings
+  - main [ref=e33]:
+    - generic [ref=e34]:
+      - generic [ref=e35]:
+        - heading "Learning Resources" [level=1] [ref=e36]
+        - button "Add Learning Card" [ref=e37] [cursor=pointer]
+      - generic [ref=e41]:
+        - heading "No learning cards yet" [level=2] [ref=e42]
+        - paragraph [ref=e43]: Add a course, book or topic, then break it into milestones.
+        - button "Add Learning Card" [ref=e44] [cursor=pointer]
+      - dialog [ref=e47]:
+        - generic [ref=e48]:
+          - heading "Add learning card" [level=2] [ref=e49]
+          - button "Close" [ref=e50] [cursor=pointer]
+        - generic [ref=e53]:
+          - generic [ref=e54]:
+            - generic [ref=e55]: Title
+            - textbox "Title Title is required" [ref=e67]:
+              - /placeholder: e.g. Designing Data-Intensive Applications
+            - alert [ref=e68]: Title is required
+          - generic [ref=e57]:
+            - generic [ref=e58]: Description or source
+            - textbox "Description or source A link, book, course or topic" [ref=e59]
+            - generic [ref=e60]: A link, book, course or topic
+          - generic [ref=e61]:
+            - generic [ref=e62]: Status
+            - combobox "Status" [ref=e63]:
+              - option "Not started" [selected]
+              - option "In progress"
+              - option "Completed"
+          - generic [ref=e64]:
+            - button "Cancel" [ref=e65] [cursor=pointer]
+            - button "Add card" [active] [ref=e66] [cursor=pointer]

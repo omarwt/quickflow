@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { api, ApiError, get, type LearningCard } from '../api/client'
 import LearningCardForm from '../components/LearningCardForm'
+import { Badge, Button, Card, IconButton } from '../components/ds'
 import { ConfirmDialog, Dialog, EmptyState, ErrorState, Loading, useToast } from '../components/ui'
 import { formatDate, formatDateTime } from '../lib/format'
 import { useRefresh } from '../lib/queries'
@@ -40,8 +41,8 @@ function CardView({ card, onRemove }: { card: LearningCard; onRemove: () => void
   const pct = card.milestonesTotal ? Math.round((card.milestonesDone * 100) / card.milestonesTotal) : 0
 
   return (
-    <article className="card learning" aria-label={card.title}>
-      <div className="habit-head">
+    <Card className="learning" aria-label={card.title}>
+      <div className="card-head">
         <h2>{card.title}</h2>
         <select aria-label={`Status of ${card.title}`} value={card.status} className="compact"
           onChange={(e) => mutate.mutate({ method: 'PUT', path: '', body: { title: card.title, description: card.description, status: e.target.value } })}>
@@ -56,8 +57,8 @@ function CardView({ card, onRemove }: { card: LearningCard; onRemove: () => void
         <p className="muted small">{card.milestonesDone} of {card.milestonesTotal} milestones done</p>
       </div>
       <div className="row-actions start">
-        <button aria-expanded={open} onClick={() => setOpen(!open)}>{open ? 'Hide details' : 'Show details'}</button>
-        <button className="danger" onClick={onRemove}>Remove</button>
+        <Button size="sm" icon={open ? 'chevronUp' : 'chevronDown'} aria-expanded={open} onClick={() => setOpen(!open)}>{open ? 'Hide details' : 'Show details'}</Button>
+        <Button size="sm" variant="danger" icon="trash" onClick={onRemove}>Remove</Button>
       </div>
 
       {open && (
@@ -72,9 +73,9 @@ function CardView({ card, onRemove }: { card: LearningCard; onRemove: () => void
                     onChange={() => mutate.mutate({ method: 'PATCH', path: `/milestones/${m.id}`, body: { done: !m.done } })} />
                   <span className="title">{m.title}</span>
                 </label>
-                {m.targetDate && <span className="badge">Target {formatDate(m.targetDate)}</span>}
-                <button className="ghost danger" aria-label={`Remove milestone ${m.title}`}
-                  onClick={() => mutate.mutate({ method: 'DELETE', path: `/milestones/${m.id}` })}>Remove</button>
+                {m.targetDate && <Badge icon="plans">Target {formatDate(m.targetDate)}</Badge>}
+                <IconButton size="sm" variant="ghost" icon="trash" label={`Remove milestone ${m.title}`}
+                  onClick={() => mutate.mutate({ method: 'DELETE', path: `/milestones/${m.id}` })} />
               </li>
             ))}
           </ul>
@@ -83,7 +84,7 @@ function CardView({ card, onRemove }: { card: LearningCard; onRemove: () => void
               onChange={(e) => setMilestone({ ...milestone, title: e.target.value })} />
             <input type="date" aria-label="Milestone target date" value={milestone.targetDate}
               onChange={(e) => setMilestone({ ...milestone, targetDate: e.target.value })} />
-            <button type="submit">Add milestone</button>
+            <Button type="submit" icon="plus">Add milestone</Button>
           </form>
           {formError.milestone && <p className="field-error" role="alert">{formError.milestone}</p>}
 
@@ -93,18 +94,18 @@ function CardView({ card, onRemove }: { card: LearningCard; onRemove: () => void
             {card.notes.map((n) => (
               <li key={n.id} className="mini-row note">
                 <div className="main"><p>{n.text}</p><small className="muted">{formatDateTime(n.createdAt)}</small></div>
-                <button className="ghost danger" aria-label="Remove note" onClick={() => mutate.mutate({ method: 'DELETE', path: `/notes/${n.id}` })}>Remove</button>
+                <IconButton size="sm" variant="ghost" icon="trash" label="Remove note" onClick={() => mutate.mutate({ method: 'DELETE', path: `/notes/${n.id}` })} />
               </li>
             ))}
           </ul>
           <form className="inline-form" onSubmit={addNote} noValidate>
             <textarea aria-label="New note" rows={2} placeholder="Write a note…" value={note} onChange={(e) => setNote(e.target.value)} />
-            <button type="submit">Add note</button>
+            <Button type="submit" icon="plus">Add note</Button>
           </form>
           {formError.note && <p className="field-error" role="alert">{formError.note}</p>}
         </div>
       )}
-    </article>
+    </Card>
   )
 }
 
@@ -124,12 +125,12 @@ export default function LearningPage() {
     <section>
       <div className="page-head">
         <h1>Learning Resources</h1>
-        <button className="primary" onClick={() => setAdding(true)}>Add Learning Card</button>
+        <Button variant="primary" icon="plus" onClick={() => setAdding(true)}>Add Learning Card</Button>
       </div>
       {cards.isPending ? <Loading /> : cards.isError ? <ErrorState error={cards.error} onRetry={() => cards.refetch()} /> :
         cards.data.length === 0 ? (
           <EmptyState title="No learning cards yet" text="Add a course, book or topic, then break it into milestones."
-            action={<button className="primary" onClick={() => setAdding(true)}>Add Learning Card</button>} />
+            action={<Button variant="primary" icon="plus" onClick={() => setAdding(true)}>Add Learning Card</Button>} />
         ) : (
           <div className="grid wide">{cards.data.map((c) => <CardView key={c.id} card={c} onRemove={() => setRemoving(c)} />)}</div>
         )}

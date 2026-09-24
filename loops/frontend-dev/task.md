@@ -1,6 +1,6 @@
 # Tasks — frontend-dev
 
-Input: `PRD.md` · Mode: prd · Status: **ready**
+Input: `PRD.md` · Mode: prd · Status: **in_progress**
 
 `[ ]` not started · `[-]` in progress · `[x]` completed · `[!]` blocked
 
@@ -51,12 +51,12 @@ Input: `PRD.md` · Mode: prd · Status: **ready**
 - [x] T6 Verify with Playwright MCP
 - [x] T7 Document phase
 
-## FE-06 UI/UX audit and design system (pending)
+## FE-06 UI/UX audit and design system (in_progress)
 
-- [ ] T1 Baseline audit: Lighthouse (ux-audit.py) plus headless screenshots at 390 and 1280 px, findings ranked in docs/ui-ux-plan.md
-- [ ] T2 Design tokens for colour, type scale, spacing, radius, elevation and motion, in light and dark
-- [ ] T3 Shared components: Button variants and sizes, IconButton, Icon set, Badge, Card, Menu, Skeleton
-- [ ] T4 Move existing pages onto tokens and components with no behaviour change
+- [x] T1 Baseline audit: Lighthouse (ux-audit.py) plus headless screenshots at 390 and 1280 px, findings ranked in docs/ui-ux-plan.md
+- [x] T2 Design tokens for colour, type scale, spacing, radius, elevation and motion, in light and dark
+- [x] T3 Shared components: Button variants and sizes, IconButton, Icon set, Badge, Card, Menu, Skeleton
+- [x] T4 Move existing pages onto tokens and components with no behaviour change
 - [ ] T5 Verify: build, FE-01..05 Playwright regression, dark-theme scenario
 - [ ] T6 Document phase
 

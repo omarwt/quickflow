@@ -3,6 +3,7 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import { api, get, type Dashboard, type Habit } from '../api/client'
 import HabitForm from '../components/HabitForm'
 import HabitToggle from '../components/HabitToggle'
+import { Badge, Button, Card, Icon } from '../components/ds'
 import { ConfirmDialog, Dialog, EmptyState, ErrorState, Loading, useToast } from '../components/ui'
 import { useRefresh } from '../lib/queries'
 
@@ -33,24 +34,25 @@ export default function HabitsPage() {
   })
 
   const card = (h: Habit) => (
-    <article key={h.id} className={`card habit${h.active ? '' : ' inactive'}`} aria-label={h.name}>
-      <div className="habit-head">
+    <Card key={h.id} className={`habit${h.active ? '' : ' inactive'}`} aria-label={h.name}>
+      <div className="card-head">
         <h2>{h.name}</h2>
-        <span className="badge">{h.frequency === 'DAILY' ? 'Daily' : 'Weekly'}</span>
+        <Badge tone="accent">{h.frequency === 'DAILY' ? 'Daily' : 'Weekly'}</Badge>
       </div>
       {h.description && <p className="muted">{h.description}</p>}
-      <p className="streak">{streakText(h)}</p>
+      <p className="streak"><Icon name="habits" size={16} />{streakText(h)}</p>
       {h.frequency === 'WEEKLY' && (
         <p className="muted small">{h.progress.completedThisPeriod ? 'Done this week' : 'Not done this week yet'}</p>
       )}
       {h.active && today && <HabitToggle habit={h} today={today} />}
       {!h.active && <p className="muted small">Inactive: not tracked</p>}
       <div className="row-actions">
-        <button onClick={() => setEditing(h)}>Edit</button>
-        <button onClick={() => action.mutate({ habit: h, op: h.active ? 'deactivate' : 'activate' })}>{h.active ? 'Deactivate' : 'Activate'}</button>
-        <button className="danger" onClick={() => setRemoving(h)}>Remove</button>
+        <Button size="sm" variant="ghost" icon="pencil" onClick={() => setEditing(h)}>Edit</Button>
+        <Button size="sm" variant="ghost" icon={h.active ? 'archive' : 'restore'}
+          onClick={() => action.mutate({ habit: h, op: h.active ? 'deactivate' : 'activate' })}>{h.active ? 'Deactivate' : 'Activate'}</Button>
+        <Button size="sm" variant="danger" icon="trash" onClick={() => setRemoving(h)}>Remove</Button>
       </div>
-    </article>
+    </Card>
   )
 
   const active = habits.data?.filter((h) => h.active) ?? []
@@ -60,12 +62,12 @@ export default function HabitsPage() {
     <section>
       <div className="page-head">
         <h1>Habits</h1>
-        <button className="primary" onClick={() => setEditing('new')}>Add Habit</button>
+        <Button variant="primary" icon="plus" onClick={() => setEditing('new')}>Add Habit</Button>
       </div>
       {habits.isPending ? <Loading /> : habits.isError ? <ErrorState error={habits.error} onRetry={() => habits.refetch()} /> :
         habits.data.length === 0 ? (
           <EmptyState title="No habits yet" text="Add a daily or weekly habit and tick it off each time you do it."
-            action={<button className="primary" onClick={() => setEditing('new')}>Add Habit</button>} />
+            action={<Button variant="primary" icon="plus" onClick={() => setEditing('new')}>Add Habit</Button>} />
         ) : (
           <>
             <div className="grid">{active.map(card)}</div>

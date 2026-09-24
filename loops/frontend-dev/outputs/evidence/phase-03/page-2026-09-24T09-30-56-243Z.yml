@@ -1,0 +1,52 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e5]: QuickFlow
+      - navigation "Main" [ref=e9]:
+        - link "Dashboard" [ref=e10] [cursor=pointer]:
+          - /url: /dashboard
+        - link "Tasks" [ref=e16] [cursor=pointer]:
+          - /url: /tasks
+        - link "Habits" [ref=e20] [cursor=pointer]:
+          - /url: /habits
+        - link "Learning Resources" [ref=e23] [cursor=pointer]:
+          - /url: /learning
+        - link "Todo Plans" [ref=e26] [cursor=pointer]:
+          - /url: /plans
+        - link "Settings" [ref=e30] [cursor=pointer]:
+          - /url: /settings
+    - main [ref=e33]:
+      - generic [ref=e34]:
+        - generic [ref=e35]:
+          - heading "Habits" [level=1] [ref=e36]
+          - button "Add Habit" [active] [ref=e37] [cursor=pointer]
+        - generic [ref=e71]:
+          - article "Morning run" [ref=e72]:
+            - generic [ref=e73]:
+              - heading "Morning run" [level=2] [ref=e74]
+              - generic [ref=e75]: Daily
+            - paragraph [ref=e76]: 5 km
+            - paragraph [ref=e77]: No streak yet
+            - generic [ref=e80] [cursor=pointer]:
+              - 'checkbox "Done today: Morning run" [ref=e81]'
+              - text: Done today
+            - generic [ref=e82]:
+              - button "Edit" [ref=e83] [cursor=pointer]
+              - button "Deactivate" [ref=e87] [cursor=pointer]
+              - button "Remove" [ref=e91] [cursor=pointer]
+          - article "Weekly review" [ref=e119]:
+            - generic [ref=e120]:
+              - heading "Weekly review" [level=2] [ref=e121]
+              - generic [ref=e122]: Weekly
+            - paragraph [ref=e123]: No streak yet
+            - paragraph [ref=e126]: Not done this week yet
+            - generic [ref=e127] [cursor=pointer]:
+              - 'checkbox "Done today: Weekly review" [ref=e128]'
+              - text: Done today
+            - generic [ref=e129]:
+              - button "Edit" [ref=e130] [cursor=pointer]
+              - button "Deactivate" [ref=e134] [cursor=pointer]
+              - button "Remove" [ref=e138] [cursor=pointer]
+  - status [ref=e142]:
+    - generic [ref=e145]: Habit "Weekly review" added
+    - button "Dismiss" [ref=e146] [cursor=pointer]

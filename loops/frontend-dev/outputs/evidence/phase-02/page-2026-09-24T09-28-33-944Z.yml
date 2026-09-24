@@ -1,0 +1,79 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]: QuickFlow
+    - navigation "Main" [ref=e9]:
+      - link "Dashboard" [ref=e10] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Tasks" [ref=e16] [cursor=pointer]:
+        - /url: /tasks
+      - link "Habits" [ref=e20] [cursor=pointer]:
+        - /url: /habits
+      - link "Learning Resources" [ref=e23] [cursor=pointer]:
+        - /url: /learning
+      - link "Todo Plans" [ref=e26] [cursor=pointer]:
+        - /url: /plans
+      - link "Settings" [ref=e30] [cursor=pointer]:
+        - /url: /settings
+  - main [ref=e33]:
+    - generic [ref=e34]:
+      - generic [ref=e35]:
+        - heading "Tasks" [level=1] [ref=e36]
+        - button "Add Task" [ref=e37] [cursor=pointer]
+      - search [ref=e40]:
+        - searchbox "Search tasks" [ref=e41]
+        - combobox "Status filter" [ref=e42]:
+          - option "All statuses" [selected]
+          - option "Todo"
+          - option "In progress"
+          - option "Done"
+        - combobox "Priority filter" [ref=e43]:
+          - option "All priorities" [selected]
+          - option "High"
+          - option "Medium"
+          - option "Low"
+        - combobox "Due date filter" [ref=e44]:
+          - option "Any due date" [selected]
+          - option "Due today"
+          - option "Overdue"
+          - option "Upcoming"
+          - option "No due date"
+        - combobox "Sort" [ref=e45]:
+          - option "Newest first" [selected]
+          - option "By due date"
+        - generic [ref=e46] [cursor=pointer]:
+          - checkbox "Show archived" [ref=e47]
+          - text: Show archived
+      - generic [ref=e49]:
+        - heading "No tasks yet" [level=2] [ref=e50]
+        - paragraph [ref=e51]: Add your first task to start tracking your work.
+        - button "Add Task" [ref=e52] [cursor=pointer]
+      - dialog [ref=e55]:
+        - generic [ref=e56]:
+          - heading "Add task" [level=2] [ref=e57]
+          - button "Close" [active] [ref=e58] [cursor=pointer]
+        - generic [ref=e61]:
+          - generic [ref=e62]:
+            - generic [ref=e63]: Title
+            - textbox "Title" [ref=e64]
+          - generic [ref=e65]:
+            - generic [ref=e66]: Description
+            - textbox "Description" [ref=e67]
+          - generic [ref=e68]:
+            - generic [ref=e69]:
+              - generic [ref=e70]: Status
+              - combobox "Status" [ref=e71]:
+                - option "Todo" [selected]
+                - option "In progress"
+                - option "Done"
+            - generic [ref=e72]:
+              - generic [ref=e73]: Priority
+              - combobox "Priority" [ref=e74]:
+                - option "Low"
+                - option "Medium" [selected]
+                - option "High"
+            - generic [ref=e75]:
+              - generic [ref=e76]: Due date
+              - textbox "Due date" [ref=e77]
+          - generic [ref=e78]:
+            - button "Cancel" [ref=e79] [cursor=pointer]
+            - button "Add task" [ref=e80] [cursor=pointer]

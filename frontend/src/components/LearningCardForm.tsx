@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { api, ApiError, type LearningCard, type Request } from '../api/client'
+import { Button } from './ds'
 import { Field, FormError } from './ui'
 
 type CardRequest = Request<'LearningCardRequest'>
@@ -32,8 +33,8 @@ export default function LearningCardForm({ onSaved, onCancel }: { onSaved: (c: L
       </Field>
       <FormError error={save.error} />
       <div className="actions">
-        <button type="button" onClick={onCancel}>Cancel</button>
-        <button type="submit" className="primary" disabled={save.isPending}>Add card</button>
+        <Button variant="ghost" onClick={onCancel}>Cancel</Button>
+        <Button type="submit" variant="primary" pending={save.isPending}>Add card</Button>
       </div>
     </form>
   )

@@ -1,0 +1,25 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]: QuickFlow
+    - navigation "Main" [ref=e9]:
+      - link "Dashboard" [ref=e10] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Tasks" [ref=e16] [cursor=pointer]:
+        - /url: /tasks
+      - link "Habits" [active] [ref=e20] [cursor=pointer]:
+        - /url: /habits
+      - link "Learning Resources" [ref=e23] [cursor=pointer]:
+        - /url: /learning
+      - link "Todo Plans" [ref=e26] [cursor=pointer]:
+        - /url: /plans
+      - link "Settings" [ref=e30] [cursor=pointer]:
+        - /url: /settings
+  - main [ref=e33]:
+    - generic [ref=e55]:
+      - generic [ref=e56]:
+        - heading "Habits" [level=1] [ref=e57]
+        - button "Add Habit" [ref=e58] [cursor=pointer]
+      - generic [ref=e61]:
+        - heading "No habits yet" [level=2] [ref=e62]
+        - paragraph [ref=e63]: Add a daily or weekly habit and tick it off each time you do it.
+        - button "Add Habit" [ref=e64] [cursor=pointer]

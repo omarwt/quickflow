@@ -1,6 +1,7 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { api, ApiError, get, type Settings } from '../api/client'
+import { Button } from '../components/ds'
 import { ErrorState, Field, FormError, Loading, useToast } from '../components/ui'
 
 const VIEWS: { value: Settings['defaultView']; label: string }[] = [
@@ -73,7 +74,7 @@ export default function SettingsPage() {
         </label>
         <FormError error={save.error} />
         <div className="actions">
-          <button type="submit" className="primary" disabled={save.isPending}>{save.isPending ? 'Saving…' : 'Save settings'}</button>
+          <Button type="submit" variant="primary" pending={save.isPending}>{save.isPending ? 'Saving…' : 'Save settings'}</Button>
         </div>
       </form>
     </section>

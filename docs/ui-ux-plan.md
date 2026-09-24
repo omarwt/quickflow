@@ -20,7 +20,8 @@ pages, on mobile and desktop, before any change. The reports are in
 | Todo Plans | 96 / 96 | 100 | 82 | **0.317** | **color-contrast** (`badge success` `#1f8a4c` on `#f6f7f9`, 4.08:1) |
 | Settings | 100 / 100 | 100 | 82 | **0.294** | meta-description, robots-txt |
 
-On top of Lighthouse, the FE-05 screenshots and a review of `index.css` and `Layout.tsx` show:
+On top of Lighthouse, the FE-05 screenshots, the baseline screenshots at 390 and 1280 px
+(`ux-baseline/screens/`, from `loops/_lib/screenshots.sh`), and a review of `index.css` and `Layout.tsx` show:
 
 | # | Finding | Severity | Fixed in |
 |---|---|---|---|
@@ -33,6 +34,9 @@ On top of Lighthouse, the FE-05 screenshots and a review of `index.css` and `Lay
 | F7 | Copy: "0 of 1 items done" (plurals), raw dates where "today" or "in 2 h" would read better | low | FE-07 |
 | F8 | No dark theme, although most systems ask for one | low | FE-06 |
 | F9 | No meta description or robots.txt (SEO 82). Small, but it keeps the gate green | low | FE-06 |
+| F10 | At 390 px the task filter toolbar is wider than the screen, so the whole page scrolls sideways (baseline screenshot `tasks-390.png`) | high | FE-06 (layout primitives) |
+| F11 | On mobile, the shell grid stretches the navigation row and leaves an empty band above the content | medium | FE-06 |
+| F12 | Action buttons on habit cards touch each other, because `.row-actions` only had a gap inside list rows | low | FE-06 |
 
 ## Design direction
 

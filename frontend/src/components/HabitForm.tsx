@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { api, ApiError, type Habit, type Request } from '../api/client'
+import { Button } from './ds'
 import { Field, FormError } from './ui'
 
 type HabitRequest = Request<'HabitRequest'>
@@ -45,8 +46,8 @@ export default function HabitForm({ habit, onSaved, onCancel }: { habit?: Habit;
       </fieldset>
       <FormError error={save.error} />
       <div className="actions">
-        <button type="button" onClick={onCancel}>Cancel</button>
-        <button type="submit" className="primary" disabled={save.isPending}>{habit ? 'Save changes' : 'Add habit'}</button>
+        <Button variant="ghost" onClick={onCancel}>Cancel</Button>
+        <Button type="submit" variant="primary" pending={save.isPending}>{habit ? 'Save changes' : 'Add habit'}</Button>
       </div>
     </form>
   )

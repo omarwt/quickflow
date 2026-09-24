@@ -2,9 +2,12 @@ import { useDeferredValue, useState } from 'react'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { api, get, type Task } from '../api/client'
 import TaskForm from '../components/TaskForm'
+import { Badge, Button, type Tone } from '../components/ds'
 import { ConfirmDialog, Dialog, EmptyState, ErrorState, Loading, useToast } from '../components/ui'
 import { formatDate, label } from '../lib/format'
 import { useRefresh } from '../lib/queries'
+
+const STATUS_TONE: Record<Task['status'], Tone> = { TODO: 'neutral', IN_PROGRESS: 'accent', DONE: 'success' }
 
 type Filters = { search: string; status: string; priority: string; due: string; sort: string; archived: boolean }
 
@@ -42,7 +45,7 @@ export default function TasksPage() {
     <section>
       <div className="page-head">
         <h1>Tasks</h1>
-        <button className="primary" onClick={() => setEditing('new')}>Add Task</button>
+        <Button variant="primary" icon="plus" onClick={() => setEditing('new')}>Add Task</Button>
       </div>
 
       <div className="toolbar" role="search">
@@ -68,7 +71,7 @@ export default function TasksPage() {
           filtered || f.archived
             ? <EmptyState title="No matching tasks" text={f.archived ? 'No archived tasks match.' : 'Try a different search or filter.'} />
             : <EmptyState title="No tasks yet" text="Add your first task to start tracking your work."
-                action={<button className="primary" onClick={() => setEditing('new')}>Add Task</button>} />
+                action={<Button variant="primary" icon="plus" onClick={() => setEditing('new')}>Add Task</Button>} />
         ) : (
           <ul className="list" aria-label="Tasks">
             {tasks.data.map((t) => (
@@ -79,18 +82,18 @@ export default function TasksPage() {
                   <div className="title">{t.title}</div>
                   {t.description && <div className="muted">{t.description}</div>}
                   <div className="meta">
-                    <span className="badge">{label(t.status)}</span>
-                    <span className={`badge${t.priority === 'HIGH' ? ' warning' : ''}`}>{label(t.priority)} priority</span>
-                    {t.dueDate && <span className="badge">Due {formatDate(t.dueDate)}</span>}
-                    {t.overdue && <span className="badge danger">Overdue</span>}
+                    <Badge tone={STATUS_TONE[t.status]}>{label(t.status)}</Badge>
+                    <Badge tone={t.priority === 'HIGH' ? 'warning' : 'neutral'}>{label(t.priority)} priority</Badge>
+                    {t.dueDate && <Badge icon="plans">Due {formatDate(t.dueDate)}</Badge>}
+                    {t.overdue && <Badge tone="danger" icon="alert">Overdue</Badge>}
                   </div>
                 </div>
                 <div className="row-actions">
-                  {!t.archived && <button onClick={() => setEditing(t)}>Edit</button>}
+                  {!t.archived && <Button size="sm" variant="ghost" icon="pencil" onClick={() => setEditing(t)}>Edit</Button>}
                   {t.archived
-                    ? <button onClick={() => action.mutate({ task: t, op: 'restore' })}>Restore</button>
-                    : <button onClick={() => action.mutate({ task: t, op: 'archive' })}>Archive</button>}
-                  <button className="danger" onClick={() => setDeleting(t)}>Delete</button>
+                    ? <Button size="sm" variant="ghost" icon="restore" onClick={() => action.mutate({ task: t, op: 'restore' })}>Restore</Button>
+                    : <Button size="sm" variant="ghost" icon="archive" onClick={() => action.mutate({ task: t, op: 'archive' })}>Archive</Button>}
+                  <Button size="sm" variant="danger" icon="trash" onClick={() => setDeleting(t)}>Delete</Button>
                 </div>
               </li>
             ))}

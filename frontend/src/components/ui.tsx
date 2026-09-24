@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from 'react'
 import { ApiError } from '../api/client'
+import { Button, Icon, IconButton } from './ds'
 
 export function Loading({ label = 'Loading…' }: { label?: string }) {
   return <p className="muted" role="status">{label}</p>
@@ -9,8 +10,9 @@ export function ErrorState({ error, onRetry }: { error: unknown; onRetry?: () =>
   const message = error instanceof Error ? error.message : 'Something went wrong'
   return (
     <div className="state error" role="alert">
+      <Icon name="alert" size={24} />
       <p>{message}</p>
-      {onRetry && <button onClick={onRetry}>Try again</button>}
+      {onRetry && <Button onClick={onRetry}>Try again</Button>}
     </div>
   )
 }
@@ -38,7 +40,7 @@ export function Dialog({ title, open, onClose, children }: { title: string; open
     <dialog ref={ref} onClose={onClose} aria-labelledby="dialog-title">
       <div className="dialog-head">
         <h2 id="dialog-title">{title}</h2>
-        <button type="button" className="ghost" aria-label="Close" onClick={onClose}>×</button>
+        <IconButton variant="ghost" icon="x" label="Close" onClick={onClose} />
       </div>
       {open && children}
     </dialog>
@@ -80,8 +82,9 @@ export function ToastProvider({ children }: { children: ReactNode }) {
       <div className="toasts" aria-live="polite">
         {toasts.map((t) => (
           <div key={t.id} className={`toast ${t.kind}`} role={t.kind === 'error' ? 'alert' : 'status'}>
-            {t.text}
-            <button className="ghost" aria-label="Dismiss" onClick={() => setToasts((all) => all.filter((x) => x.id !== t.id))}>×</button>
+            <Icon name={t.kind === 'error' ? 'alert' : t.kind === 'info' ? 'info' : 'check'} />
+            <span className="toast-text">{t.text}</span>
+            <IconButton variant="ghost" size="sm" icon="x" label="Dismiss" onClick={() => setToasts((all) => all.filter((x) => x.id !== t.id))} />
           </div>
         ))}
       </div>
@@ -99,8 +102,8 @@ export function ConfirmDialog({ title, text, confirmLabel, open, onConfirm, onCa
     <Dialog title={title} open={open} onClose={onCancel}>
       <p>{text}</p>
       <div className="actions">
-        <button type="button" onClick={onCancel}>Cancel</button>
-        <button type="button" className="primary danger-fill" onClick={onConfirm} disabled={busy}>{confirmLabel}</button>
+        <Button onClick={onCancel}>Cancel</Button>
+        <Button variant="danger-fill" onClick={onConfirm} pending={busy}>{confirmLabel}</Button>
       </div>
     </Dialog>
   )

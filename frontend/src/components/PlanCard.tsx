@@ -5,7 +5,9 @@ import { formatDateTime, label } from '../lib/format'
 import { useRefresh } from '../lib/queries'
 import { formatRest, remainingSeconds, useNow } from '../lib/time'
 import { useToast } from './ui'
+import { Badge, Button, Card, Icon, type Tone } from './ds'
 
+const STATUS_TONE: Record<Plan['status'], Tone> = { NOT_STARTED: 'neutral', IN_PROGRESS: 'success', COMPLETED: 'accent' }
 const SOURCE: Record<string, string> = { TASK: 'Task', HABIT: 'Habit', LEARNING_RESOURCE: 'Learning' }
 
 /** One plan: progress, live rest time, per-item done toggles (FR-08). Shared by Todo Plans and the dashboard. */
@@ -36,16 +38,16 @@ export default function PlanCard({ plan, receivedAt, onRemove, compact }: {
   })
 
   return (
-    <article className={`card plan ${plan.status.toLowerCase()}`} aria-label={plan.title}>
-      <div className="habit-head">
+    <Card className={`plan ${plan.status.toLowerCase()}`} aria-label={plan.title}>
+      <div className="card-head">
         <h2>{plan.title}</h2>
-        <span className={`badge${plan.status === 'IN_PROGRESS' ? ' success' : ''}`}>{label(plan.status)}</span>
+        <Badge tone={STATUS_TONE[plan.status]}>{label(plan.status)}</Badge>
       </div>
       <p className="muted small">
         Priority {plan.priorityOrder} · {formatDateTime(plan.startDateTime)} → {formatDateTime(plan.endDateTime)} · est. {plan.estimatedMinutes} min
       </p>
       {plan.status === 'IN_PROGRESS' && (
-        <p className="rest" aria-live="off">Rest time: <strong data-testid="rest-time">{formatRest(toEnd)}</strong></p>
+        <p className="rest" aria-live="off"><Icon name="clock" />Rest time: <strong data-testid="rest-time">{formatRest(toEnd)}</strong></p>
       )}
       {plan.status === 'NOT_STARTED' && <p className="muted small">Starts in {formatRest(toStart)}</p>}
       <div>
@@ -63,13 +65,13 @@ export default function PlanCard({ plan, receivedAt, onRemove, compact }: {
                   onChange={() => toggle.mutate({ itemId: i.id, done: !i.done })} />
                 <span className="title">{i.title}</span>
               </label>
-              <span className="badge">{SOURCE[i.sourceType]}</span>
-              {!i.sourceAvailable && <span className="badge danger">deleted</span>}
+              <Badge>{SOURCE[i.sourceType]}</Badge>
+              {!i.sourceAvailable && <Badge tone="danger">deleted</Badge>}
             </li>
           ))}
         </ul>
       )}
-      {onRemove && <div className="row-actions start"><button className="danger" onClick={onRemove}>Remove</button></div>}
-    </article>
+      {onRemove && <div className="row-actions start"><Button size="sm" variant="danger" icon="trash" onClick={onRemove}>Remove</Button></div>}
+    </Card>
   )
 }

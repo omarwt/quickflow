@@ -1,7 +1,7 @@
 # Progress — frontend-dev
 
-Status: **ready** · Input: `PRD.md` (prd)
-Current phase: - · Completed: FE-01, FE-02, FE-03, FE-04, FE-05 · Blocked: -
+Status: **in_progress** · Input: `PRD.md` (prd)
+Current phase: FE-06 · Completed: FE-01, FE-02, FE-03, FE-04, FE-05 · Blocked: -
 Remaining: FE-06, FE-07, FE-08, FE-09
 
 ## FE-01 App shell and settings
@@ -130,3 +130,23 @@ Fixes:
 - start notifications (info toasts) now stay until dismissed; they persist across page navigation because the toast provider sits above the routes
 
 Output: `outputs/phase-05-todo-plans-page.md`
+
+## FE-06 UI/UX audit and design system
+
+Status: in_progress
+
+Start: 2026-09-24T12:19:47+03:00
+
+End: -
+
+Duration: -
+
+Token consumption: unavailable
+
+Retries: 0/3
+
+Verification: PENDING
+
+Tests:
+
+Output: `outputs/phase-06-ui-ux-audit-and-design-system.md`

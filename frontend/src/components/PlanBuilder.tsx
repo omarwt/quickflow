@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { api, ApiError, get, type Plan, type PlanSources } from '../api/client'
+import { Button } from './ds'
 import { Field, FormError, Loading } from './ui'
 
 type SourceType = 'TASK' | 'HABIT' | 'LEARNING_RESOURCE'
@@ -106,8 +107,8 @@ export default function PlanBuilder({ onSaved, onCancel }: { onSaved: (p: Plan) 
       </div>
       <FormError error={save.error} />
       <div className="actions">
-        <button type="button" onClick={onCancel}>Cancel</button>
-        <button type="submit" className="primary" disabled={save.isPending}>Create plan</button>
+        <Button variant="ghost" onClick={onCancel}>Cancel</Button>
+        <Button type="submit" variant="primary" pending={save.isPending}>Create plan</Button>
       </div>
     </form>
   )

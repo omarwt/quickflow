@@ -3,6 +3,7 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import { api, get, type Plan } from '../api/client'
 import PlanBuilder from '../components/PlanBuilder'
 import PlanCard from '../components/PlanCard'
+import { Button } from '../components/ds'
 import { ConfirmDialog, Dialog, EmptyState, ErrorState, Loading, useToast } from '../components/ui'
 import { useRefresh } from '../lib/queries'
 
@@ -28,12 +29,12 @@ export default function PlansPage() {
     <section>
       <div className="page-head">
         <h1>Todo Plans</h1>
-        <button className="primary" onClick={() => setBuilding(true)}>Create Plan</button>
+        <Button variant="primary" icon="plus" onClick={() => setBuilding(true)}>Create Plan</Button>
       </div>
       {plans.isPending ? <Loading /> : plans.isError ? <ErrorState error={plans.error} onRetry={() => plans.refetch()} /> :
         all.length === 0 ? (
           <EmptyState title="No plans yet" text="Bundle existing tasks, habits and learning resources into a time-boxed plan."
-            action={<button className="primary" onClick={() => setBuilding(true)}>Create Plan</button>} />
+            action={<Button variant="primary" icon="plus" onClick={() => setBuilding(true)}>Create Plan</Button>} />
         ) : (
           <>
             <h2 className="section-title">Active and upcoming</h2>

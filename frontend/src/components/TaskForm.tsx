@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { api, ApiError, type Request, type Task } from '../api/client'
+import { Button } from './ds'
 import { Field, FormError } from './ui'
 
 type TaskRequest = Request<'TaskRequest'>
@@ -57,8 +58,8 @@ export default function TaskForm({ task, onSaved, onCancel }: { task?: Task; onS
       </div>
       <FormError error={save.error} />
       <div className="actions">
-        <button type="button" onClick={onCancel}>Cancel</button>
-        <button type="submit" className="primary" disabled={save.isPending}>{task ? 'Save changes' : 'Add task'}</button>
+        <Button variant="ghost" onClick={onCancel}>Cancel</Button>
+        <Button type="submit" variant="primary" pending={save.isPending}>{task ? 'Save changes' : 'Add task'}</Button>
       </div>
     </form>
   )
