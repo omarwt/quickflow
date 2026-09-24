@@ -1,0 +1,10 @@
+  [PASS] 1. /tasks light theme background, Add Task icon+text, nav icons+text :: html bg rgb(245, 246, 248); Add Task button has svg+text; all 6 nav links have svg+text
+  [PASS] 2. Task row actions on Write report :: Edit, Archive, Delete buttons present, each with svg
+  [PASS] 3. Dark theme colors on /tasks :: html bg rgb(14, 19, 26); Tasks heading color rgb(229, 233, 239); row bg rgb(22, 28, 37)
+  [PASS] 4. Dark theme on /habits, /learning, /plans, /settings :: each heading visible (Habits, Learning Resources, Todo Plans, Settings); no .card/.row with white background on any page
+  [PASS] 5. Dark Add Task dialog + validation + Escape :: dialog bg rgb(22, 28, 37); 'Title is required' alert shown on empty submit; Escape closed dialog
+  [PASS] 6. Light theme focus ring on Add Task :: box-shadow: rgba(47, 91, 211, 0.45) 0px 0px 0px 3px
+  [PASS] 7. Habits streak text color :: color rgb(138, 83, 0)
+  [PASS] 8. Mobile 390x844 /tasks layout :: scrollWidth 390; Add Task button, search box, and both task rows visible
+  [PASS] 9. Mobile 390x844 /plans layout :: scrollWidth 390; plan 'Soon' shown with visible Remove button
+playwright phase-06: PASS (9 checks, session 2ff0c33c-53c5-4705-b726-005c35d9e60c, 2533272 tokens)

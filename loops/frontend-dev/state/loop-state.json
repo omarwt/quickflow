@@ -514,21 +514,68 @@
         {
           "id": "T5",
           "title": "Verify: build, FE-01..05 Playwright regression, dark-theme scenario",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T6",
           "title": "Document phase",
-          "status": "todo"
+          "status": "done"
         }
       ],
-      "status": "in_progress",
+      "status": "done",
       "failedTrials": 0,
-      "verification": "pending",
-      "runs": [],
+      "verification": "pass",
+      "runs": [
+        {
+          "at": "2026-09-24T12:38:32+03:00",
+          "result": "pass",
+          "checks": [
+            {
+              "name": "build",
+              "cmd": "cd frontend && npm run build && npx vitest run",
+              "result": "pass",
+              "log": "outputs/evidence/FE-06-trial1-build.log"
+            },
+            {
+              "name": "regression",
+              "cmd": "bash loops/frontend-dev/verification/regress.sh 01 02 03 04 05",
+              "result": "pass",
+              "log": "outputs/evidence/FE-06-trial1-regression.log"
+            },
+            {
+              "name": "fresh",
+              "cmd": "backend/run.sh start --fresh",
+              "result": "pass",
+              "log": "outputs/evidence/FE-06-trial1-fresh.log"
+            },
+            {
+              "name": "seed",
+              "cmd": "bash loops/frontend-dev/verification/phase-06-seed.sh",
+              "result": "pass",
+              "log": "outputs/evidence/FE-06-trial1-seed.log"
+            },
+            {
+              "name": "playwright",
+              "cmd": "bash loops/_lib/playwright-verify.sh loops/frontend-dev/verification/phase-06.md",
+              "result": "pass",
+              "log": "outputs/evidence/FE-06-trial1-playwright.log"
+            }
+          ],
+          "evidence": []
+        }
+      ],
       "errors": [],
       "fixes": [],
-      "start": "2026-09-24T12:19:47+03:00"
+      "start": "2026-09-24T12:19:47+03:00",
+      "end": "2026-09-24T12:40:11+03:00",
+      "duration": "20m 24s",
+      "tokens": {
+        "input": 132,
+        "output": 44190,
+        "cache_write": 89540,
+        "cache_read": 8954863,
+        "total": 9088725
+      }
     },
     {
       "id": "FE-07",
@@ -683,17 +730,18 @@
       "fixes": []
     }
   ],
-  "lastUpdated": "2026-09-24T12:26:24+03:00",
-  "currentPhase": "FE-06",
+  "lastUpdated": "2026-09-24T12:40:11+03:00",
+  "currentPhase": null,
   "completedPhases": [
     "FE-01",
     "FE-02",
     "FE-03",
     "FE-04",
-    "FE-05"
+    "FE-05",
+    "FE-06"
   ],
   "blockedPhases": [],
   "retryCount": 0,
-  "verificationStatus": "pending",
-  "status": "in_progress"
+  "verificationStatus": "-",
+  "status": "ready"
 }

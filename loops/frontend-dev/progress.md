@@ -1,8 +1,8 @@
 # Progress — frontend-dev
 
-Status: **in_progress** · Input: `PRD.md` (prd)
-Current phase: FE-06 · Completed: FE-01, FE-02, FE-03, FE-04, FE-05 · Blocked: -
-Remaining: FE-06, FE-07, FE-08, FE-09
+Status: **ready** · Input: `PRD.md` (prd)
+Current phase: - · Completed: FE-01, FE-02, FE-03, FE-04, FE-05, FE-06 · Blocked: -
+Remaining: FE-07, FE-08, FE-09
 
 ## FE-01 App shell and settings
 
@@ -133,20 +133,26 @@ Output: `outputs/phase-05-todo-plans-page.md`
 
 ## FE-06 UI/UX audit and design system
 
-Status: in_progress
+Status: done
 
 Start: 2026-09-24T12:19:47+03:00
 
-End: -
+End: 2026-09-24T12:40:11+03:00
 
-Duration: -
+Duration: 20m 24s
 
-Token consumption: unavailable
+Token consumption: 9,088,725 (input 132, output 44,190, cache write 89,540, cache read 8,954,863)
 
 Retries: 0/3
 
-Verification: PENDING
+Verification: PASS
 
 Tests:
+- trial 1 (2026-09-24T12:38:32+03:00): PASS
+  - build: pass — `cd frontend && npm run build && npx vitest run` — outputs/evidence/FE-06-trial1-build.log
+  - regression: pass — `bash loops/frontend-dev/verification/regress.sh 01 02 03 04 05` — outputs/evidence/FE-06-trial1-regression.log
+  - fresh: pass — `backend/run.sh start --fresh` — outputs/evidence/FE-06-trial1-fresh.log
+  - seed: pass — `bash loops/frontend-dev/verification/phase-06-seed.sh` — outputs/evidence/FE-06-trial1-seed.log
+  - playwright: pass — `bash loops/_lib/playwright-verify.sh loops/frontend-dev/verification/phase-06.md` — outputs/evidence/FE-06-trial1-playwright.log
 
 Output: `outputs/phase-06-ui-ux-audit-and-design-system.md`

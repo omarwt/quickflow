@@ -20,6 +20,9 @@ pages, on mobile and desktop, before any change. The reports are in
 | Todo Plans | 96 / 96 | 100 | 82 | **0.317** | **color-contrast** (`badge success` `#1f8a4c` on `#f6f7f9`, 4.08:1) |
 | Settings | 100 / 100 | 100 | 82 | **0.294** | meta-description, robots-txt |
 
+After FE-06, the same audit reports accessibility, best practices and SEO at 100 on all five pages, with
+mobile CLS ≤ 0.003 (`evidence/ux-FE-06/`).
+
 On top of Lighthouse, the FE-05 screenshots, the baseline screenshots at 390 and 1280 px
 (`ux-baseline/screens/`, from `loops/_lib/screenshots.sh`), and a review of `index.css` and `Layout.tsx` show:
 

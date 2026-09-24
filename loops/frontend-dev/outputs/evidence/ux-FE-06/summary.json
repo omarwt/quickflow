@@ -1,0 +1,152 @@
+[
+ {
+  "page": "/tasks",
+  "device": "mobile",
+  "scores": {
+   "accessibility": 100,
+   "best-practices": 100,
+   "seo": 100,
+   "agentic-browsing": 67
+  },
+  "cls": 0,
+  "fails": [],
+  "failedAudits": [
+   "llms-txt"
+  ]
+ },
+ {
+  "page": "/tasks",
+  "device": "desktop",
+  "scores": {
+   "accessibility": 100,
+   "best-practices": 100,
+   "seo": 100,
+   "agentic-browsing": 67
+  },
+  "cls": 0,
+  "fails": [],
+  "failedAudits": [
+   "llms-txt"
+  ]
+ },
+ {
+  "page": "/habits",
+  "device": "mobile",
+  "scores": {
+   "accessibility": 100,
+   "best-practices": 100,
+   "seo": 100,
+   "agentic-browsing": 67
+  },
+  "cls": 0.003,
+  "fails": [],
+  "failedAudits": [
+   "llms-txt"
+  ]
+ },
+ {
+  "page": "/habits",
+  "device": "desktop",
+  "scores": {
+   "accessibility": 100,
+   "best-practices": 100,
+   "seo": 100,
+   "agentic-browsing": 67
+  },
+  "cls": 0.001,
+  "fails": [],
+  "failedAudits": [
+   "llms-txt"
+  ]
+ },
+ {
+  "page": "/learning",
+  "device": "mobile",
+  "scores": {
+   "accessibility": 100,
+   "best-practices": 100,
+   "seo": 100,
+   "agentic-browsing": 67
+  },
+  "cls": 0,
+  "fails": [],
+  "failedAudits": [
+   "llms-txt"
+  ]
+ },
+ {
+  "page": "/learning",
+  "device": "desktop",
+  "scores": {
+   "accessibility": 100,
+   "best-practices": 100,
+   "seo": 100,
+   "agentic-browsing": 67
+  },
+  "cls": 0,
+  "fails": [],
+  "failedAudits": [
+   "llms-txt"
+  ]
+ },
+ {
+  "page": "/plans",
+  "device": "mobile",
+  "scores": {
+   "accessibility": 100,
+   "best-practices": 100,
+   "seo": 100,
+   "agentic-browsing": 67
+  },
+  "cls": 0,
+  "fails": [],
+  "failedAudits": [
+   "llms-txt"
+  ]
+ },
+ {
+  "page": "/plans",
+  "device": "desktop",
+  "scores": {
+   "accessibility": 100,
+   "best-practices": 100,
+   "seo": 100,
+   "agentic-browsing": 67
+  },
+  "cls": 0,
+  "fails": [],
+  "failedAudits": [
+   "llms-txt"
+  ]
+ },
+ {
+  "page": "/settings",
+  "device": "mobile",
+  "scores": {
+   "accessibility": 100,
+   "best-practices": 100,
+   "seo": 100,
+   "agentic-browsing": 67
+  },
+  "cls": 0,
+  "fails": [],
+  "failedAudits": [
+   "llms-txt"
+  ]
+ },
+ {
+  "page": "/settings",
+  "device": "desktop",
+  "scores": {
+   "accessibility": 100,
+   "best-practices": 100,
+   "seo": 100,
+   "agentic-browsing": 67
+  },
+  "cls": 0,
+  "fails": [],
+  "failedAudits": [
+   "llms-txt"
+  ]
+ }
+]

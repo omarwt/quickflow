@@ -56,3 +56,17 @@ playwright phase-03: PASS (12 checks, session 89312842-f2c3-4404-b3dc-10716f007b
 playwright phase-04: PASS (12 checks, session eb9bf45f-aeb3-46e4-8e7e-fe1caac98eed, 3332784 tokens)
 seeded: task 1, habit 1, card 1, plans 'Yesterday review' (past) and 'Soon' (starts in 90 s)
 == phase-05
+  [PASS] 1. Open /plans, heading/sections/Soon/Yesterday review :: Heading 'Todo Plans', 'Active and upcoming' with Soon/Not started/Starts in, 'Completed' with Yesterday review/0% complete
+  [PASS] 2. Create plan with nothing filled :: Errors 'Title is required' and 'Pick at least one task, habit or learning resource' shown
+  [PASS] 3. Title+3 items, End before Start :: Error 'End date/time must be after the start date/time' shown
+  [PASS] 4. Valid Deep work plan create :: 'Plan "Deep work" created' toast; Deep work In progress, before Soon, Rest time 49m 25s, 0% · 0 of 3, Task/Habit/Learning badges
+  [PASS] 5. Rest time counts down :: 49m 25s -> 49m 15s after 5s wait
+  [PASS] 6. Tick Write report :: 33% complete · 1 of 3 items done
+  [PASS] 7. Tick Morning run + Spring in Action :: 100% complete, status Completed, moved to Completed section
+  [PASS] 8. Untick Write report :: 67% complete, status In progress, back in Active and upcoming
+  [PASS] 9. /tasks Write report reopened :: Write report shows Todo status, unchecked
+  [PASS] 10. Wait for Soon started :: 'Plan "Soon" has started' message appeared; Soon shows In progress, Rest time 58m 18s
+  [PASS] 11. Remove Yesterday review :: Confirmation dialog 'Remove plan' shown; after confirm, Yesterday review gone, Completed section shows 'No completed plans yet.'
+  [PASS] 12. Reload persistence :: Deep work (67%) and Soon still listed after reload; no second 'has started' message within 20s
+playwright phase-05: PASS (12 checks, session 777968e4-07b8-47bf-a420-2046bc02590b, 2877030 tokens)
+regression: 0 of 5 failed
