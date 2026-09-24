@@ -78,22 +78,22 @@ Input: `PRD.md` · Mode: prd · Status: **in_progress**
 - [x] T5 Verify: screenshot matrix (320, 390, 768, 1024, 1440, 1920), responsive scenario, FE-01..07 regression, ux-audit mobile + desktop
 - [x] T6 Document phase
 
-## FE-09 Page transitions and navigation feel (in_progress)
+## FE-09 Page transitions and navigation feel (done)
 
 - [x] T1 Route transitions with the View Transitions API (React Router viewTransition), shell and navigation stay still, content cross-fades and slides
 - [x] T2 Prefetch a page's data when its nav link is hovered or focused, and keep previous data, so pages open without a loading flash
 - [x] T3 Focus and announcement on navigation: move focus to the page heading, per-page document.title, scroll to top; motion for dialogs, sheets, toasts and list add/remove
 - [x] T4 Respect prefers-reduced-motion (no movement, instant or fade only) and keep CLS 0 during navigation
-- [ ] T5 Verify: transition scenario (titles, focus, no loading flash after prefetch, reduced motion), Chrome DevTools performance trace (INP under 200 ms, no layout shift), FE-01..07 regression
-- [ ] T6 Document phase
+- [x] T5 Verify: transition scenario (titles, focus, no loading flash after prefetch, reduced motion), Chrome DevTools performance trace (INP under 200 ms, no layout shift), FE-01..07 regression
+- [x] T6 Document phase
 
-## FE-10 Dashboard page and Settings completion (pending)
+## FE-10 Dashboard page and Settings completion (in_progress)
 
-- [ ] T1 Greeting and the four summary cards (tasks, habits, plans, learning) with their numbers
-- [ ] T2 Today's tasks, overdue, completed today, and the habit checklist (active and done today)
-- [ ] T3 Active plans with live rest time and progress, the next upcoming plan, and a learning snapshot (cards in progress with milestone progress, milestones this week)
-- [ ] T4 Quick-add menu for task, habit, learning card and plan
-- [ ] T5 Settings: profile summary (initials, name, email, member since, data counts), notification behaviour (browser permission, allow, test notification), theme preference (system/light/dark), local-time preview for the timezone
+- [x] T1 Greeting and the four summary cards (tasks, habits, plans, learning) with their numbers
+- [x] T2 Today's tasks, overdue, completed today, and the habit checklist (active and done today)
+- [x] T3 Active plans with live rest time and progress, the next upcoming plan, and a learning snapshot (cards in progress with milestone progress, milestones this week)
+- [x] T4 Quick-add menu for task, habit, learning card and plan
+- [x] T5 Settings: profile summary (initials, name, email, member since, data counts), notification behaviour (browser permission, allow, test notification), theme preference (system/light/dark), local-time preview for the timezone
 - [ ] T6 Verify: dashboard + settings scenario, FE-01..09 regression, ux-audit on all six pages
 - [ ] T7 Document phase
 

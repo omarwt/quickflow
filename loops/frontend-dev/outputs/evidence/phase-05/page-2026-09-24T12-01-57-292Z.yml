@@ -1,0 +1,101 @@
+- generic [ref=f3e3]:
+  - link "Skip to content" [ref=f3e4] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=f3e5]:
+    - generic [ref=f3e6]: QuickFlow
+    - navigation "Main" [ref=f3e11]:
+      - link "Dashboard" [ref=f3e12] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Tasks" [ref=f3e19] [cursor=pointer]:
+        - /url: /tasks
+      - link "Habits" [ref=f3e24] [cursor=pointer]:
+        - /url: /habits
+      - link "Learning Resources" [ref=f3e28] [cursor=pointer]:
+        - /url: /learning
+      - link "Todo Plans" [ref=f3e32] [cursor=pointer]:
+        - /url: /plans
+      - link "Settings" [ref=f3e37] [cursor=pointer]:
+        - /url: /settings
+  - main [ref=f3e41]:
+    - generic [ref=f3e42]:
+      - generic [ref=f3e43]:
+        - heading "Todo Plans" [active] [level=1] [ref=f3e44]
+        - button "Create Plan" [ref=f3e45] [cursor=pointer]
+      - heading "Active and upcoming" [level=2] [ref=f3e62]
+      - generic [ref=f3e63]:
+        - article "Deep work" [ref=f3e64]:
+          - generic [ref=f3e65]:
+            - heading "Deep work" [level=2] [ref=f3e66]
+            - generic [ref=f3e67]: In progress
+          - paragraph [ref=f3e69]: Priority 1 · Today, 02:49 PM → 03:49 PM · est. 45 min
+          - paragraph [ref=f3e70]:
+            - text: "Rest time:"
+            - strong [ref=f3e74]: 47m 03s
+          - generic [ref=f3e75]:
+            - progressbar "Deep work progress" [ref=f3e76]
+            - paragraph [ref=f3e78]:
+              - strong [ref=f3e79]: 67%
+              - text: complete · 2 of 3 items done
+          - list [ref=f3e80]:
+            - listitem [ref=f3e81]:
+              - generic [ref=f3e82] [cursor=pointer]:
+                - 'checkbox "Plan item done: Write report" [ref=f3e83]'
+                - generic [ref=f3e84]: Write report
+              - generic [ref=f3e85]: Task
+            - listitem [ref=f3e86]:
+              - generic [ref=f3e87] [cursor=pointer]:
+                - 'checkbox "Plan item done: Morning run" [checked] [ref=f3e88]'
+                - generic [ref=f3e89]: Morning run
+              - generic [ref=f3e90]: Habit
+            - listitem [ref=f3e91]:
+              - generic [ref=f3e92] [cursor=pointer]:
+                - 'checkbox "Plan item done: Spring in Action" [checked] [ref=f3e93]'
+                - generic [ref=f3e94]: Spring in Action
+              - generic [ref=f3e95]: Learning
+          - button "Remove" [ref=f3e97] [cursor=pointer]
+        - article "Soon" [ref=f3e102]:
+          - generic [ref=f3e103]:
+            - heading "Soon" [level=2] [ref=f3e104]
+            - generic [ref=f3e105]:
+              - generic [ref=f3e106]: Just started
+              - generic [ref=f3e110]: In progress
+          - paragraph [ref=f3e111]: Priority 2 · Today, 02:59 PM → 03:58 PM · est. 20 min
+          - paragraph [ref=f3e112]:
+            - text: "Rest time:"
+            - strong [ref=f3e116]: 56m 31s
+          - generic [ref=f3e117]:
+            - progressbar "Soon progress" [ref=f3e118]
+            - paragraph [ref=f3e119]:
+              - strong [ref=f3e120]: 0%
+              - text: complete · 0 of 1 item done
+          - list [ref=f3e121]:
+            - listitem [ref=f3e122]:
+              - generic [ref=f3e123] [cursor=pointer]:
+                - 'checkbox "Plan item done: Morning run" [ref=f3e124]'
+                - generic [ref=f3e125]: Morning run
+              - generic [ref=f3e126]: Habit
+          - button "Remove" [ref=f3e128] [cursor=pointer]
+        - article "Standup" [ref=f3e133]:
+          - generic [ref=f3e134]:
+            - heading "Standup" [level=2] [ref=f3e135]
+            - generic [ref=f3e136]:
+              - generic [ref=f3e137]: Just started
+              - generic [ref=f3e141]: In progress
+          - paragraph [ref=f3e142]: Priority 4 · Today, 03:01 PM → 03:31 PM · est. 15 min
+          - paragraph [ref=f3e143]:
+            - text: "Rest time:"
+            - strong [ref=f3e147]: 29m 03s
+          - generic [ref=f3e148]:
+            - progressbar "Standup progress" [ref=f3e149]
+            - paragraph [ref=f3e150]:
+              - strong [ref=f3e151]: 0%
+              - text: complete · 0 of 1 item done
+          - list [ref=f3e152]:
+            - listitem [ref=f3e153]:
+              - generic [ref=f3e154] [cursor=pointer]:
+                - 'checkbox "Plan item done: Pay bills" [ref=f3e155]'
+                - generic [ref=f3e156]: Pay bills
+              - generic [ref=f3e157]: Task
+          - button "Remove" [ref=f3e159] [cursor=pointer]
+      - heading "Completed" [level=2] [ref=f3e164]
+      - paragraph [ref=f3e165]: No completed plans yet.

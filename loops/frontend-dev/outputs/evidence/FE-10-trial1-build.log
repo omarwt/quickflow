@@ -1,0 +1,23 @@
+
+> quickflow-frontend@0.0.0 build
+> tsc -b && vite build
+
+vite v8.3.0 building client environment for production...
+transforming...
+✓ 92 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   1.05 kB │ gzip:   0.59 kB
+dist/assets/index-CP-MhKc8.css   24.73 kB │ gzip:   5.24 kB
+dist/assets/index-CJjdL3uX.js   357.70 kB │ gzip: 108.67 kB
+
+✓ built in 185ms
+
+ RUN  v5.0.1 /home/omar/Downloads/AI/project/frontend
+
+
+ Test Files  5 passed (5)
+      Tests  58 passed (58)
+   Start at  15:33:36
+   Duration  483ms (environment 35%, transform 32%, import 19%, tests 11%, worker 3%)
+

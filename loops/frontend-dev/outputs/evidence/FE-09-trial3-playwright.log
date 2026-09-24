@@ -1,0 +1,10 @@
+  [PASS] 1. /tasks title, startViewTransition, view-transition-names :: title 'Tasks · QuickFlow', typeof startViewTransition 'function', .sidebar vt-name 'shell-nav', main vt-name 'page'
+  [PASS] 2. Hover prefetch of /api/habits :: resource count 0 before hover, 1 after hover+1s wait
+  [PASS] 3. Click Habits: URL, skeleton, view transition count, nav element identity :: url /habits, skeletons 0, Morning run visible, __vt=1, nav element unchanged
+  [PASS] 4. /habits title, activeElement, scrollY :: title 'Habits · QuickFlow', activeElement is h1 'Habits', scrollY 0
+  [PASS] 5. Keyboard-only nav to /plans via Tab+Enter, then Tab to Create Plan :: url /plans, activeElement h1 'Todo Plans', title 'Todo Plans · QuickFlow', next Tab focuses 'Create Plan' button
+  [PASS] 6. Mobile scroll then bottom nav to /learning :: scrollY 943 after scroll, after click url /learning, scrollY 0, heading 'Learning Resources'
+  [PASS] 7. Mobile dialog animation sheet-up, desktop dialog-in :: mobile Add Task dialog animation-name 'sheet-up'; desktop Add Task dialog animation-name 'dialog-in'
+  [PASS] 8. Reduced motion: no view transition, dialog animation none :: __vt stayed 0 after Habits click, heading 'Habits', focus on h1, Add Habit dialog animation-name 'none'
+  [PASS] 9. Reload /tasks: no focus steal, skip link still first Tab :: title 'Tasks · QuickFlow', activeElement is body, first Tab focuses 'Skip to content'
+playwright phase-09: PASS (9 checks, session 53a71d7c-8ec0-4da7-b334-2bb4a0f73108, 3978630 tokens)

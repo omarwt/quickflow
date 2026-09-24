@@ -21,13 +21,20 @@ function mount(messages: [string, 'info' | 'success' | 'error'][]) {
 const texts = (el: HTMLElement) => Array.from(el.querySelectorAll('.toast-text'), (n) => n.textContent)
 
 describe('toasts', () => {
-  it('close by themselves: success after 4 s, info (plan start) after 15 s', async () => {
+  it('close by themselves after 5 s, whatever their kind', async () => {
     vi.useFakeTimers()
     const el = mount([['Saved', 'success'], ['Plan "A" has started', 'info']])
     expect(texts(el)).toEqual(['Saved', 'Plan "A" has started'])
-    act(() => { vi.advanceTimersByTime(4100) })
-    expect(texts(el)).toEqual(['Plan "A" has started'])
-    act(() => { vi.advanceTimersByTime(11000) })
+    act(() => { vi.advanceTimersByTime(4900) })
+    expect(texts(el)).toEqual(['Saved', 'Plan "A" has started'])
+    act(() => { vi.advanceTimersByTime(200) })
+    expect(texts(el)).toEqual([])
+    vi.useRealTimers()
+  })
+  it('a repeated message replaces the old one (and restarts its timer)', () => {
+    vi.useFakeTimers()
+    const el = mount([['same', 'success']])
+    act(() => { vi.advanceTimersByTime(5100) })
     expect(texts(el)).toEqual([])
     vi.useRealTimers()
   })

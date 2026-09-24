@@ -1,0 +1,113 @@
+== phase-01
+  [PASS] 1. Open / redirects to /dashboard with Dashboard heading :: URL became /dashboard, heading 'Dashboard' shown
+  [PASS] 2. Nav contains exactly 6 links :: Dashboard, Tasks, Habits, Learning Resources, Todo Plans, Settings present, no extras
+  [PASS] 3. Each nav link routes correctly with matching heading :: /tasks→Tasks, /habits→Habits, /learning→Learning Resources, /plans→Todo Plans, /settings→Settings, /dashboard→Dashboard
+  [PASS] 4. Settings shows default values :: Display name 'QuickFlow user', Timezone UTC, Default view Dashboard, notification checkbox checked
+  [PASS] 5. Clear Display name and save shows inline error :: Alert 'Display name is required' shown, 'Unsaved changes' still present, nothing saved
+  [PASS] 6. Invalid email shows server error :: Alert 'Email must be a valid address' shown under Email field
+  [PASS] 7. Valid save shows confirmation :: 'Settings saved' status message appeared, profile updated to Omar/omar@example.com
+  [PASS] 8. Reload persists saved values :: Omar, omar@example.com, Asia/Dubai selected, Todo Plans selected, checkbox unchecked
+  [PASS] 9. Open / uses new default view :: URL became /plans
+  [PASS] 10. Mobile 390x844 shows bottom tab bar nav, functional :: All six links visible as fixed bottom tab bar; clicking Tasks navigated to /tasks with Tasks heading
+playwright phase-01: PASS (10 checks, session 8b08c4e2-c773-40fa-9393-0dbd711fcc0c, 3018841 tokens)
+== phase-02
+  [PASS] 1. Open /tasks :: Heading Tasks, empty state 'No tasks yet' with Add Task button
+  [PASS] 2. Submit empty title :: Inline error 'Title is required' shown, dialog stayed open
+  [PASS] 3. Add Write report :: Toast 'Task "Write report" added', listed with Todo/High priority/Due today badges
+  [PASS] 4. Add Pay bills (yesterday) :: Listed with Overdue badge
+  [PASS] 5. Add Plan trip :: Three tasks listed
+  [PASS] 6. Search 'report' :: Only Write report shown
+  [PASS] 7. Priority filter Low :: Only Pay bills shown
+  [PASS] 8. Due date filter Overdue :: Only Pay bills shown
+  [PASS] 9. Complete Pay bills :: Toast '"Pay bills" completed', Done badge, struck-through title, Overdue badge gone
+  [PASS] 10. Status filter Done :: Only Pay bills shown
+  [PASS] 11. Edit Plan trip :: List shows 'Plan summer trip' with In progress badge
+  [PASS] 12. Archive/Restore Plan summer trip :: Disappeared on archive; with Show archived only it appeared with Restore button; after Restore + untick, back in main list
+  [PASS] 13. Delete Write report :: Confirmation dialog 'Delete task' shown; after confirming, task gone, two tasks remain
+  [PASS] 14. Reload page :: Same two tasks persisted: Plan summer trip (In progress), Pay bills (Done)
+playwright phase-02: PASS (14 checks, session 2ac25a91-25a4-464a-9d50-839045836781, 3818715 tokens)
+== phase-03
+  [PASS] 1. Open /habits, empty state :: Heading 'Habits' and empty state 'No habits yet' with 'Add Habit' button shown
+  [PASS] 2. Submit empty name :: Inline error 'Name is required' shown, dialog stayed open
+  [PASS] 3. Add 'Morning run' daily habit :: Card 'Morning run' with 'Daily' label, 'No streak yet', unticked 'Done today' checkbox
+  [PASS] 4. Add 'Weekly review' weekly habit :: Card shows 'Weekly' label and 'Not done this week yet'
+  [PASS] 5. Tick Done today on Morning run :: '"Morning run" done for today' message, checkbox checked, '1-day streak'
+  [PASS] 6. Reload page :: Morning run still checked with '1-day streak', not duplicated
+  [PASS] 7. Untick then re-tick Morning run :: 'No streak yet' after untick, '1-day streak' after re-tick
+  [PASS] 8. Tick Done today on Weekly review :: '1-week streak' and 'Done this week' shown
+  [PASS] 9. Edit and rename Weekly review to Weekly planning :: Card title changed to 'Weekly planning'
+  [PASS] 10. Deactivate Weekly planning :: Moved under 'Inactive' heading, shows 'Inactive: not tracked', no Done today checkbox, button reads 'Activate'
+  [PASS] 11. Activate Weekly planning :: Moved back to main grid with 'Done today' checkbox
+  [PASS] 12. Remove Morning run :: Confirmation dialog 'Remove habit' shown; after confirming, Morning run gone, only Weekly planning remains
+playwright phase-03: PASS (12 checks, session f8a475a3-c17c-412c-9801-9af0498a0fe2, 2753075 tokens)
+== phase-04
+  [PASS] 1. Open /learning, empty state :: Heading 'Learning Resources' and empty state 'No learning cards yet' with 'Add Learning Card' button shown
+  [PASS] 2. Submit empty title :: Inline error 'Title is required' shown, dialog stayed open
+  [PASS] 3. Add Spring in Action card :: Card shows title, description 'Book by Craig Walls', status 'Not started', '0 of 0 milestones done'
+  [PASS] 4. Add Rust course card :: Two cards present: Spring in Action and Rust course (In progress)
+  [PASS] 5. Show details :: Sections 'Milestones' ('No milestones yet…') and 'Notes' ('No notes yet.') shown
+  [PASS] 6. Empty milestone title :: Alert 'Milestone title is required' shown
+  [PASS] 7. Add two milestones :: Chapter 1 (Target Dec 1, 2026) and Chapter 2 listed, card shows '0 of 2 milestones done'
+  [PASS] 8. Tick Chapter 1 :: Checkbox checked, text struck through, card shows '1 of 2 milestones done' with partly filled progress bar (screenshot step8-chapter1-done.png)
+  [PASS] 9. Remove Chapter 2 :: Only Chapter 1 remains, card shows '1 of 1 milestone done'
+  [PASS] 10. Add/remove notes :: First note added with timestamp; second note added then removed, only first note remains
+  [PASS] 11. Status persists after reload :: After reload, status combobox shows 'In progress' selected; after Show details, milestone 'Chapter 1' and note still present (screenshot step11-persisted.png)
+  [PASS] 12. Remove Rust course :: Confirmation dialog 'Remove learning card' appeared with text about removing Rust course; after confirming, only Spring in Action remains
+playwright phase-04: PASS (12 checks, session 9cd75fc0-4719-440e-95db-7c1bc6b3eda2, 3264172 tokens)
+seeded: task 1, habit 1, card 1, plans 'Yesterday review' (past) and 'Soon' (starts in 90 s)
+== phase-05
+  [PASS] 1. Open /plans, check heading/sections :: Heading 'Todo Plans', 'Active and upcoming' showing Soon as Not started with 'Starts in 1m 21s', 'Completed' showing Yesterday review at 0% complete
+  [PASS] 2. Create Plan then submit empty :: Errors 'Title is required' and 'Pick at least one task, habit or learning resource' shown
+  [PASS] 3. Title+items+End before Start :: Error 'End date/time must be after the start date/time' shown
+  [PASS] 4. Valid Deep work plan create :: Toast 'Plan "Deep work" created'; listed first under Active and upcoming as In progress, before Soon, Rest time 49m 11s, 0% complete · 0 of 3 items done, Task/Habit/Learning badges
+  [PASS] 5. Rest time counts down :: 49m 11s -> 49m 01s after 5s wait
+  [PASS] 6. Tick Write report :: 33% complete · 1 of 3 items done
+  [PASS] 7. Tick Morning run + Spring in Action :: 100% complete, status Completed, moved to Completed section
+  [PASS] 8. Untick Write report :: 67% complete, moved back to Active and upcoming as In progress
+  [PASS] 9. /tasks check Write report reopened :: Write report checkbox unchecked, status Todo
+  [PASS] 10. Create Standup, wait for start :: Created as Not started with 'Starts in 18s'; toast 'Plan "Standup" has started' appeared; shows In progress with rest time 29m 45s and 'Just started' badge
+  [PASS] 11. Remove Yesterday review :: Confirmation dialog 'Remove plan' shown; after confirm, Yesterday review gone, 'No completed plans yet.' shown
+  [PASS] 12. Reload persistence + no duplicate message :: Deep work (67%), Soon, and Standup all still listed after reload; no 'has started' toast reappeared within 20s
+playwright phase-05: PASS (12 checks, session 7da35b9f-7e4f-4742-b0cd-9965008bfa49, 3688090 tokens)
+seeded: task 1, habit 1, card 1, plans 'Yesterday review' (past) and 'Soon' (starts in 90 s)
+== phase-06
+  [PASS] 1 :: html bg rgb(245,246,248); Add Task button has svg+text; all 6 nav links have svg+text
+  [PASS] 2 :: Write report row has Edit/Archive/Delete buttons, each contains svg
+  [PASS] 3 :: dark: html bg rgb(14,19,26), Tasks heading rgb(229,233,239), row bg rgb(22,28,37)
+  [PASS] 4 :: habits/learning/plans/settings headings visible, 0 white (.card/.row) backgrounds on each
+  [PASS] 5 :: dialog bg rgb(22,28,37); empty submit showed 'Title is required'; Escape closed dialog (open:false, display:none)
+  [PASS] 6 :: Tabbed to Add Task button; box-shadow rgba(47,91,211,0.45) 0px 0px 0px 3px (visible focus ring)
+  [PASS] 7 :: Morning run streak text color rgb(138,83,0)
+  [PASS] 8 :: scrollWidth=390; Add Task button, search box, both task rows visible
+  [PASS] 9 :: scrollWidth=390; plan 'Soon' shown with Remove button
+playwright phase-06: PASS (9 checks, session be659141-6980-41b4-871f-0b2ac0ee5312, 3377851 tokens)
+seeded: task 1, habit 1, card 1, plans 'Yesterday review' (past) and 'Soon' (starts in 90 s)
+seeded: task 'Call dentist' due today, card 'Rust course' with 1 milestone
+== phase-07
+  [PASS] 1. Skip to content link focus/Enter :: Tab focused visible 'Skip to content' link; Enter set document.activeElement.id to 'main'
+  [PASS] 2. Keyboard-only Add Task dialog :: Tab reached 'Add Task' button, Enter opened dialog with Title field focused; typed 'Keyboard task' and Enter closed dialog, task listed
+  [PASS] 3. Keyboard-only complete task :: Tab reached checkbox 'Mark "Keyboard task" done', Space checked it, status message '"Keyboard task" completed' appeared, row shows 'Done' badge
+  [PASS] 4. Call dentist due today badge :: Row 'Call dentist' shows badge 'Due today'
+  [PASS] 5. Search zzz empty state :: Empty state 'No matching tasks' with 'Clear filters' button shown; after click, search box empty and all 4 tasks listed
+  [PASS] 6. Plans page Soon card :: 'Soon' shows '0 of 1 item done' and timeline 'Today, 03:25 PM → 04:24 PM'
+  [PASS] 7. Learning page milestone counts :: 'Rust course' shows '0 of 1 milestone done', 'Spring in Action' shows '0 of 0 milestones done'
+  [PASS] 8. Keyboard-only expand + complete milestone :: Tab reached Rust course 'Show details', Enter expanded it (button read 'Hide details'); Tab reached milestone checkbox, Space checked it; 'Rust course' now shows '1 of 1 milestone done'
+  [PASS] 9. Mobile 360x740 nav layout :: scrollWidth=360; nav fixed at bottom (bottom=740=viewport height) with 6 links (Dashboard, Tasks, Habits, Learning Resources, Todo Plans, Settings) all within 0-360px horizontally
+  [PASS] 10. Nav link tap target size + navigation :: All 6 links measured ~58.7x56px (≥44x44); clicking 'Todo Plans' navigated to /plans with heading 'Todo Plans'
+  [PASS] 11. Dark mode habit toggle + toast position :: Checkbox checked, status message '"Morning run" done for today' appeared with bottom=668px, above nav top=675px, no overlap
+  [PASS] 12. Settings page mobile dark scroll :: scrollWidth=360; 'Save settings' button fully visible after scroll (bottom=361px), not obscured by fixed nav (top=675px)
+playwright phase-07: PASS (12 checks, session 548c3d85-6933-40ca-ab0f-f202ff68f8fa, 5888213 tokens)
+seeded: task 1, habit 1, card 1, plans 'Yesterday review' (past) and 'Soon' (starts in 90 s)
+seeded: task 'Call dentist' due today, card 'Rust course' with 1 milestone
+== phase-08
+  [PASS] 1 - 320x640 /tasks layout :: scrollWidth=320, 6 bottom nav links all in-viewport with correct names, Dashboard label scrollWidth==clientWidth (20==20), Filters button shown, Status filter select not visible, Write report row has Edit/Archive/Delete buttons each 32x32px
+  [PASS] 2 - Filters dialog docked, apply/reset priority :: dialog width=320==viewport, bottom=640==viewport bottom; after selecting Medium+Show tasks dialog closed, button read 'Filters (1)', 3 tasks still listed; after resetting to All priorities+Show tasks button read 'Filters'
+  [PASS] 3 - Add Task dialog, 120-char title :: dialog docked to bottom (width=320, bottom=640), Title field had focus; after typing 120 'A's and Enter, dialog closed, task listed, scrollWidth still 320
+  [PASS] 4 - 844x390 /habits vertical rail + Add Habit dialog :: scrollWidth=844, nav rail width=55px fully in viewport, Habits heading and Morning run card visible; Add Habit dialog bottom=374 <= 390 viewport height, Add habit button present
+  [PASS] 5 - 768x1024 /learning rail expand/collapse :: rail width=55px icons only with accessible names preserved; main left=72; after Expand navigation rail width=207 (>=200), main left unchanged at 72; after Escape rail collapsed to 55px; after Expand+click Todo Plans, URL=/plans and rail width=55 (collapsed)
+  [PASS] 6 - 1024x768 /plans sidebar full labels :: nav shows text label 'Todo Plans', no Expand navigation button present
+  [PASS] 7 - 1440x900 /tasks title/badge alignment :: Call dentist title top=279, Todo badge top=282, diff=3px (<12px)
+  [PASS] 8 - 1920x1080 /plans main width and centering :: main width=1320px (<=1320), left gap=197 right gap=184, diff=13px (<40px)
+  [PASS] 9 - 640x800 /settings scroll to Save :: scrollWidth=640, bottom nav present at viewport bottom, Save settings button fully visible after scrollIntoView
+playwright phase-08: PASS (9 checks, session f0e28a01-ca4d-404f-bff7-07254ba7c490, 3906831 tokens)
+regression: 0 of 8 failed

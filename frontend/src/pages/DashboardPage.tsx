@@ -81,7 +81,8 @@ export default function DashboardPage() {
   const dash = useQuery(pageQueries.dashboard())
   // FR-09 lists the dashboard summary doesn't carry: tasks completed today, the next plan, cards in progress
   const doneTasks = useQuery(pageQueries.tasks(taskParams({ ...DEFAULT_TASK_FILTERS, status: 'DONE' }))).data ?? []
-  const allPlans = useQuery(pageQueries.plans()).data ?? []
+  const plansQuery = useQuery(pageQueries.plans())
+  const allPlans = plansQuery.data ?? []
   const cardList = useQuery(pageQueries.learning()).data ?? []
   const tz = useQuery(pageQueries.settings()).data?.timezone ?? 'UTC'
   const [adding, setAdding] = useState<QuickAdd>(null)
@@ -111,7 +112,11 @@ export default function DashboardPage() {
   const active = plans.inProgress as Plan[]
   const completedToday = doneTasks.filter((t) => t.completedAt && todayIn(tz, new Date(t.completedAt)) === dash.data.today)
   const next = allPlans.filter((p) => p.status === 'NOT_STARTED').sort((a, b) => a.startDateTime.localeCompare(b.startDateTime))[0]
-  const inProgressCards = cardList.filter((c) => c.status === 'IN_PROGRESS' || (c.status === 'NOT_STARTED' && c.milestonesDone > 0))
+  const lastDone = allPlans.filter((p) => p.status === 'COMPLETED').sort((a, b) => b.endDateTime.localeCompare(a.endDateTime))[0]
+  const plansAt = plansQuery.dataUpdatedAt // live timers of /plans cards count from that response
+  // learning snapshot: up to three real cards, the ones being worked on first
+  const ORDER: Record<string, number> = { IN_PROGRESS: 0, NOT_STARTED: 1, COMPLETED: 2 }
+  const topCards = [...cardList].sort((a, b) => ORDER[a.status] - ORDER[b.status] || b.milestonesDone - a.milestonesDone).slice(0, 3)
 
   return (
     <section className="dashboard">
@@ -162,13 +167,21 @@ export default function DashboardPage() {
               ))}</ul>}
         </Section>
 
-        <Section title="Active plans" count={active.length} to="/plans">
-          {active.length === 0
-            ? <p className="muted small">No plan is running right now.</p>
-            : <div className="plan-stack">{active.map((p) => <PlanCard key={p.id} plan={p} receivedAt={dash.dataUpdatedAt} compact />)}</div>}
-          {next && (
+        <Section title={active.length ? 'Active plans' : 'Plans'} count={active.length || undefined} to="/plans">
+          {active.length > 0
+            ? <div className="plan-stack">{active.map((p) => <PlanCard key={p.id} plan={p} receivedAt={dash.dataUpdatedAt} compact />)}</div>
+            : <p className="muted small">No plan is running right now.</p>}
+          {/* nothing running: still show real plans, the next one and the last finished one */}
+          {active.length === 0 && (next || lastDone) && (
+            <div className="plan-stack">
+              {next && <PlanCard plan={next} receivedAt={plansAt} compact />}
+              {lastDone && <PlanCard plan={lastDone} receivedAt={plansAt} compact />}
+            </div>
+          )}
+          {active.length > 0 && next && (
             <p className="next-plan small"><Icon name="clock" size={16} /><span>Next: <strong>{next.title}</strong> · {formatWindow(next.startDateTime, next.endDateTime)}</span></p>
           )}
+          {allPlans.length === 0 && <p className="muted small">No plans yet. Use Quick add to create one from your tasks, habits and learning.</p>}
         </Section>
 
         <Section title="Learning" to="/learning">
@@ -178,7 +191,7 @@ export default function DashboardPage() {
                 <ul className="status-counts" aria-label="Learning cards by status">{Object.entries(cards).map(([status, n]) => (
                   <li key={status}><Badge tone={status === 'COMPLETED' ? 'success' : status === 'IN_PROGRESS' ? 'accent' : 'neutral'}>{n}</Badge> {label(status)}</li>
                 ))}</ul>
-                {inProgressCards.length > 0 && <ul className="list compact-list" aria-label="Cards in progress">{inProgressCards.map((c: LearningCard) => {
+                <ul className="list compact-list" aria-label="Learning cards">{topCards.map((c: LearningCard) => {
                   const pct = c.milestonesTotal ? Math.round((c.milestonesDone * 100) / c.milestonesTotal) : 0
                   return (
                     <li key={c.id} className="mini-row card-progress">
@@ -186,10 +199,11 @@ export default function DashboardPage() {
                         <span className="title">{c.title}</span>
                         <div className="progress" role="progressbar" aria-label={`${c.title} milestones`} aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100}><div style={{ width: `${pct}%` }} /></div>
                       </div>
+                      <Badge tone={c.status === 'COMPLETED' ? 'success' : c.status === 'IN_PROGRESS' ? 'accent' : 'neutral'}>{label(c.status)}</Badge>
                       <span className="muted small">{c.milestonesDone}/{c.milestonesTotal}</span>
                     </li>
                   )
-                })}</ul>}
+                })}</ul>
                 <p className="muted small">{learning.milestonesCompletedLast7Days} {plural(learning.milestonesCompletedLast7Days, 'milestone')} completed in the last 7 days</p>
               </>}
         </Section>

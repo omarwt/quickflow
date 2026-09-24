@@ -14,7 +14,8 @@ export default function StartNotifier() {
   const refresh = useRefresh()
   const settings = useQuery({ queryKey: ['settings'], queryFn: () => get<Settings>('/settings') })
   const due = useQuery({ queryKey: ['start-notifications'], queryFn: () => get<Plan[]>('/plans/start-notifications'), refetchInterval: 15_000 })
-  const shown = useRef(new Set<number>())
+  const shown = useRef(new Set<number>()) // toasted in this session: never toast the same plan twice
+  const acking = useRef(new Set<number>()) // acknowledgements in flight
   const enabled = settings.data?.notificationsEnabled ?? true
 
   useEffect(() => {
@@ -23,13 +24,18 @@ export default function StartNotifier() {
 
   useEffect(() => {
     for (const p of due.data ?? []) {
-      if (shown.current.has(p.id)) continue
-      shown.current.add(p.id)
-      if (enabled) {
-        toast(`Plan "${p.title}" has started`, 'info')
-        if ('Notification' in window && Notification.permission === 'granted') new Notification('QuickFlow', { body: `Plan "${p.title}" has started` })
+      if (!shown.current.has(p.id)) {
+        shown.current.add(p.id)
+        if (enabled) {
+          toast(`Plan "${p.title}" has started`, 'info')
+          if ('Notification' in window && Notification.permission === 'granted') new Notification('QuickFlow', { body: `Plan "${p.title}" has started` })
+        }
       }
-      api('POST', `/plans/${p.id}/start-notification/ack`).then(() => refresh('plans')).catch(() => shown.current.delete(p.id))
+      // a failed acknowledgement is retried on the next poll, without showing the toast again
+      // (before, a failing ack re-showed the same toast every 15 s, so it seemed never to close)
+      if (acking.current.has(p.id)) continue
+      acking.current.add(p.id)
+      api('POST', `/plans/${p.id}/start-notification/ack`).then(() => refresh('plans')).catch(() => {}).finally(() => acking.current.delete(p.id))
     }
   }, [due.data, enabled, toast, refresh])
 

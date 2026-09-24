@@ -39,13 +39,18 @@ backend/run.sh build                                     # compile + backend uni
 bash loops/backend-dev/verification/phase-07.sh          # every curl script on fresh databases,
                                                          # latency check, Swagger export
 cd frontend && npm run build                             # type-check + production build
-bash loops/_lib/playwright-verify.sh loops/frontend-dev/verification/phase-01.md   # browser check
+bash loops/frontend-dev/verification/test-env.sh start    # isolated test copy: UI :5180 -> backend :8090 (in memory)
+bash loops/_lib/playwright-verify.sh loops/frontend-dev/verification/phase-01.md http://localhost:5180   # browser check
+bash loops/frontend-dev/verification/regress.sh 01 02 03  # re-run scenarios, each on a fresh test database
+python3 loops/_lib/nav-trace.py --url http://localhost:5180 --out /tmp/nav   # INP/CLS while navigating
+bash loops/frontend-dev/verification/test-env.sh stop
 python3 loops/_lib/ux-audit.py --out /tmp/ux-audit                            # Lighthouse, all pages
 SIZES="320x640 768x1024 1440x900" bash loops/_lib/screenshots.sh /tmp/shots   # headless screenshots per size
 ```
 
 The browser checks run the Playwright MCP server **headless** in a separate Claude Code session
-with its own browser profile, so they never use your browser. Each scenario lists the steps and
+with its own browser profile, so they never use your browser. They test an isolated copy of the app
+(`test-env.sh`), so the app you have open on :5173 keeps its data and isn't disturbed. Each scenario lists the steps and
 the results it expects, and the script exits 0 only if every step passed. Screenshots are saved to
 `loops/frontend-dev/outputs/evidence/`.
 

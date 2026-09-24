@@ -1,0 +1,102 @@
+- generic [ref=e3]:
+  - link "Skip to content" [ref=e4] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=e5]:
+    - generic [ref=e6]: QuickFlow
+    - navigation "Main" [ref=e11]:
+      - link "Dashboard" [ref=e12] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Tasks" [ref=e19] [cursor=pointer]:
+        - /url: /tasks
+      - link "Habits" [ref=e24] [cursor=pointer]:
+        - /url: /habits
+      - link "Learning Resources" [ref=e28] [cursor=pointer]:
+        - /url: /learning
+      - link "Todo Plans" [ref=e32] [cursor=pointer]:
+        - /url: /plans
+      - link "Settings" [ref=e37] [cursor=pointer]:
+        - /url: /settings
+  - main [ref=e41]:
+    - generic [ref=e262]:
+      - generic [ref=e263]:
+        - generic [ref=e264]:
+          - heading "Dashboard" [active] [level=1] [ref=e265]
+          - paragraph [ref=e266]: Good afternoon, QuickFlow user · Sep 24, 2026
+        - button "Quick add" [ref=e268] [cursor=pointer]
+      - generic [ref=e274]:
+        - article "Tasks" [ref=e275]:
+          - heading "Tasks" [level=2] [ref=e280]
+          - paragraph [ref=e281]: 0%
+          - progressbar "Tasks progress" [ref=e282]
+          - paragraph [ref=e283]: 0 of 0 done · 0 today · 0 overdue
+          - link "Open tasks" [ref=e284] [cursor=pointer]:
+            - /url: /tasks
+        - article "Habits" [ref=e285]:
+          - heading "Habits" [level=2] [ref=e289]
+          - paragraph [ref=e290]: 0/0
+          - progressbar "Habits progress" [ref=e291]
+          - paragraph [ref=e292]: 0 of 0 active habits done today
+          - link "Open habits" [ref=e293] [cursor=pointer]:
+            - /url: /habits
+        - article "Plans" [ref=e294]:
+          - heading "Plans" [level=2] [ref=e299]
+          - paragraph [ref=e300]: "0"
+          - paragraph [ref=e301]: in progress · 0 upcoming · 0 completed
+          - link "Open plans" [ref=e302] [cursor=pointer]:
+            - /url: /plans
+        - article "Learning" [ref=e303]:
+          - heading "Learning" [level=2] [ref=e307]
+          - paragraph [ref=e308]: 0%
+          - progressbar "Learning progress" [ref=e309]
+          - paragraph [ref=e310]: 0 of 0 milestones · 0 this week
+          - link "Open learning" [ref=e311] [cursor=pointer]:
+            - /url: /learning
+      - generic [ref=e312]:
+        - article "Today's tasks" [ref=e313]:
+          - generic [ref=e314]:
+            - heading "Today's tasks · 0" [level=2] [ref=e315]:
+              - text: Today's tasks
+              - generic [ref=e316]: · 0
+            - link "View all" [ref=e317] [cursor=pointer]:
+              - /url: /tasks
+          - paragraph [ref=e318]: Nothing due today.
+        - article "Overdue" [ref=e319]:
+          - generic [ref=e320]:
+            - heading "Overdue · 0" [level=2] [ref=e321]:
+              - text: Overdue
+              - generic [ref=e322]: · 0
+            - link "View all" [ref=e323] [cursor=pointer]:
+              - /url: /tasks
+          - paragraph [ref=e324]: No overdue tasks. Nice.
+        - article "Completed today" [ref=e325]:
+          - generic [ref=e326]:
+            - heading "Completed today · 0" [level=2] [ref=e327]:
+              - text: Completed today
+              - generic [ref=e328]: · 0
+            - link "View all" [ref=e329] [cursor=pointer]:
+              - /url: /tasks
+          - paragraph [ref=e330]: Nothing completed yet today.
+        - article "Habits today" [ref=e331]:
+          - generic [ref=e332]:
+            - heading "Habits today · 0" [level=2] [ref=e333]:
+              - text: Habits today
+              - generic [ref=e334]: · 0
+            - link "View all" [ref=e335] [cursor=pointer]:
+              - /url: /habits
+          - generic [ref=e336]:
+            - heading "No active habits" [level=2] [ref=e337]
+            - paragraph [ref=e338]: Add a habit to build a daily or weekly routine.
+        - article "Active plans" [ref=e339]:
+          - generic [ref=e340]:
+            - heading "Active plans · 0" [level=2] [ref=e341]:
+              - text: Active plans
+              - generic [ref=e342]: · 0
+            - link "View all" [ref=e343] [cursor=pointer]:
+              - /url: /plans
+          - paragraph [ref=e344]: No plan is running right now.
+        - article "Learning" [ref=e345]:
+          - generic [ref=e346]:
+            - heading "Learning" [level=2] [ref=e347]
+            - link "View all" [ref=e348] [cursor=pointer]:
+              - /url: /learning
+          - paragraph [ref=e349]: No learning cards yet.

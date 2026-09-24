@@ -1,0 +1,82 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - link "Skip to content" [ref=e4] [cursor=pointer]:
+      - /url: "#main"
+    - banner [ref=e5]:
+      - generic [ref=e6]: QuickFlow
+      - navigation "Main" [ref=e11]:
+        - link "Dashboard" [ref=e12] [cursor=pointer]:
+          - /url: /dashboard
+          - generic [aria-hidden] [ref=e18]: Dashboard
+        - link "Tasks" [ref=e19] [cursor=pointer]:
+          - /url: /tasks
+          - generic [aria-hidden] [ref=e23]: Tasks
+        - link "Habits" [ref=e24] [cursor=pointer]:
+          - /url: /habits
+          - generic [aria-hidden] [ref=e27]: Habits
+        - link "Learning Resources" [ref=e28] [cursor=pointer]:
+          - /url: /learning
+          - generic [aria-hidden] [ref=e31]: Learning
+        - link "Todo Plans" [ref=e32] [cursor=pointer]:
+          - /url: /plans
+          - generic [aria-hidden] [ref=e36]: Plans
+        - link "Settings" [ref=e37] [cursor=pointer]:
+          - /url: /settings
+          - generic [aria-hidden] [ref=e40]: Settings
+    - main [ref=e41]:
+      - generic [ref=e42]:
+        - generic [ref=e43]:
+          - heading "Tasks" [level=1] [ref=e44]
+          - button "Add Task" [active] [ref=e45] [cursor=pointer]
+        - search [ref=e49]:
+          - searchbox "Search tasks" [ref=e50]
+          - button "Filters" [ref=e175] [cursor=pointer]
+        - list "Tasks" [ref=e73]:
+          - listitem [ref=e205]:
+            - checkbox "Mark \"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\" done" [ref=e206]
+            - generic [ref=e207]:
+              - generic [ref=e208]: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+              - generic [ref=e209]:
+                - generic [ref=e210]: Todo
+                - generic [ref=e211]: Medium priority
+            - generic [ref=e212]:
+              - button "Edit" [ref=e213] [cursor=pointer]
+              - button "Archive" [ref=e218] [cursor=pointer]
+              - button "Delete" [ref=e223] [cursor=pointer]
+          - listitem [ref=e74]:
+            - checkbox "Mark \"Call dentist\" done" [ref=e75]
+            - generic [ref=e76]:
+              - generic [ref=e77]: Call dentist
+              - generic [ref=e78]:
+                - generic [ref=e79]: Todo
+                - generic [ref=e80]: Medium priority
+                - generic [ref=e81]: Due today
+            - generic [ref=e85]:
+              - button "Edit" [ref=e86] [cursor=pointer]
+              - button "Archive" [ref=e91] [cursor=pointer]
+              - button "Delete" [ref=e96] [cursor=pointer]
+          - listitem [ref=e101]:
+            - checkbox "Mark \"Pay bills\" done" [ref=e102]
+            - generic [ref=e103]:
+              - generic [ref=e104]: Pay bills
+              - generic [ref=e105]:
+                - generic [ref=e106]: Todo
+                - generic [ref=e107]: Medium priority
+            - generic [ref=e108]:
+              - button "Edit" [ref=e109] [cursor=pointer]
+              - button "Archive" [ref=e114] [cursor=pointer]
+              - button "Delete" [ref=e119] [cursor=pointer]
+          - listitem [ref=e124]:
+            - checkbox "Mark \"Write report\" done" [ref=e125]
+            - generic [ref=e126]:
+              - generic [ref=e127]: Write report
+              - generic [ref=e128]:
+                - generic [ref=e129]: Todo
+                - generic [ref=e130]: Medium priority
+            - generic [ref=e131]:
+              - button "Edit" [ref=e132] [cursor=pointer]
+              - button "Archive" [ref=e137] [cursor=pointer]
+              - button "Delete" [ref=e142] [cursor=pointer]
+  - status [ref=e229]:
+    - generic [ref=e232]: Task "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" added
+    - button "Dismiss" [ref=e233] [cursor=pointer]

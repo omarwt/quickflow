@@ -19,6 +19,8 @@ export default function PlanCard({ plan, receivedAt, onRemove, compact }: {
   const now = useNow()
   const toEnd = remainingSeconds(plan.endDateTime, plan.serverTime, receivedAt, now)
   const toStart = remainingSeconds(plan.startDateTime, plan.serverTime, receivedAt, now)
+  // UX-PLAN start highlight: stays for the first 10 minutes, so a start can't be missed once its message has closed
+  const justStarted = plan.status === 'IN_PROGRESS' && toStart > -600
 
   // When a boundary passes (start reached or time up), ask the server for the new status.
   const boundary = plan.status === 'NOT_STARTED' ? toStart <= 0 : plan.status === 'IN_PROGRESS' && toEnd <= 0
@@ -41,7 +43,10 @@ export default function PlanCard({ plan, receivedAt, onRemove, compact }: {
     <Card className={`plan ${plan.status.toLowerCase()}`} aria-label={plan.title}>
       <div className="card-head">
         <h2>{plan.title}</h2>
-        <Badge tone={STATUS_TONE[plan.status]}>{label(plan.status)}</Badge>
+        <span className="badges">
+          {justStarted && <Badge tone="accent" icon="clock">Just started</Badge>}
+          <Badge tone={STATUS_TONE[plan.status]}>{label(plan.status)}</Badge>
+        </span>
       </div>
       <p className="muted small">
         Priority {plan.priorityOrder} · {formatWindow(plan.startDateTime, plan.endDateTime)} · est. {plan.estimatedMinutes} min

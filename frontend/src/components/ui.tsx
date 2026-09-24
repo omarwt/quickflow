@@ -94,8 +94,9 @@ export function FormError({ error }: { error: unknown }) {
 type Toast = { id: number; text: string; kind: 'info' | 'success' | 'error' }
 const ToastContext = createContext<(text: string, kind?: Toast['kind']) => void>(() => {})
 
-// every toast closes by itself; info (plan start) stays longest so it isn't missed, and errors longer than successes
-const DURATION: Record<Toast['kind'], number> = { success: 4000, error: 7000, info: 15000 }
+// every toast closes by itself after 5 s (paused while hovered or focused); plan starts also stay visible
+// as a "Just started" badge on the plan card, so a closed message doesn't mean a missed start
+const DURATION: Record<Toast['kind'], number> = { success: 5000, error: 5000, info: 5000 }
 const MAX_TOASTS = 3
 
 /** One toast: closes after its duration, but waits while hovered or focused so it can be read or dismissed. */
@@ -110,8 +111,9 @@ function ToastItem({ toast, onClose }: { toast: Toast; onClose: (id: number) => 
   }, [paused, onClose, toast.id])
   return (
     <div className={`toast ${toast.kind}`} role={toast.kind === 'error' ? 'alert' : 'status'}
-      onPointerEnter={() => setPaused(true)} onPointerLeave={() => setPaused(false)}
-      onFocus={() => setPaused(true)} onBlur={() => setPaused(false)}>
+      // pause for a mouse hovering it or keyboard focus inside it; touch never pauses (no reliable "leave")
+      onPointerEnter={(e) => { if (e.pointerType === 'mouse') setPaused(true) }} onPointerLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)} onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget)) setPaused(false) }}>
       <Icon name={toast.kind === 'error' ? 'alert' : toast.kind === 'info' ? 'info' : 'check'} />
       <span className="toast-text">{toast.text}</span>
       <IconButton variant="ghost" size="sm" icon="x" label="Dismiss" onClick={() => onClose(toast.id)} />

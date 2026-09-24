@@ -1,0 +1,56 @@
+- generic [ref=f1e3]:
+  - link "Skip to content" [ref=f1e4] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=f1e5]:
+    - generic [ref=f1e6]: QuickFlow
+    - navigation "Main" [ref=f1e11]:
+      - link "Dashboard" [ref=f1e12] [cursor=pointer]:
+        - /url: /dashboard
+        - generic [aria-hidden] [ref=f1e18]: Dashboard
+      - link "Tasks" [ref=f1e19] [cursor=pointer]:
+        - /url: /tasks
+        - generic [aria-hidden] [ref=f1e23]: Tasks
+      - link "Habits" [ref=f1e24] [cursor=pointer]:
+        - /url: /habits
+        - generic [aria-hidden] [ref=f1e27]: Habits
+      - link "Learning Resources" [ref=f1e28] [cursor=pointer]:
+        - /url: /learning
+        - generic [aria-hidden] [ref=f1e31]: Learning
+      - link "Todo Plans" [ref=f1e32] [cursor=pointer]:
+        - /url: /plans
+        - generic [aria-hidden] [ref=f1e36]: Plans
+      - link "Settings" [ref=f1e37] [cursor=pointer]:
+        - /url: /settings
+        - generic [aria-hidden] [ref=f1e40]: Settings
+  - main [ref=f1e41]:
+    - generic [ref=f1e331]:
+      - generic [ref=f1e332]:
+        - heading "Learning Resources" [active] [level=1] [ref=f1e333]
+        - button "Add Learning Card" [ref=f1e334] [cursor=pointer]
+      - generic [ref=f1e338]:
+        - article "Spring in Action" [ref=f1e339]:
+          - generic [ref=f1e340]:
+            - heading "Spring in Action" [level=2] [ref=f1e341]
+            - combobox "Status of Spring in Action" [ref=f1e342]:
+              - option "Not started" [selected]
+              - option "In progress"
+              - option "Completed"
+          - generic [ref=f1e343]:
+            - progressbar "Spring in Action milestones" [ref=f1e344]
+            - paragraph [ref=f1e345]: 0 of 0 milestones done
+          - generic [ref=f1e346]:
+            - button "Show details" [ref=f1e347] [cursor=pointer]
+            - button "Remove" [ref=f1e351] [cursor=pointer]
+        - article "Rust course" [ref=f1e356]:
+          - generic [ref=f1e357]:
+            - heading "Rust course" [level=2] [ref=f1e358]
+            - combobox "Status of Rust course" [ref=f1e359]:
+              - option "Not started" [selected]
+              - option "In progress"
+              - option "Completed"
+          - generic [ref=f1e360]:
+            - progressbar "Rust course milestones" [ref=f1e361]
+            - paragraph [ref=f1e362]: 0 of 1 milestone done
+          - generic [ref=f1e363]:
+            - button "Show details" [ref=f1e364] [cursor=pointer]
+            - button "Remove" [ref=f1e368] [cursor=pointer]

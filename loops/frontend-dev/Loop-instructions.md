@@ -54,9 +54,12 @@ Same layout as backend-dev: `task.md`, `progress.md`, `state/`, `plan.json`,
 6. Verify. One `verify` call counts as one trial:
    ```
    python3 loops/_lib/loop.py verify frontend-dev <ID> \
-     --check "build=cd frontend && npm run build" \
-     --check "playwright=bash loops/_lib/playwright-verify.sh loops/frontend-dev/verification/phase-NN.md http://localhost:5173"
+     --check "build=cd frontend && npm run build && npx vitest run" \
+     --check "fresh=bash loops/frontend-dev/verification/test-env.sh fresh" \
+     --check "seed=API=http://localhost:8090 bash loops/frontend-dev/verification/phase-NN-seed.sh" \
+     --check "playwright=bash loops/_lib/playwright-verify.sh loops/frontend-dev/verification/phase-NN.md http://localhost:5180"
    ```
+   Browser checks run against an **isolated copy** of the app from `verification/test-env.sh`: the UI on :5180 and an in-memory backend on :8090, with CORS set for :5180. The copy you use on :5173/:8080 is never reset, and an open tab of yours can't interfere with a check, for example by acknowledging a test plan's start notification first. Seed scripts read `API`. `regress.sh` uses the same environment.
    `playwright-verify.sh` runs the scenario through the Playwright MCP server in a separate headless session. It uses its own browser profile and never touches yours. The session has to end with a machine-readable verdict: the script exits 0 only if every step passed, saves screenshots to `outputs/evidence/`, and records the child session's ID in `execution-tracking.csv`.
    UI/UX phases add the Lighthouse gate, plus regression runs of earlier scenarios:
    ```

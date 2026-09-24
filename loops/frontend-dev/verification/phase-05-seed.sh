@@ -2,7 +2,7 @@
 # Setup for phase-05.md (fresh backend): source items to plan with, one finished plan for the history,
 # and a plan that starts ~90 s from now to test the start notification.
 set -euo pipefail
-B=http://localhost:8080/api; J=(-s -H 'Content-Type: application/json')
+B=${API:-http://localhost:8080}/api; J=(-s -H 'Content-Type: application/json')
 t() { date -u -d "$1" +%Y-%m-%dT%H:%M:%SZ; }
 T1=$(curl "${J[@]}" -X POST $B/tasks -d '{"title":"Write report"}' | jq .id)
 curl "${J[@]}" -X POST $B/tasks -d '{"title":"Pay bills"}' >/dev/null

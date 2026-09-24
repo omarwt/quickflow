@@ -34,11 +34,15 @@ function useTransitionNavigate() {
 
 /** After a navigation: page title, scroll to top, focus on the new heading so keyboard and screen-reader users land there. */
 function usePageOrientation(pathname: string) {
-  const first = useRef(true)
+  // the previous path, not a "first run" flag: StrictMode runs effects twice, and "/" redirects to the
+  // default view on load; neither is a navigation by the user, so neither may move focus
+  const prev = useRef<string | null>(null)
   useEffect(() => {
     const label = NAV.find((n) => pathname.startsWith(n.to))?.label
     document.title = label ? `${label} · QuickFlow` : 'QuickFlow'
-    if (first.current) { first.current = false; return } // the first load keeps the browser's own focus
+    const from = prev.current
+    prev.current = pathname
+    if (from === null || from === pathname || from === '/') return
     window.scrollTo({ top: 0, behavior: 'instant' })
     const h1 = document.querySelector<HTMLElement>('main h1')
     if (h1) { h1.tabIndex = -1; h1.focus({ preventScroll: true }) }

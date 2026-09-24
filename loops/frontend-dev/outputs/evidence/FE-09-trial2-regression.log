@@ -56,3 +56,19 @@ playwright phase-03: PASS (12 checks, session 678de5b4-eb74-4a53-b1c5-2d02ab41d7
 playwright phase-04: PASS (12 checks, session 7b708b11-209d-4e9b-80f7-a05d666dd2f1, 3258449 tokens)
 seeded: task 1, habit 1, card 1, plans 'Yesterday review' (past) and 'Soon' (starts in 90 s)
 == phase-05
+  [PASS] 1: open /plans, verify heading/sections :: Heading 'Todo Plans', 'Active and upcoming' showing Soon as Not started with Starts in countdown, 'Completed' showing Yesterday review at 0% complete
+  [PASS] 2: Create Plan then submit empty :: Errors 'Title is required' and 'Pick at least one task, habit or learning resource' shown
+  [PASS] 3: End before Start :: Error 'End date/time must be after the start date/time' shown
+  [PASS] 4: valid Deep work plan :: Toast 'Plan "Deep work" created'; card shows In progress, listed before Soon, Rest time 49m 44s, 0% complete · 0 of 3 items done, 3 items with Task/Habit/Learning badges
+  [PASS] 5: rest time counts down :: 49m 44s decreased to 49m 31s after 5s wait
+  [PASS] 6: tick Write report :: 33% complete · 1 of 3 items done
+  [PASS] 7: tick remaining items :: 100% complete, status Completed, moved to Completed section
+  [PASS] 8: untick Write report :: 67% complete · 2 of 3 items done, status In progress, moved back to Active and upcoming
+  [PASS] 9: /tasks reopened :: Write report checkbox unchecked, status Todo
+  [FAIL] 10: wait for Soon started message :: Soon' transitioned to In progress with rest time (58m 01s+) while checking /tasks in step 9; on return to /plans no 'Plan "Soon" has started' toast was visible/observed
+  [PASS] 11: remove Yesterday review :: Confirmation dialog 'Remove plan' shown; after confirming, Yesterday review gone, Completed section shows 'No completed plans yet.'
+  [PASS] 12: reload persists state, no duplicate message :: Deep work (67%) and Soon still listed after reload; no 'has started' message appeared within 20s
+playwright phase-05: FAIL (12 checks, session 602c8e01-f6e0-4660-be95-17e098ae32fc, 2958808 tokens)
+seeded: task 1, habit 1, card 1, plans 'Yesterday review' (past) and 'Soon' (starts in 90 s)
+== phase-06
+Terminated

@@ -1,0 +1,13 @@
+== phase-01
+  [PASS] 1. Open / redirects to /dashboard with Dashboard heading :: URL became /dashboard, heading 'Dashboard' shown
+  [PASS] 2. Nav contains exactly 6 links :: Dashboard, Tasks, Habits, Learning Resources, Todo Plans, Settings
+  [PASS] 3. Click each nav link, URL/heading match :: /tasks→Tasks, /habits→Habits, /learning→Learning Resources, /plans→Todo Plans, /settings→Settings
+  [PASS] 4. Settings shows defaults :: Display name 'QuickFlow user', Timezone UTC, Default view Dashboard, notification checkbox checked
+  [PASS] 5. Clear Display name, save → inline error :: Alert 'Display name is required' shown, no save
+  [PASS] 6. Invalid email → server error :: Alert 'Email must be a valid address' shown
+  [PASS] 7. Valid save with new values :: 'Settings saved' message appeared, checkbox unchecked
+  [PASS] 8. Reload /settings persists values :: Omar, omar@example.com, Asia/Dubai selected, Todo Plans selected, checkbox unchecked
+  [PASS] 9. Open / opens default view :: URL became /plans
+  [PASS] 10. Resize to 390x844, nav usable as bottom tab bar :: All 6 links visible in fixed bottom bar; clicking Tasks navigated to /tasks with Tasks heading
+playwright phase-01: PASS (10 checks, session 96897597-25de-4115-8bee-8b150d3921a6, 3042004 tokens)
+== phase-02

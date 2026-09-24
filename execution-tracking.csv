@@ -645,3 +645,129 @@ playwright phase-01: FAIL (10 checks, session f08df1ac-4ece-48e4-923c-231dc602fc
 <summary>Monitor event: ""FE-09 trial 2 results (combined code)""</summary>
 <event>playwright phase-04: PASS (12 checks, session 7b708b11-209d-4e9b-80f7-a05d666dd2f1, 3258449 tokens)</event>
 </task-notification>",Started,,,UserPromptSubmit hook
+2026-09-24T14:51:17+03:00,428a50ee-5e1f-4c1c-9279-7c03bab008b1,frontend-dev,FE-09,,"<task-notification>
+<task-id>bkvnm1wal</task-id>
+<summary>Monitor event: ""FE-09 trial 2 results""</summary>
+<event>playwright phase-04: PASS (12 checks, session 7b708b11-209d-4e9b-80f7-a05d666dd2f1, 3258449 tokens)</event>
+</task-notification>",Started,,,UserPromptSubmit hook
+2026-09-24T14:53:24+03:00,428a50ee-5e1f-4c1c-9279-7c03bab008b1,frontend-dev,FE-09,,/goal the toasts seem to be never removed unless another toast is created,Started,,,UserPromptSubmit hook
+2026-09-24T14:54:43+03:00,602c8e01-f6e0-4660-be95-17e098ae32fc,frontend-dev,FE-09,,playwright-verify phase-05,Failed,,,"headless Playwright MCP child session, 2958808 tokens"
+2026-09-24T14:55:02+03:00,428a50ee-5e1f-4c1c-9279-7c03bab008b1,frontend-dev,FE-09,,"<task-notification>
+<task-id>bvwucm1o0</task-id>
+<summary>Monitor event: ""FE-09 trial 1 results""</summary>
+<event>[Monitor expired after 30m with 1 event delivered. Re-arm it if you still need the watch.]</event>
+</task-notification>",Started,,,UserPromptSubmit hook
+2026-09-24T14:55:02+03:00,428a50ee-5e1f-4c1c-9279-7c03bab008b1,frontend-dev,FE-09,,"<task-notification>
+<task-id>bglzvzhdl</task-id>
+<summary>Monitor event: ""FE-09 trial 2 results (combined code)""</summary>
+<event>[FAIL] 10: wait for Soon started message :: Soon' transitioned to In progress with rest time (58m 01s+) while checking /tasks in step 9; on return to /plans no 'Plan ""Soon"" has started' toast was visible/observed
+playwright phase-05: FAIL (12 checks, session 602c8e01-f6e0-4660-be95-17e098ae32fc, 2958808 tokens)</event>
+</task-notification>",Started,,,UserPromptSubmit hook
+2026-09-24T14:55:02+03:00,428a50ee-5e1f-4c1c-9279-7c03bab008b1,frontend-dev,FE-09,,"<task-notification>
+<task-id>bkvnm1wal</task-id>
+<summary>Monitor event: ""FE-09 trial 2 results""</summary>
+<event>[FAIL] 10: wait for Soon started message :: Soon' transitioned to In progress with rest time (58m 01s+) while checking /tasks in step 9; on return to /plans no 'Plan ""Soon"" has started' toast was visible/observed
+playwright phase-05: FAIL (12 checks, session 602c8e01-f6e0-4660-be95-17e098ae32fc, 2958808 tokens)</event>
+</task-notification>",Started,,,UserPromptSubmit hook
+2026-09-24T14:55:59+03:00,428a50ee-5e1f-4c1c-9279-7c03bab008b1,frontend-dev,FE-09,,"<task-notification>
+<task-id>b8w6r08oz</task-id>
+<tool-use-id>toolu_01SUfAb3vNsFZtTuHLaHw8UZ</tool-use-id>
+<output-file>/tmp/claude-1000/-home-omar-Downloads-AI-project/428a50ee-5e1f-4c1c-9279-7c03bab008b1/tasks/b8w6r08oz.output</output-file>
+<status>failed</status>
+<summary>Background command ""Record note and rerun FE-09 trial 2"" failed with exit code 144</summary>
+</task-notification>",Started,,,UserPromptSubmit hook
+2026-09-24T14:56:11+03:00,428a50ee-5e1f-4c1c-9279-7c03bab008b1,frontend-dev,FE-09,,verify FE-09: build=pass; regression=fail,Failed,2,FAIL,
+2026-09-24T15:02:07+03:00,868d24e0-7640-41be-9949-b7016701e97d,frontend-dev,FE-09,,playwright-verify phase-05,Completed,,,"headless Playwright MCP child session, 3998952 tokens"
+2026-09-24T15:02:07+03:00,428a50ee-5e1f-4c1c-9279-7c03bab008b1,frontend-dev,FE-09,,"<task-notification>
+<task-id>bkvnm1wal</task-id>
+<summary>Monitor event: ""FE-09 trial 2 results""</summary>
+<event>[Monitor expired after 30m with 9 events delivered. Re-arm it if you still need the watch.]</event>
+</task-notification>",Started,,,UserPromptSubmit hook
+2026-09-24T15:06:21+03:00,85e821fe-8f0c-438a-87e8-801306b43863,frontend-dev,FE-09,,playwright-verify phase-09,Failed,,,"headless Playwright MCP child session, 4981657 tokens"
+2026-09-24T15:10:29+03:00,bb221c2f-1a8d-4bd2-b00b-31e35e64fee2,frontend-dev,FE-09,,playwright-verify phase-09,Completed,,,"headless Playwright MCP child session, 4864539 tokens"
+2026-09-24T15:11:53+03:00,428a50ee-5e1f-4c1c-9279-7c03bab008b1,frontend-dev,FE-09,,"<task-notification>
+<task-id>bglzvzhdl</task-id>
+<summary>Monitor event: ""FE-09 trial 2 results (combined code)""</summary>
+<event>[Monitor expired after 30m with 5 events delivered. Re-arm it if you still need the watch.]</event>
+</task-notification>",Started,,,UserPromptSubmit hook
+2026-09-24T15:13:07+03:00,8b08c4e2-c773-40fa-9393-0dbd711fcc0c,frontend-dev,FE-09,,playwright-verify phase-01,Completed,,,"headless Playwright MCP child session, 3018841 tokens"
+2026-09-24T15:13:19+03:00,428a50ee-5e1f-4c1c-9279-7c03bab008b1,frontend-dev,FE-09,,"<task-notification>
+<task-id>bvltrvppe</task-id>
+<summary>Monitor event: ""FE-09 trial 3 results""</summary>
+<event>playwright phase-01: PASS (10 checks, session 8b08c4e2-c773-40fa-9393-0dbd711fcc0c, 3018841 tokens)</event>
+</task-notification>",Started,,,UserPromptSubmit hook
+2026-09-24T15:15:09+03:00,2ac25a91-25a4-464a-9d50-839045836781,frontend-dev,FE-09,,playwright-verify phase-02,Completed,,,"headless Playwright MCP child session, 3818715 tokens"
+2026-09-24T15:15:15+03:00,428a50ee-5e1f-4c1c-9279-7c03bab008b1,frontend-dev,FE-09,,deploy it on 5173 with the new code,Started,,,UserPromptSubmit hook
+2026-09-24T15:15:29+03:00,428a50ee-5e1f-4c1c-9279-7c03bab008b1,frontend-dev,FE-09,,"<task-notification>
+<task-id>bvltrvppe</task-id>
+<summary>Monitor event: ""FE-09 trial 3 results""</summary>
+<event>playwright phase-02: PASS (14 checks, session 2ac25a91-25a4-464a-9d50-839045836781, 3818715 tokens)</event>
+</task-notification>",Started,,,UserPromptSubmit hook
+2026-09-24T15:17:13+03:00,f8a475a3-c17c-412c-9801-9af0498a0fe2,frontend-dev,FE-09,,playwright-verify phase-03,Completed,,,"headless Playwright MCP child session, 2753075 tokens"
+2026-09-24T15:17:19+03:00,428a50ee-5e1f-4c1c-9279-7c03bab008b1,frontend-dev,FE-09,,"<task-notification>
+<task-id>bvltrvppe</task-id>
+<summary>Monitor event: ""FE-09 trial 3 results""</summary>
+<event>playwright phase-03: PASS (12 checks, session f8a475a3-c17c-412c-9801-9af0498a0fe2, 2753075 tokens)</event>
+</task-notification>",Started,,,UserPromptSubmit hook
+2026-09-24T15:17:56+03:00,428a50ee-5e1f-4c1c-9279-7c03bab008b1,frontend-dev,FE-09,,"/goal change the duration to 5 seconds for the toast and fix the dashboard, the cards are gone",Started,,,UserPromptSubmit hook
+2026-09-24T15:19:04+03:00,9cd75fc0-4719-440e-95db-7c1bc6b3eda2,frontend-dev,FE-09,,playwright-verify phase-04,Completed,,,"headless Playwright MCP child session, 3264172 tokens"
+2026-09-24T15:19:51+03:00,428a50ee-5e1f-4c1c-9279-7c03bab008b1,frontend-dev,FE-09,,"<task-notification>
+<task-id>bvltrvppe</task-id>
+<summary>Monitor event: ""FE-09 trial 3 results""</summary>
+<event>playwright phase-04: PASS (12 checks, session 9cd75fc0-4719-440e-95db-7c1bc6b3eda2, 3264172 tokens)</event>
+</task-notification>",Started,,,UserPromptSubmit hook
+2026-09-24T15:22:03+03:00,7da35b9f-7e4f-4742-b0cd-9965008bfa49,frontend-dev,FE-09,,playwright-verify phase-05,Completed,,,"headless Playwright MCP child session, 3688090 tokens"
+2026-09-24T15:22:05+03:00,428a50ee-5e1f-4c1c-9279-7c03bab008b1,frontend-dev,FE-09,,"<task-notification>
+<task-id>bvltrvppe</task-id>
+<summary>Monitor event: ""FE-09 trial 3 results""</summary>
+<event>playwright phase-05: PASS (12 checks, session 7da35b9f-7e4f-4742-b0cd-9965008bfa49, 3688090 tokens)</event>
+</task-notification>",Started,,,UserPromptSubmit hook
+2026-09-24T15:24:09+03:00,be659141-6980-41b4-871f-0b2ac0ee5312,frontend-dev,FE-09,,playwright-verify phase-06,Completed,,,"headless Playwright MCP child session, 3377851 tokens"
+2026-09-24T15:24:21+03:00,428a50ee-5e1f-4c1c-9279-7c03bab008b1,frontend-dev,FE-09,,"<task-notification>
+<task-id>bvltrvppe</task-id>
+<summary>Monitor event: ""FE-09 trial 3 results""</summary>
+<event>playwright phase-06: PASS (9 checks, session be659141-6980-41b4-871f-0b2ac0ee5312, 3377851 tokens)</event>
+</task-notification>",Started,,,UserPromptSubmit hook
+2026-09-24T15:27:08+03:00,548c3d85-6933-40ca-ab0f-f202ff68f8fa,frontend-dev,FE-09,,playwright-verify phase-07,Completed,,,"headless Playwright MCP child session, 5888213 tokens"
+2026-09-24T15:27:21+03:00,428a50ee-5e1f-4c1c-9279-7c03bab008b1,frontend-dev,FE-09,,"<task-notification>
+<task-id>bvltrvppe</task-id>
+<summary>Monitor event: ""FE-09 trial 3 results""</summary>
+<event>playwright phase-07: PASS (12 checks, session 548c3d85-6933-40ca-ab0f-f202ff68f8fa, 5888213 tokens)</event>
+</task-notification>",Started,,,UserPromptSubmit hook
+2026-09-24T15:29:32+03:00,f0e28a01-ca4d-404f-bff7-07254ba7c490,frontend-dev,FE-09,,playwright-verify phase-08,Completed,,,"headless Playwright MCP child session, 3906831 tokens"
+2026-09-24T15:29:37+03:00,428a50ee-5e1f-4c1c-9279-7c03bab008b1,frontend-dev,FE-09,,"<task-notification>
+<task-id>bvltrvppe</task-id>
+<summary>Monitor event: ""FE-09 trial 3 results""</summary>
+<event>playwright phase-08: PASS (9 checks, session f0e28a01-ca4d-404f-bff7-07254ba7c490, 3906831 tokens)
+regression: 0 of 8 failed</event>
+</task-notification>",Started,,,UserPromptSubmit hook
+2026-09-24T15:32:06+03:00,53a71d7c-8ec0-4da7-b334-2bb4a0f73108,frontend-dev,FE-09,,playwright-verify phase-09,Completed,,,"headless Playwright MCP child session, 3978630 tokens"
+2026-09-24T15:32:08+03:00,428a50ee-5e1f-4c1c-9279-7c03bab008b1,frontend-dev,FE-09,,"<task-notification>
+<task-id>bvltrvppe</task-id>
+<summary>Monitor event: ""FE-09 trial 3 results""</summary>
+<event>playwright phase-09: PASS (9 checks, session 53a71d7c-8ec0-4da7-b334-2bb4a0f73108, 3978630 tokens)</event>
+</task-notification>",Started,,,UserPromptSubmit hook
+2026-09-24T15:32:13+03:00,428a50ee-5e1f-4c1c-9279-7c03bab008b1,frontend-dev,FE-09,,verify FE-09: build=cd frontend && npm run build && npx vitest run; regression=bash loops/frontend-dev/verification/regress.sh 01 02 03 04 05 06 07 08; fresh=bash loops/frontend-dev/verification/test-env.sh fresh; seed=API=http://localhost:8090 bash loops/frontend-dev/verification/phase-09-seed.sh; playwright=bash loops/_lib/playwright-verify.sh loops/frontend-dev/verification/phase-09.md http://localhost:5180; navtrace=python3 loops/_lib/nav-trace.py --url http://localhost:5180 --out loops/frontend-dev/outputs/evidence/nav-trace-FE-09,Completed,2,PASS,
+2026-09-24T15:32:15+03:00,428a50ee-5e1f-4c1c-9279-7c03bab008b1,frontend-dev,FE-09,,"<task-notification>
+<task-id>bw5ltw3e3</task-id>
+<tool-use-id>toolu_01KpNoSh57HxzwUHUP1a5QSQ</tool-use-id>
+<output-file>/tmp/claude-1000/-home-omar-Downloads-AI-project/428a50ee-5e1f-4c1c-9279-7c03bab008b1/tasks/bw5ltw3e3.output</output-file>
+<status>completed</status>
+<summary>Background command ""Record notes and run FE-09 trial 3 isolated"" completed (exit code 0)</summary>
+</task-notification>",Started,,,UserPromptSubmit hook
+2026-09-24T15:32:25+03:00,428a50ee-5e1f-4c1c-9279-7c03bab008b1,frontend-dev,FE-09,,"<task-notification>
+<task-id>bvltrvppe</task-id>
+<tool-use-id>toolu_013RZg8tc2FbZRPFUVdSd6rk</tool-use-id>
+<output-file>/tmp/claude-1000/-home-omar-Downloads-AI-project/428a50ee-5e1f-4c1c-9279-7c03bab008b1/tasks/bvltrvppe.output</output-file>
+<status>completed</status>
+<summary>Monitor ""FE-09 trial 3 results"" stream ended</summary>
+<event>nav-trace: PASS (5 navigations from /tasks at 1280x800; worst INP=110.0 ms over 5 interactions (max 200), worst CLS=0.0 (max 0.1); trace in /home/omar/Downloads/AI/project/loops/frontend-dev/outputs/evidence/nav-trace-FE-09)</event>
+</task-notification>",Started,,,UserPromptSubmit hook
+2026-09-24T15:32:50+03:00,428a50ee-5e1f-4c1c-9279-7c03bab008b1,frontend-dev,FE-09,,finish FE-09,Completed,2,PASS,"68m 51s, tokens 40318048"
+2026-09-24T15:33:12+03:00,428a50ee-5e1f-4c1c-9279-7c03bab008b1,frontend-dev,FE-10,"UX-DASH, US-DASH-1, US-DASH-2, US-DASH-3, US-DASH-4, US-DASH-5, US-DASH-6, UX-SET",start frontend-dev FE-10 Dashboard page and Settings completion,Started,0,,
+2026-09-24T15:36:21+03:00,96897597-25de-4115-8bee-8b150d3921a6,frontend-dev,FE-10,,playwright-verify phase-01,Completed,,,"headless Playwright MCP child session, 3042004 tokens"
+2026-09-24T15:36:35+03:00,428a50ee-5e1f-4c1c-9279-7c03bab008b1,frontend-dev,FE-10,,"<task-notification>
+<task-id>bitq28bjm</task-id>
+<summary>Monitor event: ""FE-10 trial 1 results""</summary>
+<event>playwright phase-01: PASS (10 checks, session 96897597-25de-4115-8bee-8b150d3921a6, 3042004 tokens)</event>
+</task-notification>",Started,,,UserPromptSubmit hook

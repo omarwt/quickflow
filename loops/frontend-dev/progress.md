@@ -1,8 +1,8 @@
 # Progress — frontend-dev
 
 Status: **in_progress** · Input: `PRD.md` (prd)
-Current phase: FE-09 · Completed: FE-01, FE-02, FE-03, FE-04, FE-05, FE-06, FE-07, FE-08 · Blocked: -
-Remaining: FE-09, FE-10, FE-11
+Current phase: FE-10 · Completed: FE-01, FE-02, FE-03, FE-04, FE-05, FE-06, FE-07, FE-08, FE-09 · Blocked: -
+Remaining: FE-10, FE-11
 
 ## FE-01 App shell and settings
 
@@ -247,9 +247,56 @@ Output: `outputs/phase-08-responsive-layouts-for-all-screen-sizes.md`
 
 ## FE-09 Page transitions and navigation feel
 
-Status: in_progress
+Status: done
 
 Start: 2026-09-24T14:23:58+03:00
+
+End: 2026-09-24T15:32:49+03:00
+
+Duration: 68m 51s
+
+Token consumption: 40,318,048 (input 226, output 77,484, cache write 119,898, cache read 40,120,440)
+
+Retries: 2/3
+
+Verification: PASS
+
+Tests:
+- trial 1 (2026-09-24T14:28:24+03:00): FAIL
+  - build: pass
+  - regression: fail
+  - evidence: Trial stopped after its first failure (the rest could not change the result): outputs/evidence/FE-09-trial1-build.log PASS; FE-09-trial1-regression.log phase-01 FAIL step 10 - at 390x844 clicking 'Tasks' in the bottom tab bar timed out because main intercepted the pointer events (child session f08df1ac-4ece-48e4-923c-231dc602fc54). Remaining checks not run.
+- trial 2 (2026-09-24T14:56:11+03:00): FAIL
+  - build: pass
+  - regression: fail
+  - evidence: Stopped after its first failure: FE-09-trial2-build.log PASS; FE-09-trial2-regression.log 01-04 PASS, phase-05 FAIL step 10 - the 'Plan Soon has started' toast was not observed (child session 602c8e01-f6e0-4660-be95-17e098ae32fc). Cause: toasts now auto-close (user request) and the plan started while the verifier was on another page; the user's own tab on the shared 5173/8080 servers could also have acknowledged it first. Remaining checks not run.
+- trial 3 (2026-09-24T15:32:13+03:00): PASS
+  - build: pass — `cd frontend && npm run build && npx vitest run` — outputs/evidence/FE-09-trial3-build.log
+  - regression: pass — `bash loops/frontend-dev/verification/regress.sh 01 02 03 04 05 06 07 08` — outputs/evidence/FE-09-trial3-regression.log
+  - fresh: pass — `bash loops/frontend-dev/verification/test-env.sh fresh` — outputs/evidence/FE-09-trial3-fresh.log
+  - seed: pass — `API=http://localhost:8090 bash loops/frontend-dev/verification/phase-09-seed.sh` — outputs/evidence/FE-09-trial3-seed.log
+  - playwright: pass — `bash loops/_lib/playwright-verify.sh loops/frontend-dev/verification/phase-09.md http://localhost:5180` — outputs/evidence/FE-09-trial3-playwright.log
+  - navtrace: pass — `python3 loops/_lib/nav-trace.py --url http://localhost:5180 --out loops/frontend-dev/outputs/evidence/nav-trace-FE-09` — outputs/evidence/FE-09-trial3-navtrace.log
+
+Errors:
+- trial 1 failed: regression
+- Trial 1 (recorded with --manual after stopping the run at its first failure): regression phase-01 step 10 - at 390x844 the bottom tab bar could not be clicked; main intercepted the pointer events. view-transition-name turns .sidebar and main into stacking contexts, so the fixed tab bar inside .sidebar (z-index 25) was confined to the sidebar's context and main, later in the DOM, painted over it.
+- A second FE-09 run was stopped by hand and NOT recorded (logs: outputs/evidence/FE-09-aborted2-*.log; regression 01-04 had passed). At the user's request the FE-10 Dashboard/Settings code was put on the real app (5173) before FE-09 finished, because the preview on 5174 hit a CORS 403 (the backend allows only the 5173 origin), and toasts were changed because the user found sticky toasts a problem.
+- trial 2 failed: regression
+- Before trial 3, found in development runs (not trials): (a) toasts looked permanent - StartNotifier forgot a plan when its start acknowledgement failed (CORS 403 on the 5174 preview), so it re-showed the same toast every 15 s and the dedupe restarted its timer; (b) after a full reload focus moved to the h1 - React StrictMode runs effects twice, which used up the 'first load' flag; (c) test runs shared 5173/8080 with the user's own tab, which could acknowledge a test plan's start first and showed test data to the user.
+
+Fixes:
+- On phones .sidebar gets position: relative; z-index: 25, so its context (and the tab bar in it) stacks above main. Headless probe: elementFromPoint at the centre of all six tab-bar links hits the link on /tasks and /settings.
+- FE-09 is verified on the combined code (FE-09 + FE-10, a superset). Toasts now all auto-close (success 4 s, error 7 s, info 15 s), pause while hovered or focused, a repeated message replaces the old one, and at most 3 are shown; 2 new vitest tests (happy-dom). Preview servers on 5174/8081 stopped.
+- (a) acknowledgements are retried on the next poll without re-toasting; hover pauses only for a mouse; plan cards show a 'Just started' badge for 10 minutes so a start is visible after the message closes; FE-05 step 10 now creates its own plan starting at the next full minute and watches /plans. (b) usePageOrientation compares with the previous path (skips the first render, StrictMode re-runs and the / redirect). (c) test-env.sh runs an isolated copy (UI 5180 -> backend 8090 in memory); regress.sh and all checks use it; backend/run.sh keeps per-port pid/log files. Dry runs: phase-05 12/12 (session 868d24e0), phase-09 9/9 (session bb221c2f).
+
+Output: `outputs/phase-09-page-transitions-and-navigation-feel.md`
+
+## FE-10 Dashboard page and Settings completion
+
+Status: in_progress
+
+Start: 2026-09-24T15:33:12+03:00
 
 End: -
 
@@ -257,23 +304,10 @@ Duration: -
 
 Token consumption: unavailable
 
-Retries: 1/3
+Retries: 0/3
 
-Verification: FAIL
+Verification: PENDING
 
 Tests:
-- trial 1 (2026-09-24T14:28:24+03:00): FAIL
-  - build: pass
-  - regression: fail
-  - evidence: Trial stopped after its first failure (the rest could not change the result): outputs/evidence/FE-09-trial1-build.log PASS; FE-09-trial1-regression.log phase-01 FAIL step 10 - at 390x844 clicking 'Tasks' in the bottom tab bar timed out because main intercepted the pointer events (child session f08df1ac-4ece-48e4-923c-231dc602fc54). Remaining checks not run.
 
-Errors:
-- trial 1 failed: regression
-- Trial 1 (recorded with --manual after stopping the run at its first failure): regression phase-01 step 10 - at 390x844 the bottom tab bar could not be clicked; main intercepted the pointer events. view-transition-name turns .sidebar and main into stacking contexts, so the fixed tab bar inside .sidebar (z-index 25) was confined to the sidebar's context and main, later in the DOM, painted over it.
-- A second FE-09 run was stopped by hand and NOT recorded (logs: outputs/evidence/FE-09-aborted2-*.log; regression 01-04 had passed). At the user's request the FE-10 Dashboard/Settings code was put on the real app (5173) before FE-09 finished, because the preview on 5174 hit a CORS 403 (the backend allows only the 5173 origin), and toasts were changed because the user found sticky toasts a problem.
-
-Fixes:
-- On phones .sidebar gets position: relative; z-index: 25, so its context (and the tab bar in it) stacks above main. Headless probe: elementFromPoint at the centre of all six tab-bar links hits the link on /tasks and /settings.
-- FE-09 is verified on the combined code (FE-09 + FE-10, a superset). Toasts now all auto-close (success 4 s, error 7 s, info 15 s), pause while hovered or focused, a repeated message replaces the old one, and at most 3 are shown; 2 new vitest tests (happy-dom). Preview servers on 5174/8081 stopped.
-
-Output: `outputs/phase-09-page-transitions-and-navigation-feel.md`
+Output: `outputs/phase-10-dashboard-page-and-settings-completion.md`
