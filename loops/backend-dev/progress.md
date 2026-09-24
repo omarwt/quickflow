@@ -1,3 +1,5 @@
 # Progress — backend-dev
 
-Not started. Each phase gets start/end time, duration, token consumption, retries, tests, errors and fixes here once the loop runs.
+Status: **ready** · Input: `PRD.md` (prd)
+Current phase: - · Completed: - · Blocked: -
+Remaining: BE-01, BE-02, BE-03, BE-04, BE-05, BE-06, BE-07

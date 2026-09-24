@@ -1,0 +1,401 @@
+{
+  "loop": "frontend-dev",
+  "input": "PRD.md",
+  "mode": "prd",
+  "created": "2026-09-24T10:31:33+03:00",
+  "phases": [
+    {
+      "id": "FE-01",
+      "title": "App shell and settings",
+      "dependsOn": [
+        "ext:backend-dev/BE-01"
+      ],
+      "requirements": [
+        "UX-NAV",
+        "UX-SET",
+        "DoD-1",
+        "NFR-6",
+        "NFR-7"
+      ],
+      "tasks": [
+        {
+          "id": "T1",
+          "title": "Choose stack and record it in docs/architecture.md",
+          "status": "todo"
+        },
+        {
+          "id": "T2",
+          "title": "Project setup and API client from OpenAPI",
+          "status": "todo"
+        },
+        {
+          "id": "T3",
+          "title": "Layout with persistent navigation to six pages",
+          "status": "todo"
+        },
+        {
+          "id": "T4",
+          "title": "Shared loading, error, empty states and dialogs",
+          "status": "todo"
+        },
+        {
+          "id": "T5",
+          "title": "Settings page",
+          "status": "todo"
+        },
+        {
+          "id": "T6",
+          "title": "Verify with Playwright MCP",
+          "status": "todo"
+        },
+        {
+          "id": "T7",
+          "title": "Document phase",
+          "status": "todo"
+        }
+      ],
+      "status": "pending",
+      "failedTrials": 0,
+      "verification": "pending",
+      "runs": [],
+      "errors": [],
+      "fixes": []
+    },
+    {
+      "id": "FE-02",
+      "title": "Tasks page",
+      "dependsOn": [
+        "FE-01",
+        "ext:backend-dev/BE-02"
+      ],
+      "requirements": [
+        "UX-TASK",
+        "NFR-5",
+        "US-TASK-1",
+        "US-TASK-2",
+        "US-TASK-3",
+        "US-TASK-4",
+        "US-TASK-5",
+        "US-TASK-6",
+        "US-TASK-7"
+      ],
+      "tasks": [
+        {
+          "id": "T1",
+          "title": "Task list with search, filters, sort",
+          "status": "todo"
+        },
+        {
+          "id": "T2",
+          "title": "Add/edit form with validation",
+          "status": "todo"
+        },
+        {
+          "id": "T3",
+          "title": "Complete, archive, restore, delete",
+          "status": "todo"
+        },
+        {
+          "id": "T4",
+          "title": "Empty state",
+          "status": "todo"
+        },
+        {
+          "id": "T5",
+          "title": "Verify with Playwright MCP",
+          "status": "todo"
+        },
+        {
+          "id": "T6",
+          "title": "Document phase",
+          "status": "todo"
+        }
+      ],
+      "status": "pending",
+      "failedTrials": 0,
+      "verification": "pending",
+      "runs": [],
+      "errors": [],
+      "fixes": []
+    },
+    {
+      "id": "FE-03",
+      "title": "Habits page",
+      "dependsOn": [
+        "FE-01",
+        "ext:backend-dev/BE-03"
+      ],
+      "requirements": [
+        "UX-HAB",
+        "US-HAB-1",
+        "US-HAB-2",
+        "US-HAB-3",
+        "US-HAB-4",
+        "US-HAB-5"
+      ],
+      "tasks": [
+        {
+          "id": "T1",
+          "title": "Habit cards with toggle, frequency, streak",
+          "status": "todo"
+        },
+        {
+          "id": "T2",
+          "title": "Add/edit form",
+          "status": "todo"
+        },
+        {
+          "id": "T3",
+          "title": "Deactivate and remove",
+          "status": "todo"
+        },
+        {
+          "id": "T4",
+          "title": "Empty state",
+          "status": "todo"
+        },
+        {
+          "id": "T5",
+          "title": "Verify with Playwright MCP",
+          "status": "todo"
+        },
+        {
+          "id": "T6",
+          "title": "Document phase",
+          "status": "todo"
+        }
+      ],
+      "status": "pending",
+      "failedTrials": 0,
+      "verification": "pending",
+      "runs": [],
+      "errors": [],
+      "fixes": []
+    },
+    {
+      "id": "FE-04",
+      "title": "Learning resources page",
+      "dependsOn": [
+        "FE-01",
+        "ext:backend-dev/BE-04"
+      ],
+      "requirements": [
+        "UX-LRN",
+        "US-LRN-1",
+        "US-LRN-2",
+        "US-LRN-3",
+        "US-LRN-4",
+        "US-LRN-5"
+      ],
+      "tasks": [
+        {
+          "id": "T1",
+          "title": "Card grid and add form",
+          "status": "todo"
+        },
+        {
+          "id": "T2",
+          "title": "Expandable card with milestones",
+          "status": "todo"
+        },
+        {
+          "id": "T3",
+          "title": "Notes",
+          "status": "todo"
+        },
+        {
+          "id": "T4",
+          "title": "Remove card, empty state",
+          "status": "todo"
+        },
+        {
+          "id": "T5",
+          "title": "Verify with Playwright MCP",
+          "status": "todo"
+        },
+        {
+          "id": "T6",
+          "title": "Document phase",
+          "status": "todo"
+        }
+      ],
+      "status": "pending",
+      "failedTrials": 0,
+      "verification": "pending",
+      "runs": [],
+      "errors": [],
+      "fixes": []
+    },
+    {
+      "id": "FE-05",
+      "title": "Todo plans page",
+      "dependsOn": [
+        "FE-01",
+        "ext:backend-dev/BE-05"
+      ],
+      "requirements": [
+        "UX-PLAN",
+        "NFR-2",
+        "US-PLAN-1",
+        "US-PLAN-2",
+        "US-PLAN-3",
+        "US-PLAN-4",
+        "US-PLAN-5",
+        "US-PLAN-6",
+        "US-PLAN-7",
+        "US-PLAN-8",
+        "US-PLAN-9",
+        "US-PLAN-10"
+      ],
+      "tasks": [
+        {
+          "id": "T1",
+          "title": "Plan builder picking existing items",
+          "status": "todo"
+        },
+        {
+          "id": "T2",
+          "title": "Plan list grouped active/upcoming and completed",
+          "status": "todo"
+        },
+        {
+          "id": "T3",
+          "title": "Live rest time and progress",
+          "status": "todo"
+        },
+        {
+          "id": "T4",
+          "title": "Item toggles and remove",
+          "status": "todo"
+        },
+        {
+          "id": "T5",
+          "title": "Start-time notification",
+          "status": "todo"
+        },
+        {
+          "id": "T6",
+          "title": "Verify with Playwright MCP",
+          "status": "todo"
+        },
+        {
+          "id": "T7",
+          "title": "Document phase",
+          "status": "todo"
+        }
+      ],
+      "status": "pending",
+      "failedTrials": 0,
+      "verification": "pending",
+      "runs": [],
+      "errors": [],
+      "fixes": []
+    },
+    {
+      "id": "FE-06",
+      "title": "Dashboard page",
+      "dependsOn": [
+        "FE-02",
+        "FE-03",
+        "FE-04",
+        "FE-05",
+        "ext:backend-dev/BE-06"
+      ],
+      "requirements": [
+        "UX-DASH",
+        "US-DASH-1",
+        "US-DASH-2",
+        "US-DASH-3",
+        "US-DASH-4",
+        "US-DASH-5",
+        "US-DASH-6"
+      ],
+      "tasks": [
+        {
+          "id": "T1",
+          "title": "Greeting and summary cards",
+          "status": "todo"
+        },
+        {
+          "id": "T2",
+          "title": "Today's tasks, overdue, habit checklist",
+          "status": "todo"
+        },
+        {
+          "id": "T3",
+          "title": "Active plans with live rest time, learning snapshot",
+          "status": "todo"
+        },
+        {
+          "id": "T4",
+          "title": "Quick-add actions",
+          "status": "todo"
+        },
+        {
+          "id": "T5",
+          "title": "Verify with Playwright MCP",
+          "status": "todo"
+        },
+        {
+          "id": "T6",
+          "title": "Document phase",
+          "status": "todo"
+        }
+      ],
+      "status": "pending",
+      "failedTrials": 0,
+      "verification": "pending",
+      "runs": [],
+      "errors": [],
+      "fixes": []
+    },
+    {
+      "id": "FE-07",
+      "title": "End-to-end journey",
+      "dependsOn": [
+        "FE-06",
+        "ext:backend-dev/BE-07"
+      ],
+      "requirements": [
+        "TR-4",
+        "DoD-2",
+        "NFR-1"
+      ],
+      "tasks": [
+        {
+          "id": "T1",
+          "title": "Full PRD journey on a fresh database",
+          "status": "todo"
+        },
+        {
+          "id": "T2",
+          "title": "Reload persistence and mobile width check",
+          "status": "todo"
+        },
+        {
+          "id": "T3",
+          "title": "Verify with Playwright MCP",
+          "status": "todo"
+        },
+        {
+          "id": "T4",
+          "title": "Document phase",
+          "status": "todo"
+        }
+      ],
+      "status": "pending",
+      "failedTrials": 0,
+      "verification": "pending",
+      "runs": [],
+      "errors": [],
+      "fixes": []
+    }
+  ],
+  "lastUpdated": "2026-09-24T10:31:33+03:00",
+  "currentPhase": null,
+  "completedPhases": [],
+  "blockedPhases": [],
+  "retryCount": 0,
+  "verificationStatus": "-",
+  "status": "ready"
+}

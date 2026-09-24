@@ -13,14 +13,14 @@ Input: `PRD.md` · Mode: prd · Status: **ready**
 - [x] T5 Verify coverage of the PRD
 - [x] T6 Document phase output
 
-## OR-02 Dependency graph (pending)
+## OR-02 Dependency graph (done)
 
-- [ ] T1 Build the dependency graph
-- [ ] T2 Write backend-dev plan
-- [ ] T3 Write frontend-dev plan
-- [ ] T4 Init and plan both loops
-- [ ] T5 Verify every requirement is planned
-- [ ] T6 Document phase output
+- [x] T1 Build the dependency graph
+- [x] T2 Write backend-dev plan
+- [x] T3 Write frontend-dev plan
+- [x] T4 Init and plan both loops
+- [x] T5 Verify every requirement is planned
+- [x] T6 Document phase output
 
 ## OR-03 Backend delegation (pending)
 

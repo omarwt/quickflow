@@ -1,0 +1,25 @@
+{
+  "phases": [
+    {"id": "FE-01", "title": "App shell and settings", "dependsOn": ["ext:backend-dev/BE-01"],
+     "requirements": ["UX-NAV", "UX-SET", "DoD-1", "NFR-6", "NFR-7"],
+     "tasks": ["Choose stack and record it in docs/architecture.md", "Project setup and API client from OpenAPI", "Layout with persistent navigation to six pages", "Shared loading, error, empty states and dialogs", "Settings page", "Verify with Playwright MCP", "Document phase"]},
+    {"id": "FE-02", "title": "Tasks page", "dependsOn": ["FE-01", "ext:backend-dev/BE-02"],
+     "requirements": ["UX-TASK", "NFR-5", "US-TASK-1", "US-TASK-2", "US-TASK-3", "US-TASK-4", "US-TASK-5", "US-TASK-6", "US-TASK-7"],
+     "tasks": ["Task list with search, filters, sort", "Add/edit form with validation", "Complete, archive, restore, delete", "Empty state", "Verify with Playwright MCP", "Document phase"]},
+    {"id": "FE-03", "title": "Habits page", "dependsOn": ["FE-01", "ext:backend-dev/BE-03"],
+     "requirements": ["UX-HAB", "US-HAB-1", "US-HAB-2", "US-HAB-3", "US-HAB-4", "US-HAB-5"],
+     "tasks": ["Habit cards with toggle, frequency, streak", "Add/edit form", "Deactivate and remove", "Empty state", "Verify with Playwright MCP", "Document phase"]},
+    {"id": "FE-04", "title": "Learning resources page", "dependsOn": ["FE-01", "ext:backend-dev/BE-04"],
+     "requirements": ["UX-LRN", "US-LRN-1", "US-LRN-2", "US-LRN-3", "US-LRN-4", "US-LRN-5"],
+     "tasks": ["Card grid and add form", "Expandable card with milestones", "Notes", "Remove card, empty state", "Verify with Playwright MCP", "Document phase"]},
+    {"id": "FE-05", "title": "Todo plans page", "dependsOn": ["FE-01", "ext:backend-dev/BE-05"],
+     "requirements": ["UX-PLAN", "NFR-2", "US-PLAN-1", "US-PLAN-2", "US-PLAN-3", "US-PLAN-4", "US-PLAN-5", "US-PLAN-6", "US-PLAN-7", "US-PLAN-8", "US-PLAN-9", "US-PLAN-10"],
+     "tasks": ["Plan builder picking existing items", "Plan list grouped active/upcoming and completed", "Live rest time and progress", "Item toggles and remove", "Start-time notification", "Verify with Playwright MCP", "Document phase"]},
+    {"id": "FE-06", "title": "Dashboard page", "dependsOn": ["FE-02", "FE-03", "FE-04", "FE-05", "ext:backend-dev/BE-06"],
+     "requirements": ["UX-DASH", "US-DASH-1", "US-DASH-2", "US-DASH-3", "US-DASH-4", "US-DASH-5", "US-DASH-6"],
+     "tasks": ["Greeting and summary cards", "Today's tasks, overdue, habit checklist", "Active plans with live rest time, learning snapshot", "Quick-add actions", "Verify with Playwright MCP", "Document phase"]},
+    {"id": "FE-07", "title": "End-to-end journey", "dependsOn": ["FE-06", "ext:backend-dev/BE-07"],
+     "requirements": ["TR-4", "DoD-2", "NFR-1"],
+     "tasks": ["Full PRD journey on a fresh database", "Reload persistence and mobile width check", "Verify with Playwright MCP", "Document phase"]}
+  ]
+}

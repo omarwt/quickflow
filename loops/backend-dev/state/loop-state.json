@@ -1,0 +1,434 @@
+{
+  "loop": "backend-dev",
+  "input": "PRD.md",
+  "mode": "prd",
+  "created": "2026-09-24T10:31:33+03:00",
+  "phases": [
+    {
+      "id": "BE-01",
+      "title": "Foundation",
+      "dependsOn": [],
+      "requirements": [
+        "NFR-3",
+        "NFR-7",
+        "I-1",
+        "I-2",
+        "UX-SET"
+      ],
+      "tasks": [
+        {
+          "id": "T1",
+          "title": "Choose stack and record it in docs/architecture.md",
+          "status": "todo"
+        },
+        {
+          "id": "T2",
+          "title": "Project skeleton, config, persistence and migrations",
+          "status": "todo"
+        },
+        {
+          "id": "T3",
+          "title": "Uniform error format and validation handling",
+          "status": "todo"
+        },
+        {
+          "id": "T4",
+          "title": "Swagger/OpenAPI and CORS",
+          "status": "todo"
+        },
+        {
+          "id": "T5",
+          "title": "Settings resource (profile, preferences, timezone)",
+          "status": "todo"
+        },
+        {
+          "id": "T6",
+          "title": "Verify with curl",
+          "status": "todo"
+        },
+        {
+          "id": "T7",
+          "title": "Document phase",
+          "status": "todo"
+        }
+      ],
+      "status": "pending",
+      "failedTrials": 0,
+      "verification": "pending",
+      "runs": [],
+      "errors": [],
+      "fixes": []
+    },
+    {
+      "id": "BE-02",
+      "title": "Tasks",
+      "dependsOn": [
+        "BE-01"
+      ],
+      "requirements": [
+        "FR-01",
+        "FR-02",
+        "BR-1",
+        "BR-2",
+        "BR-3",
+        "BR-4",
+        "BR-5",
+        "BR-14",
+        "US-TASK-1",
+        "US-TASK-2",
+        "US-TASK-3",
+        "US-TASK-4",
+        "US-TASK-5",
+        "US-TASK-6",
+        "US-TASK-7",
+        "I-3",
+        "I-4",
+        "I-14",
+        "I-20"
+      ],
+      "tasks": [
+        {
+          "id": "T1",
+          "title": "Task model and migration",
+          "status": "todo"
+        },
+        {
+          "id": "T2",
+          "title": "CRUD, complete/reopen, archive/restore, delete",
+          "status": "todo"
+        },
+        {
+          "id": "T3",
+          "title": "Search, filters, sorting, overdue",
+          "status": "todo"
+        },
+        {
+          "id": "T4",
+          "title": "Unit tests for task rules",
+          "status": "todo"
+        },
+        {
+          "id": "T5",
+          "title": "Verify with curl",
+          "status": "todo"
+        },
+        {
+          "id": "T6",
+          "title": "Document phase",
+          "status": "todo"
+        }
+      ],
+      "status": "pending",
+      "failedTrials": 0,
+      "verification": "pending",
+      "runs": [],
+      "errors": [],
+      "fixes": []
+    },
+    {
+      "id": "BE-03",
+      "title": "Habits",
+      "dependsOn": [
+        "BE-01"
+      ],
+      "requirements": [
+        "FR-03",
+        "FR-04",
+        "BR-6",
+        "BR-7",
+        "US-HAB-1",
+        "US-HAB-2",
+        "US-HAB-3",
+        "US-HAB-4",
+        "US-HAB-5",
+        "I-12",
+        "I-13"
+      ],
+      "tasks": [
+        {
+          "id": "T1",
+          "title": "Habit and completion models, unique habit/date",
+          "status": "todo"
+        },
+        {
+          "id": "T2",
+          "title": "CRUD, activate/deactivate",
+          "status": "todo"
+        },
+        {
+          "id": "T3",
+          "title": "Complete/undo for a date, duplicate prevention",
+          "status": "todo"
+        },
+        {
+          "id": "T4",
+          "title": "Progress: streak and current period",
+          "status": "todo"
+        },
+        {
+          "id": "T5",
+          "title": "Unit tests for streak rules",
+          "status": "todo"
+        },
+        {
+          "id": "T6",
+          "title": "Verify with curl",
+          "status": "todo"
+        },
+        {
+          "id": "T7",
+          "title": "Document phase",
+          "status": "todo"
+        }
+      ],
+      "status": "pending",
+      "failedTrials": 0,
+      "verification": "pending",
+      "runs": [],
+      "errors": [],
+      "fixes": []
+    },
+    {
+      "id": "BE-04",
+      "title": "Learning resources",
+      "dependsOn": [
+        "BE-01"
+      ],
+      "requirements": [
+        "FR-05",
+        "FR-06",
+        "BR-8",
+        "BR-9",
+        "US-LRN-1",
+        "US-LRN-2",
+        "US-LRN-3",
+        "US-LRN-4",
+        "US-LRN-5",
+        "I-15",
+        "I-17"
+      ],
+      "tasks": [
+        {
+          "id": "T1",
+          "title": "Card, milestone and note models",
+          "status": "todo"
+        },
+        {
+          "id": "T2",
+          "title": "Card CRUD",
+          "status": "todo"
+        },
+        {
+          "id": "T3",
+          "title": "Milestones: add, complete, remove",
+          "status": "todo"
+        },
+        {
+          "id": "T4",
+          "title": "Notes: add, remove",
+          "status": "todo"
+        },
+        {
+          "id": "T5",
+          "title": "Verify with curl",
+          "status": "todo"
+        },
+        {
+          "id": "T6",
+          "title": "Document phase",
+          "status": "todo"
+        }
+      ],
+      "status": "pending",
+      "failedTrials": 0,
+      "verification": "pending",
+      "runs": [],
+      "errors": [],
+      "fixes": []
+    },
+    {
+      "id": "BE-05",
+      "title": "Plans",
+      "dependsOn": [
+        "BE-02",
+        "BE-03",
+        "BE-04"
+      ],
+      "requirements": [
+        "FR-07",
+        "FR-08",
+        "BR-10",
+        "BR-11",
+        "BR-12",
+        "BR-13",
+        "NFR-4",
+        "NFR-8",
+        "TR-1",
+        "TR-2",
+        "US-PLAN-1",
+        "US-PLAN-2",
+        "US-PLAN-3",
+        "US-PLAN-4",
+        "US-PLAN-5",
+        "US-PLAN-6",
+        "US-PLAN-7",
+        "US-PLAN-8",
+        "US-PLAN-9",
+        "US-PLAN-10",
+        "I-5",
+        "I-6",
+        "I-7",
+        "I-8",
+        "I-9",
+        "I-10",
+        "I-11",
+        "I-18",
+        "I-19"
+      ],
+      "tasks": [
+        {
+          "id": "T1",
+          "title": "Plan and plan-item models",
+          "status": "todo"
+        },
+        {
+          "id": "T2",
+          "title": "Create from existing items with validation",
+          "status": "todo"
+        },
+        {
+          "id": "T3",
+          "title": "Status, progress and rest-time rules",
+          "status": "todo"
+        },
+        {
+          "id": "T4",
+          "title": "Item toggle with BR-13 propagation",
+          "status": "todo"
+        },
+        {
+          "id": "T5",
+          "title": "Remove, history, start notifications",
+          "status": "todo"
+        },
+        {
+          "id": "T6",
+          "title": "Unit tests for plan lifecycle",
+          "status": "todo"
+        },
+        {
+          "id": "T7",
+          "title": "Verify with curl",
+          "status": "todo"
+        },
+        {
+          "id": "T8",
+          "title": "Document phase",
+          "status": "todo"
+        }
+      ],
+      "status": "pending",
+      "failedTrials": 0,
+      "verification": "pending",
+      "runs": [],
+      "errors": [],
+      "fixes": []
+    },
+    {
+      "id": "BE-06",
+      "title": "Dashboard",
+      "dependsOn": [
+        "BE-05"
+      ],
+      "requirements": [
+        "FR-09",
+        "TR-3",
+        "US-DASH-1",
+        "US-DASH-2",
+        "US-DASH-3",
+        "US-DASH-4",
+        "US-DASH-5",
+        "US-DASH-6",
+        "I-16"
+      ],
+      "tasks": [
+        {
+          "id": "T1",
+          "title": "Dashboard aggregate endpoint",
+          "status": "todo"
+        },
+        {
+          "id": "T2",
+          "title": "Unit test for completion percentage",
+          "status": "todo"
+        },
+        {
+          "id": "T3",
+          "title": "Verify with curl, cross-checking list endpoints",
+          "status": "todo"
+        },
+        {
+          "id": "T4",
+          "title": "Document phase",
+          "status": "todo"
+        }
+      ],
+      "status": "pending",
+      "failedTrials": 0,
+      "verification": "pending",
+      "runs": [],
+      "errors": [],
+      "fixes": []
+    },
+    {
+      "id": "BE-07",
+      "title": "API regression",
+      "dependsOn": [
+        "BE-06"
+      ],
+      "requirements": [
+        "NFR-1"
+      ],
+      "tasks": [
+        {
+          "id": "T1",
+          "title": "Run every curl script on a fresh database",
+          "status": "todo"
+        },
+        {
+          "id": "T2",
+          "title": "Check response times under 500 ms",
+          "status": "todo"
+        },
+        {
+          "id": "T3",
+          "title": "Confirm Swagger documents every endpoint",
+          "status": "todo"
+        },
+        {
+          "id": "T4",
+          "title": "Verify",
+          "status": "todo"
+        },
+        {
+          "id": "T5",
+          "title": "Document phase",
+          "status": "todo"
+        }
+      ],
+      "status": "pending",
+      "failedTrials": 0,
+      "verification": "pending",
+      "runs": [],
+      "errors": [],
+      "fixes": []
+    }
+  ],
+  "lastUpdated": "2026-09-24T10:31:33+03:00",
+  "currentPhase": null,
+  "completedPhases": [],
+  "blockedPhases": [],
+  "retryCount": 0,
+  "verificationStatus": "-",
+  "status": "ready"
+}

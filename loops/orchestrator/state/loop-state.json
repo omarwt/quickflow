@@ -87,40 +87,64 @@
         {
           "id": "T1",
           "title": "Build the dependency graph",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T2",
           "title": "Write backend-dev plan",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T3",
           "title": "Write frontend-dev plan",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T4",
           "title": "Init and plan both loops",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T5",
           "title": "Verify every requirement is planned",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T6",
           "title": "Document phase output",
-          "status": "todo"
+          "status": "done"
         }
       ],
-      "status": "pending",
+      "status": "done",
       "failedTrials": 0,
-      "verification": "pending",
-      "runs": [],
+      "verification": "pass",
+      "runs": [
+        {
+          "at": "2026-09-24T10:31:47+03:00",
+          "result": "pass",
+          "checks": [
+            {
+              "name": "plan-coverage",
+              "cmd": "python3 loops/orchestrator/verification/phase-02.py loops/orchestrator/outputs/phase-01-requirements-analysis.md backend-dev frontend-dev",
+              "result": "pass",
+              "log": "outputs/evidence/OR-02-trial1-plan-coverage.log"
+            }
+          ],
+          "evidence": []
+        }
+      ],
       "errors": [],
-      "fixes": []
+      "fixes": [],
+      "start": "2026-09-24T10:31:06+03:00",
+      "end": "2026-09-24T10:32:22+03:00",
+      "duration": "1m 16s",
+      "tokens": {
+        "input": 10,
+        "output": 7183,
+        "cache_write": 8641,
+        "cache_read": 1488793,
+        "total": 1504627
+      }
     },
     {
       "id": "OR-03",
@@ -237,10 +261,11 @@
       "fixes": []
     }
   ],
-  "lastUpdated": "2026-09-24T10:21:08+03:00",
+  "lastUpdated": "2026-09-24T10:32:22+03:00",
   "currentPhase": null,
   "completedPhases": [
-    "OR-01"
+    "OR-01",
+    "OR-02"
   ],
   "blockedPhases": [],
   "retryCount": 0,
