@@ -1,0 +1,85 @@
+- generic [ref=f1e3]:
+  - link "Skip to content" [ref=f1e4] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=f1e5]:
+    - generic [ref=f1e6]: QuickFlow
+    - navigation "Main" [ref=f1e11]:
+      - link "Dashboard" [ref=f1e12] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Tasks" [ref=f1e19] [cursor=pointer]:
+        - /url: /tasks
+      - link "Habits" [ref=f1e24] [cursor=pointer]:
+        - /url: /habits
+      - link "Learning Resources" [ref=f1e28] [cursor=pointer]:
+        - /url: /learning
+      - link "Todo Plans" [ref=f1e32] [cursor=pointer]:
+        - /url: /plans
+      - link "Settings" [ref=f1e37] [cursor=pointer]:
+        - /url: /settings
+  - main [ref=f1e41]:
+    - generic [ref=f1e42]:
+      - generic [ref=f1e43]:
+        - heading "Learning Resources" [level=1] [ref=f1e44]
+        - button "Add Learning Card" [ref=f1e45] [cursor=pointer]
+      - generic [ref=f1e62]:
+        - article "Spring in Action" [ref=f1e63]:
+          - generic [ref=f1e64]:
+            - heading "Spring in Action" [level=2] [ref=f1e65]
+            - combobox "Status of Spring in Action" [ref=f1e66]:
+              - option "Not started"
+              - option "In progress" [selected]
+              - option "Completed"
+          - paragraph [ref=f1e67]: Book by Craig Walls
+          - generic [ref=f1e68]:
+            - progressbar "Spring in Action milestones" [ref=f1e69]
+            - paragraph [ref=f1e71]: 1 of 1 milestone done
+          - generic [ref=f1e72]:
+            - button "Hide details" [expanded] [ref=f1e99] [cursor=pointer]
+            - button "Remove" [ref=f1e77] [cursor=pointer]
+          - generic [ref=f1e100]:
+            - heading "Milestones" [level=3] [ref=f1e101]
+            - list [ref=f1e102]:
+              - listitem [ref=f1e103]:
+                - generic [ref=f1e104] [cursor=pointer]:
+                  - 'checkbox "Milestone done: Chapter 1" [checked] [ref=f1e105]'
+                  - generic [ref=f1e106]: Chapter 1
+                - generic [ref=f1e107]: Target Dec 1, 2026
+                - button "Remove milestone Chapter 1" [ref=f1e111] [cursor=pointer]
+            - generic [ref=f1e115]:
+              - textbox "New milestone title" [ref=f1e116]:
+                - /placeholder: New milestone
+              - textbox "Milestone target date" [ref=f1e117]
+              - button "Add milestone" [ref=f1e118] [cursor=pointer]
+            - heading "Notes" [level=3] [ref=f1e122]
+            - list [ref=f1e123]:
+              - listitem [ref=f1e124]:
+                - generic [ref=f1e125]:
+                  - paragraph [ref=f1e126]: Dependency injection explained in ch. 1
+                  - generic [ref=f1e127]: Sep 24, 02:50 PM
+                - button "Remove note" [ref=f1e128] [cursor=pointer]
+            - generic [ref=f1e132]:
+              - textbox "New note" [ref=f1e133]:
+                - /placeholder: Write a note…
+              - button "Add note" [ref=f1e134] [cursor=pointer]
+        - article "Rust course" [ref=f1e82]:
+          - generic [ref=f1e83]:
+            - heading "Rust course" [level=2] [ref=f1e84]
+            - combobox "Status of Rust course" [ref=f1e85]:
+              - option "Not started"
+              - option "In progress" [selected]
+              - option "Completed"
+          - generic [ref=f1e86]:
+            - progressbar "Rust course milestones" [ref=f1e87]
+            - paragraph [ref=f1e88]: 0 of 0 milestones done
+          - generic [ref=f1e89]:
+            - button "Show details" [ref=f1e90] [cursor=pointer]
+            - button "Remove" [ref=f1e94] [cursor=pointer]
+      - dialog "Add learning card" [ref=f1e138]:
+        - generic [ref=f1e139]:
+          - heading "Remove learning card" [level=2] [ref=f1e140]
+          - button "Close" [ref=f1e141] [cursor=pointer]
+        - generic [ref=f1e144]:
+          - paragraph [ref=f1e145]: Remove "Rust course" with its milestones and notes?
+          - generic [ref=f1e146]:
+            - button "Cancel" [active] [ref=f1e147] [cursor=pointer]
+            - button "Remove" [ref=f1e149] [cursor=pointer]

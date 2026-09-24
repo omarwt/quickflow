@@ -1,0 +1,106 @@
+- generic [ref=e3]:
+  - link "Skip to content" [ref=e4] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=e5]:
+    - generic [ref=e6]: QuickFlow
+    - navigation "Main" [ref=e10]:
+      - link "Dashboard" [ref=e11] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Tasks" [ref=e18] [cursor=pointer]:
+        - /url: /tasks
+      - link "Habits" [ref=e23] [cursor=pointer]:
+        - /url: /habits
+      - link "Learning Resources" [ref=e27] [cursor=pointer]:
+        - /url: /learning
+      - link "Todo Plans" [ref=e31] [cursor=pointer]:
+        - /url: /plans
+      - link "Settings" [ref=e36] [cursor=pointer]:
+        - /url: /settings
+  - main [ref=e40]:
+    - generic [ref=e41]:
+      - generic [ref=e42]:
+        - heading "Todo Plans" [level=1] [ref=e43]
+        - button "Create Plan" [ref=e44] [cursor=pointer]
+      - heading "Active and upcoming" [level=2] [ref=e60]
+      - article "Soon" [ref=e62]:
+        - generic [ref=e63]:
+          - heading "Soon" [level=2] [ref=e64]
+          - generic [ref=e65]: Not started
+        - paragraph [ref=e66]: Priority 2 · Today, 12:56 PM → 01:54 PM · est. 20 min
+        - paragraph [ref=e67]: Starts in 58s
+        - generic [ref=e68]:
+          - progressbar "Soon progress" [ref=e69]
+          - paragraph [ref=e70]:
+            - strong [ref=e71]: 0%
+            - text: complete · 0 of 1 item done
+        - list [ref=e72]:
+          - listitem [ref=e73]:
+            - generic [ref=e74] [cursor=pointer]:
+              - 'checkbox "Plan item done: Morning run" [ref=e75]'
+              - generic [ref=e76]: Morning run
+            - generic [ref=e77]: Habit
+        - button "Remove" [ref=e79] [cursor=pointer]
+      - heading "Completed" [level=2] [ref=e83]
+      - article "Yesterday review" [ref=e85]:
+        - generic [ref=e86]:
+          - heading "Yesterday review" [level=2] [ref=e87]
+          - generic [ref=e88]: Completed
+        - paragraph [ref=e89]: Priority 3 · Yesterday, 10:54 AM → 11:54 AM · est. 30 min
+        - generic [ref=e90]:
+          - progressbar "Yesterday review progress" [ref=e91]
+          - paragraph [ref=e92]:
+            - strong [ref=e93]: 0%
+            - text: complete · 0 of 1 item done
+        - list [ref=e94]:
+          - listitem [ref=e95]:
+            - generic [ref=e96] [cursor=pointer]:
+              - 'checkbox "Plan item done: Spring in Action" [ref=e97]'
+              - generic [ref=e98]: Spring in Action
+            - generic [ref=e99]: Learning
+        - button "Remove" [ref=e101] [cursor=pointer]
+      - dialog [ref=e105]:
+        - generic [ref=e106]:
+          - heading "Create plan" [level=2] [ref=e107]
+          - button "Close" [ref=e108] [cursor=pointer]
+        - generic [ref=e111]:
+          - generic [ref=e112]:
+            - generic [ref=e113]: Title
+            - textbox "Title Title is required" [ref=e150]: Deep work
+            - alert [ref=e151]: Title is required
+          - generic [ref=e115]:
+            - strong [ref=e116]: Items
+            - generic [ref=e117]:
+              - group "Tasks" [ref=e118]:
+                - generic [ref=e120] [cursor=pointer]:
+                  - checkbox "Write report" [checked] [ref=e121]
+                  - text: Write report
+                - generic [ref=e122] [cursor=pointer]:
+                  - checkbox "Pay bills" [ref=e123]
+                  - text: Pay bills
+              - group "Habits" [ref=e124]:
+                - generic [ref=e126] [cursor=pointer]:
+                  - checkbox "Morning run" [checked] [active] [ref=e127]
+                  - text: Morning run
+              - group "Learning resources" [ref=e128]:
+                - generic [ref=e130] [cursor=pointer]:
+                  - checkbox "Spring in Action" [ref=e131]
+                  - text: Spring in Action
+            - alert [ref=e152]: Pick at least one task, habit or learning resource
+          - generic [ref=e132]:
+            - generic [ref=e133]:
+              - generic [ref=e134]: Start
+              - textbox "Start" [ref=e135]: 2026-09-24T13:00
+            - generic [ref=e136]:
+              - generic [ref=e137]: End
+              - textbox "End" [ref=e138]: 2026-09-24T14:00
+          - generic [ref=e139]:
+            - generic [ref=e140]:
+              - generic [ref=e141]: Estimated duration (minutes)
+              - spinbutton "Estimated duration (minutes)" [ref=e142]: "60"
+            - generic [ref=e143]:
+              - generic [ref=e144]: Priority order
+              - spinbutton "Priority order 1 = highest" [ref=e145]: "1"
+              - generic [ref=e146]: 1 = highest
+          - generic [ref=e147]:
+            - button "Cancel" [ref=e148] [cursor=pointer]
+            - button "Create plan" [ref=e149] [cursor=pointer]

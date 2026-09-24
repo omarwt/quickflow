@@ -1,0 +1,77 @@
+- generic [ref=f3e3]:
+  - link "Skip to content" [ref=f3e4] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=f3e5]:
+    - generic [ref=f3e6]: QuickFlow
+    - navigation "Main" [ref=f3e10]:
+      - link "Dashboard" [ref=f3e11] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Tasks" [ref=f3e18] [cursor=pointer]:
+        - /url: /tasks
+      - link "Habits" [ref=f3e23] [cursor=pointer]:
+        - /url: /habits
+      - link "Learning Resources" [ref=f3e27] [cursor=pointer]:
+        - /url: /learning
+      - link "Todo Plans" [ref=f3e31] [cursor=pointer]:
+        - /url: /plans
+      - link "Settings" [ref=f3e36] [cursor=pointer]:
+        - /url: /settings
+  - main [ref=f3e40]:
+    - generic [ref=f3e41]:
+      - generic [ref=f3e42]:
+        - heading "Todo Plans" [level=1] [ref=f3e43]
+        - button "Create Plan" [ref=f3e44] [cursor=pointer]
+      - heading "Active and upcoming" [level=2] [ref=f3e60]
+      - generic [ref=f3e61]:
+        - article "Deep work" [ref=f3e62]:
+          - generic [ref=f3e63]:
+            - heading "Deep work" [level=2] [ref=f3e64]
+            - generic [ref=f3e65]: In progress
+          - paragraph [ref=f3e66]: Priority 1 · Today, 01:02 PM → 02:02 PM · est. 45 min
+          - paragraph [ref=f3e67]:
+            - text: "Rest time:"
+            - strong [ref=f3e71]: 47m 23s
+          - generic [ref=f3e72]:
+            - progressbar "Deep work progress" [ref=f3e73]
+            - paragraph [ref=f3e75]:
+              - strong [ref=f3e76]: 67%
+              - text: complete · 2 of 3 items done
+          - list [ref=f3e77]:
+            - listitem [ref=f3e78]:
+              - generic [ref=f3e79] [cursor=pointer]:
+                - 'checkbox "Plan item done: Write report" [ref=f3e80]'
+                - generic [ref=f3e81]: Write report
+              - generic [ref=f3e82]: Task
+            - listitem [ref=f3e83]:
+              - generic [ref=f3e84] [cursor=pointer]:
+                - 'checkbox "Plan item done: Morning run" [checked] [ref=f3e85]'
+                - generic [ref=f3e86]: Morning run
+              - generic [ref=f3e87]: Habit
+            - listitem [ref=f3e88]:
+              - generic [ref=f3e89] [cursor=pointer]:
+                - 'checkbox "Plan item done: Spring in Action" [checked] [ref=f3e90]'
+                - generic [ref=f3e91]: Spring in Action
+              - generic [ref=f3e92]: Learning
+          - button "Remove" [ref=f3e94] [cursor=pointer]
+        - article "Soon" [ref=f3e98]:
+          - generic [ref=f3e99]:
+            - heading "Soon" [level=2] [ref=f3e100]
+            - generic [ref=f3e101]: In progress
+          - paragraph [ref=f3e102]: Priority 2 · Today, 01:12 PM → 02:11 PM · est. 20 min
+          - paragraph [ref=f3e103]:
+            - text: "Rest time:"
+            - strong [ref=f3e107]: 56m 28s
+          - generic [ref=f3e108]:
+            - progressbar "Soon progress" [ref=f3e109]
+            - paragraph [ref=f3e110]:
+              - strong [ref=f3e111]: 0%
+              - text: complete · 0 of 1 item done
+          - list [ref=f3e112]:
+            - listitem [ref=f3e113]:
+              - generic [ref=f3e114] [cursor=pointer]:
+                - 'checkbox "Plan item done: Morning run" [ref=f3e115]'
+                - generic [ref=f3e116]: Morning run
+              - generic [ref=f3e117]: Habit
+          - button "Remove" [ref=f3e119] [cursor=pointer]
+      - heading "Completed" [level=2] [ref=f3e123]
+      - paragraph [ref=f3e124]: No completed plans yet.

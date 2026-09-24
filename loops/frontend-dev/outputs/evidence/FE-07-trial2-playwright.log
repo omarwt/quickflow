@@ -1,0 +1,13 @@
+  [PASS] 1. Skip link focus + Enter -> #main :: Skip to content link focused after first Tab; after Enter, document.activeElement.id === 'main'
+  [PASS] 2. Keyboard-only add task :: Tab reached Add Task in 1 press, Enter opened Add task dialog with Title focused; typed 'Keyboard task' + Enter closed dialog and listed it
+  [PASS] 3. Keyboard-only mark done :: Tabbed to 'Mark Keyboard task done' checkbox, Space checked it, status 'Keyboard task completed' appeared, row shows Done badge
+  [PASS] 4. Call dentist Due today badge :: Call dentist row shows 'Due today' badge
+  [PASS] 5. Search zzz empty state + clear :: 'No matching tasks' shown with Clear filters button; after click, search empty and all 4 tasks (Keyboard task, Call dentist, Write report, Pay bills) listed
+  [PASS] 6. Plans page item count and timeline :: 'Soon' shows '0 of 1 item done' and line 'Today, 01:16 PM → 02:15 PM'
+  [PASS] 7. Learning milestones counts :: Rust course: '0 of 1 milestone done'; Spring in Action: '0 of 0 milestones done'
+  [PASS] 8. Keyboard-only expand + check milestone :: Tabbed to Rust course Show details, Enter opened details (button became 'Hide details'); tabbed to milestone checkbox, Space checked it; now shows '1 of 1 milestone done'
+  [PASS] 9. Mobile nav layout at 360x740 :: scrollWidth=360; nav fixed at bottom (top=675,bottom=740); 6 links Dashboard/Tasks/Habits/Learning Resources/Todo Plans/Settings all within 0-360px (max right=356)
+  [PASS] 10. Nav tap targets + navigation :: All 6 links measured >=58x56px (>=44x44); clicking Todo Plans navigated to /plans with heading 'Todo Plans'
+  [PASS] 11. Dark mode habit toggle message position :: Checkbox checked, message '"Morning run" done for today' appeared; message box bottom=668 sits above nav top=675, no overlap
+  [PASS] 12. Settings page mobile/dark scroll+button visibility :: scrollWidth=360; after scrollIntoView, Save settings button box top=591 bottom=631, fully above nav top=675, not hidden
+playwright phase-07: PASS (12 checks, session 38c48436-f4c3-402b-aa25-52d5f26a63b6, 7135834 tokens)

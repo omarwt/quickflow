@@ -1,31 +1,32 @@
 import { useDeferredValue, useState } from 'react'
-import { useMutation, useQuery } from '@tanstack/react-query'
-import { api, get, type Task } from '../api/client'
+import { keepPreviousData, useMutation, useQuery } from '@tanstack/react-query'
+import { api, type Task } from '../api/client'
+import { DEFAULT_TASK_FILTERS, pageQueries, taskParams, type TaskFilters } from '../lib/pageQueries'
 import TaskForm from '../components/TaskForm'
 import { Badge, Button, type Tone } from '../components/ds'
 import { ConfirmDialog, Dialog, EmptyState, ErrorState, Loading, useToast } from '../components/ui'
 import { label, relativeDay } from '../lib/format'
 import { useRefresh, useToday } from '../lib/queries'
+import { PHONE_QUERY, useMediaQuery } from '../lib/media'
 
 const STATUS_TONE: Record<Task['status'], Tone> = { TODO: 'neutral', IN_PROGRESS: 'accent', DONE: 'success' }
 
-type Filters = { search: string; status: string; priority: string; due: string; sort: string; archived: boolean }
+type Filters = TaskFilters
 
 export default function TasksPage() {
   const toast = useToast()
   const refresh = useRefresh()
   const today = useToday()
-  const [f, setF] = useState<Filters>({ search: '', status: '', priority: '', due: '', sort: 'CREATED_AT', archived: false })
+  const [f, setF] = useState<Filters>(DEFAULT_TASK_FILTERS)
   const search = useDeferredValue(f.search)
   const [editing, setEditing] = useState<Task | 'new' | null>(null)
   const [deleting, setDeleting] = useState<Task | null>(null)
+  // phones: the filters move into a sheet behind a "Filters" button, so the list starts near the top
+  const phone = useMediaQuery(PHONE_QUERY)
+  const [filtersOpen, setFiltersOpen] = useState(false)
 
-  const params = new URLSearchParams({ sort: f.sort, direction: f.sort === 'DUE_DATE' ? 'ASC' : 'DESC', archived: String(f.archived) })
-  if (search.trim()) params.set('search', search.trim())
-  if (f.status) params.set('status', f.status)
-  if (f.priority) params.set('priority', f.priority)
-  if (f.due) params.set('due', f.due)
-  const tasks = useQuery({ queryKey: ['tasks', params.toString()], queryFn: () => get<Task[]>(`/tasks?${params}`) })
+  // placeholderData keeps the current rows on screen while a new filter or search loads (no skeleton flash)
+  const tasks = useQuery({ ...pageQueries.tasks(taskParams(f, search)), placeholderData: keepPreviousData })
 
   const action = useMutation({
     mutationFn: ({ task, op }: { task: Task; op: 'complete' | 'reopen' | 'archive' | 'restore' | 'delete' }) =>
@@ -42,6 +43,25 @@ export default function TasksPage() {
   })
 
   const set = (patch: Partial<Filters>) => setF({ ...f, ...patch })
+  const activeFilters = [f.status, f.priority, f.due].filter(Boolean).length + (f.archived ? 1 : 0)
+  const filterControls = (
+    <>
+      <select aria-label="Status filter" value={f.status} onChange={(e) => set({ status: e.target.value })}>
+        <option value="">All statuses</option><option value="TODO">Todo</option><option value="IN_PROGRESS">In progress</option><option value="DONE">Done</option>
+      </select>
+      <select aria-label="Priority filter" value={f.priority} onChange={(e) => set({ priority: e.target.value })}>
+        <option value="">All priorities</option><option value="HIGH">High</option><option value="MEDIUM">Medium</option><option value="LOW">Low</option>
+      </select>
+      <select aria-label="Due date filter" value={f.due} onChange={(e) => set({ due: e.target.value })}>
+        <option value="">Any due date</option><option value="TODAY">Due today</option><option value="OVERDUE">Overdue</option>
+        <option value="UPCOMING">Upcoming</option><option value="NONE">No due date</option>
+      </select>
+      <select aria-label="Sort" value={f.sort} onChange={(e) => set({ sort: e.target.value })}>
+        <option value="CREATED_AT">Newest first</option><option value="DUE_DATE">By due date</option>
+      </select>
+      <label className="check"><input type="checkbox" checked={f.archived} onChange={(e) => set({ archived: e.target.checked })} /> Show archived</label>
+    </>
+  )
   const busy = (t: Task, ...ops: string[]) => action.isPending && action.variables?.task.id === t.id && ops.includes(action.variables.op)
   // the checkbox shows the requested state at once and settles on the server's answer
   const isDone = (t: Task) => (busy(t, 'complete', 'reopen') ? action.variables?.op === 'complete' : t.status === 'DONE')
@@ -56,21 +76,16 @@ export default function TasksPage() {
 
       <div className="toolbar" role="search">
         <input type="search" aria-label="Search tasks" placeholder="Search by title…" value={f.search} onChange={(e) => set({ search: e.target.value })} />
-        <select aria-label="Status filter" value={f.status} onChange={(e) => set({ status: e.target.value })}>
-          <option value="">All statuses</option><option value="TODO">Todo</option><option value="IN_PROGRESS">In progress</option><option value="DONE">Done</option>
-        </select>
-        <select aria-label="Priority filter" value={f.priority} onChange={(e) => set({ priority: e.target.value })}>
-          <option value="">All priorities</option><option value="HIGH">High</option><option value="MEDIUM">Medium</option><option value="LOW">Low</option>
-        </select>
-        <select aria-label="Due date filter" value={f.due} onChange={(e) => set({ due: e.target.value })}>
-          <option value="">Any due date</option><option value="TODAY">Due today</option><option value="OVERDUE">Overdue</option>
-          <option value="UPCOMING">Upcoming</option><option value="NONE">No due date</option>
-        </select>
-        <select aria-label="Sort" value={f.sort} onChange={(e) => set({ sort: e.target.value })}>
-          <option value="CREATED_AT">Newest first</option><option value="DUE_DATE">By due date</option>
-        </select>
-        <label className="check"><input type="checkbox" checked={f.archived} onChange={(e) => set({ archived: e.target.checked })} /> Show archived</label>
+        {phone
+          ? <Button icon="filter" onClick={() => setFiltersOpen(true)}>Filters{activeFilters ? ` (${activeFilters})` : ''}</Button>
+          : filterControls}
       </div>
+      <Dialog title="Filter tasks" open={phone && filtersOpen} onClose={() => setFiltersOpen(false)}>
+        <div className="form">
+          {filterControls}
+          <div className="actions"><Button variant="primary" onClick={() => setFiltersOpen(false)}>Show tasks</Button></div>
+        </div>
+      </Dialog>
 
       {tasks.isPending ? <Loading variant="rows" /> : tasks.isError ? <ErrorState error={tasks.error} onRetry={() => tasks.refetch()} /> :
         tasks.data.length === 0 ? (

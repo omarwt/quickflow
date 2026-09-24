@@ -1,0 +1,31 @@
+- generic [ref=f4e3]:
+  - link "Skip to content" [ref=f4e4] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=f4e5]:
+    - generic [ref=f4e6]: QuickFlow
+    - navigation "Main" [ref=f4e10]:
+      - link "Dashboard" [ref=f4e11] [cursor=pointer]:
+        - /url: /dashboard
+        - generic [aria-hidden] [ref=f4e17]: Dashboard
+      - link "Tasks" [ref=f4e18] [cursor=pointer]:
+        - /url: /tasks
+        - generic [aria-hidden] [ref=f4e22]: Tasks
+      - link "Habits" [ref=f4e23] [cursor=pointer]:
+        - /url: /habits
+        - generic [aria-hidden] [ref=f4e26]: Habits
+      - link "Learning Resources" [ref=f4e27] [cursor=pointer]:
+        - /url: /learning
+        - generic [aria-hidden] [ref=f4e30]: Learning
+      - link "Todo Plans" [ref=f4e31] [cursor=pointer]:
+        - /url: /plans
+        - generic [aria-hidden] [ref=f4e35]: Plans
+      - link "Settings" [ref=f4e36] [cursor=pointer]:
+        - /url: /settings
+        - generic [aria-hidden] [ref=f4e39]: Settings
+  - main [ref=f4e40]:
+    - generic [ref=f4e41]:
+      - generic [ref=f4e42]:
+        - heading "Habits" [level=1] [ref=f4e43]
+        - button "Add Habit" [ref=f4e44] [cursor=pointer]
+      - status [ref=f4e47]:
+        - generic [ref=f4e48]: Loading…

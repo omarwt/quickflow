@@ -1,0 +1,52 @@
+- generic [ref=f2e3]:
+  - link "Skip to content" [ref=f2e4] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=f2e5]:
+    - generic [ref=f2e6]: QuickFlow
+    - button "Collapse navigation" [expanded] [active] [ref=f2e103] [cursor=pointer]
+    - navigation "Main" [ref=f2e13]:
+      - link "Dashboard" [ref=f2e14] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Tasks" [ref=f2e20] [cursor=pointer]:
+        - /url: /tasks
+      - link "Habits" [ref=f2e24] [cursor=pointer]:
+        - /url: /habits
+      - link "Learning Resources" [ref=f2e27] [cursor=pointer]:
+        - /url: /learning
+      - link "Todo Plans" [ref=f2e30] [cursor=pointer]:
+        - /url: /plans
+      - link "Settings" [ref=f2e34] [cursor=pointer]:
+        - /url: /settings
+  - button [aria-hidden] [ref=f2e101]
+  - main [ref=f2e37]:
+    - generic [ref=f2e38]:
+      - generic [ref=f2e39]:
+        - heading "Learning Resources" [level=1] [ref=f2e40]
+        - button "Add Learning Card" [ref=f2e41] [cursor=pointer]
+      - generic [ref=f2e58]:
+        - article "Spring in Action" [ref=f2e59]:
+          - generic:
+            - heading "Spring in Action" [level=2]
+            - combobox "Status of Spring in Action" [ref=f2e62]:
+              - option "Not started" [selected]
+              - option "In progress"
+              - option "Completed"
+          - generic:
+            - progressbar "Spring in Action milestones"
+            - paragraph: 0 of 0 milestones done
+          - generic:
+            - button "Show details" [ref=f2e67] [cursor=pointer]
+            - button "Remove" [ref=f2e71] [cursor=pointer]
+        - article "Rust course" [ref=f2e76]:
+          - generic:
+            - heading "Rust course" [level=2]
+            - combobox "Status of Rust course" [ref=f2e79]:
+              - option "Not started" [selected]
+              - option "In progress"
+              - option "Completed"
+          - generic:
+            - progressbar "Rust course milestones"
+            - paragraph: 0 of 1 milestone done
+          - generic:
+            - button "Show details" [ref=f2e84] [cursor=pointer]
+            - button "Remove" [ref=f2e88] [cursor=pointer]

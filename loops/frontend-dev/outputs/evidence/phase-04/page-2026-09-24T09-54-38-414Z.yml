@@ -1,0 +1,62 @@
+- generic [ref=f1e3]:
+  - link "Skip to content" [ref=f1e4] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=f1e5]:
+    - generic [ref=f1e6]: QuickFlow
+    - navigation "Main" [ref=f1e10]:
+      - link "Dashboard" [ref=f1e11] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Tasks" [ref=f1e18] [cursor=pointer]:
+        - /url: /tasks
+      - link "Habits" [ref=f1e23] [cursor=pointer]:
+        - /url: /habits
+      - link "Learning Resources" [ref=f1e27] [cursor=pointer]:
+        - /url: /learning
+      - link "Todo Plans" [ref=f1e31] [cursor=pointer]:
+        - /url: /plans
+      - link "Settings" [ref=f1e36] [cursor=pointer]:
+        - /url: /settings
+  - main [ref=f1e40]:
+    - generic [ref=f1e41]:
+      - generic [ref=f1e42]:
+        - heading "Learning Resources" [level=1] [ref=f1e43]
+        - button "Add Learning Card" [ref=f1e44] [cursor=pointer]
+      - article "Spring in Action" [ref=f1e61]:
+        - generic [ref=f1e62]:
+          - heading "Spring in Action" [level=2] [ref=f1e63]
+          - combobox "Status of Spring in Action" [ref=f1e64]:
+            - option "Not started"
+            - option "In progress" [selected]
+            - option "Completed"
+        - paragraph [ref=f1e65]: Book by Craig Walls
+        - generic [ref=f1e66]:
+          - progressbar "Spring in Action milestones" [ref=f1e67]
+          - paragraph [ref=f1e69]: 1 of 1 milestone done
+        - generic [ref=f1e70]:
+          - button "Hide details" [expanded] [ref=f1e93] [cursor=pointer]
+          - button "Remove" [ref=f1e74] [cursor=pointer]
+        - generic [ref=f1e94]:
+          - heading "Milestones" [level=3] [ref=f1e95]
+          - list [ref=f1e96]:
+            - listitem [ref=f1e97]:
+              - generic [ref=f1e98] [cursor=pointer]:
+                - 'checkbox "Milestone done: Chapter 1" [checked] [ref=f1e99]'
+                - generic [ref=f1e100]: Chapter 1
+              - generic [ref=f1e101]: Target Dec 1, 2026
+              - button "Remove milestone Chapter 1" [ref=f1e105] [cursor=pointer]
+          - generic [ref=f1e109]:
+            - textbox "New milestone title" [ref=f1e110]:
+              - /placeholder: New milestone
+            - textbox "Milestone target date" [ref=f1e111]
+            - button "Add milestone" [ref=f1e112] [cursor=pointer]
+          - heading "Notes" [level=3] [ref=f1e115]
+          - list [ref=f1e116]:
+            - listitem [ref=f1e117]:
+              - generic [ref=f1e118]:
+                - paragraph [ref=f1e119]: Dependency injection explained in ch. 1
+                - generic [ref=f1e120]: Sep 24, 12:53 PM
+              - button "Remove note" [ref=f1e121] [cursor=pointer]
+          - generic [ref=f1e125]:
+            - textbox "New note" [ref=f1e126]:
+              - /placeholder: Write a note…
+            - button "Add note" [ref=f1e127] [cursor=pointer]

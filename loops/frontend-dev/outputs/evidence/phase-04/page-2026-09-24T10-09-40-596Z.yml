@@ -1,0 +1,77 @@
+- generic [ref=e3]:
+  - link "Skip to content" [ref=e4] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=e5]:
+    - generic [ref=e6]: QuickFlow
+    - navigation "Main" [ref=e10]:
+      - link "Dashboard" [ref=e11] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Tasks" [ref=e18] [cursor=pointer]:
+        - /url: /tasks
+      - link "Habits" [ref=e23] [cursor=pointer]:
+        - /url: /habits
+      - link "Learning Resources" [ref=e27] [cursor=pointer]:
+        - /url: /learning
+      - link "Todo Plans" [ref=e31] [cursor=pointer]:
+        - /url: /plans
+      - link "Settings" [ref=e36] [cursor=pointer]:
+        - /url: /settings
+  - main [ref=e40]:
+    - generic [ref=e41]:
+      - generic [ref=e42]:
+        - heading "Learning Resources" [level=1] [ref=e43]
+        - button "Add Learning Card" [ref=e44] [cursor=pointer]
+      - generic [ref=e89]:
+        - article "Spring in Action" [ref=e90]:
+          - generic [ref=e91]:
+            - heading "Spring in Action" [level=2] [ref=e92]
+            - combobox "Status of Spring in Action" [ref=e93]:
+              - option "Not started" [selected]
+              - option "In progress"
+              - option "Completed"
+          - paragraph [ref=e94]: Book by Craig Walls
+          - generic [ref=e95]:
+            - progressbar "Spring in Action milestones" [ref=e96]
+            - paragraph [ref=e97]: 0 of 2 milestones done
+          - generic [ref=e98]:
+            - button "Hide details" [expanded] [ref=e150] [cursor=pointer]
+            - button "Remove" [ref=e102] [cursor=pointer]
+          - generic [ref=e151]:
+            - heading "Milestones" [level=3] [ref=e152]
+            - list [ref=e168]:
+              - listitem [ref=e169]:
+                - generic [ref=e170] [cursor=pointer]:
+                  - 'checkbox "Milestone done: Chapter 1" [ref=e171]'
+                  - generic [ref=e172]: Chapter 1
+                - generic [ref=e173]: Target Dec 1, 2026
+                - button "Remove milestone Chapter 1" [ref=e177] [cursor=pointer]
+              - listitem [ref=e183]:
+                - generic [ref=e184] [cursor=pointer]:
+                  - 'checkbox "Milestone done: Chapter 2" [ref=e185]'
+                  - generic [ref=e186]: Chapter 2
+                - button "Remove milestone Chapter 2" [ref=e187] [cursor=pointer]
+            - generic [ref=e154]:
+              - textbox "New milestone title" [ref=e155]:
+                - /placeholder: New milestone
+              - textbox "Milestone target date" [ref=e156]
+              - button "Add milestone" [ref=e157] [cursor=pointer]
+            - heading "Notes" [level=3] [ref=e160]
+            - paragraph [ref=e161]: No notes yet.
+            - list
+            - generic [ref=e162]:
+              - textbox "New note" [ref=e163]:
+                - /placeholder: Write a note…
+              - button "Add note" [ref=e164] [cursor=pointer]
+        - article "Rust course" [ref=e128]:
+          - generic [ref=e129]:
+            - heading "Rust course" [level=2] [ref=e130]
+            - combobox "Status of Rust course" [ref=e131]:
+              - option "Not started"
+              - option "In progress" [selected]
+              - option "Completed"
+          - generic [ref=e132]:
+            - progressbar "Rust course milestones" [ref=e133]
+            - paragraph [ref=e134]: 0 of 0 milestones done
+          - generic [ref=e135]:
+            - button "Show details" [ref=e136] [cursor=pointer]
+            - button "Remove" [ref=e139] [cursor=pointer]

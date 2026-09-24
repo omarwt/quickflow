@@ -1,0 +1,62 @@
+- generic [ref=f2e3]:
+  - link "Skip to content" [ref=f2e4] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=f2e5]:
+    - button "Expand navigation" [ref=f2e104] [cursor=pointer]
+    - navigation "Main" [ref=f2e13]:
+      - link "Dashboard" [ref=f2e14] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Tasks" [ref=f2e20] [cursor=pointer]:
+        - /url: /tasks
+      - link "Habits" [ref=f2e24] [cursor=pointer]:
+        - /url: /habits
+      - link "Learning Resources" [ref=f2e27] [cursor=pointer]:
+        - /url: /learning
+      - link "Todo Plans" [active] [ref=f2e30] [cursor=pointer]:
+        - /url: /plans
+      - link "Settings" [ref=f2e34] [cursor=pointer]:
+        - /url: /settings
+  - main [ref=f2e37]:
+    - generic [ref=f2e105]:
+      - generic [ref=f2e106]:
+        - heading "Todo Plans" [level=1] [ref=f2e107]
+        - button "Create Plan" [ref=f2e108] [cursor=pointer]
+      - heading "Active and upcoming" [level=2] [ref=f2e112]
+      - article "Soon" [ref=f2e114]:
+        - generic [ref=f2e115]:
+          - heading "Soon" [level=2] [ref=f2e116]
+          - generic [ref=f2e117]: In progress
+        - paragraph [ref=f2e118]: Priority 2 · Today, 02:19 PM → 03:18 PM · est. 20 min
+        - paragraph [ref=f2e119]:
+          - text: "Rest time:"
+          - strong [ref=f2e123]: 57m 47s
+        - generic [ref=f2e124]:
+          - progressbar "Soon progress" [ref=f2e125]
+          - paragraph [ref=f2e126]:
+            - strong [ref=f2e127]: 0%
+            - text: complete · 0 of 1 item done
+        - list [ref=f2e128]:
+          - listitem [ref=f2e129]:
+            - generic [ref=f2e130] [cursor=pointer]:
+              - 'checkbox "Plan item done: Morning run" [ref=f2e131]'
+              - generic [ref=f2e132]: Morning run
+            - generic [ref=f2e133]: Habit
+        - button "Remove" [ref=f2e135] [cursor=pointer]
+      - heading "Completed" [level=2] [ref=f2e140]
+      - article "Yesterday review" [ref=f2e142]:
+        - generic [ref=f2e143]:
+          - heading "Yesterday review" [level=2] [ref=f2e144]
+          - generic [ref=f2e145]: Completed
+        - paragraph [ref=f2e146]: Priority 3 · Yesterday, 12:18 PM → 01:18 PM · est. 30 min
+        - generic [ref=f2e147]:
+          - progressbar "Yesterday review progress" [ref=f2e148]
+          - paragraph [ref=f2e149]:
+            - strong [ref=f2e150]: 0%
+            - text: complete · 0 of 1 item done
+        - list [ref=f2e151]:
+          - listitem [ref=f2e152]:
+            - generic [ref=f2e153] [cursor=pointer]:
+              - 'checkbox "Plan item done: Spring in Action" [ref=f2e154]'
+              - generic [ref=f2e155]: Spring in Action
+            - generic [ref=f2e156]: Learning
+        - button "Remove" [ref=f2e158] [cursor=pointer]

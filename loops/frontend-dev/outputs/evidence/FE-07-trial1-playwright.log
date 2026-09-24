@@ -1,0 +1,13 @@
+  [PASS] 1. Skip to content link + focus #main :: Skip link focused on first Tab, visible; after Enter, document.activeElement.id === 'main'
+  [FAIL] 2. Keyboard: open Add Task dialog, Title focus, add task :: Dialog opened with heading 'Add task', but focus landed on the 'Close' button instead of the Title field. Task creation itself worked after manually tabbing to Title and submitting.
+  [PASS] 3. Keyboard: check 'Keyboard task' done :: Checkbox checked, toast '"Keyboard task" completed' appeared, row shows 'Done' badge
+  [PASS] 4. 'Call dentist' shows 'Due today' badge :: Badge text 'Due today' present on Call dentist row
+  [PASS] 5. Search 'zzz' empty state, Clear filters :: 'No matching tasks' + 'Clear filters' shown; after click, search empty and all 4 tasks (Keyboard task, Call dentist, Write report, Pay bills) listed
+  [PASS] 6. /plans 'Soon' item count + time line :: '0 of 1 item done' (singular) and 'Today, 12:59 PM → 01:57 PM'
+  [PASS] 7. /learning milestone counts :: Rust course: '0 of 1 milestone done'; Spring in Action: '0 of 0 milestones done'
+  [PASS] 8. Keyboard: expand Rust course details, check milestone :: 'Show details' became 'Hide details' and details expanded; after Space on milestone checkbox, 'Rust course' shows '1 of 1 milestone done'
+  [PASS] 9. Mobile 360x740 bottom nav layout :: scrollWidth=360; nav bottom=740 (fixed to viewport bottom); 6 links (Dashboard, Tasks, Habits, Learning Resources, Todo Plans, Settings) all within x=0-360
+  [PASS] 10. Nav link tap targets + navigate to Todo Plans :: All 6 links are 58.6x56px (≥44x44); after click, URL is /plans and heading is 'Todo Plans'
+  [FAIL] 11. Dark mode habit check-in toast position :: Checkbox checked and '"Morning run" done for today' toast appeared, but toast bounding box (top 652, bottom 724) overlaps nav bar (top 675, bottom 740)
+  [PASS] 12. Dark mode /settings scroll + Save button visibility :: scrollWidth=360; after scrollIntoView, Save settings button (top 591-bottom 631) fully above nav (top 675), no overlap
+playwright phase-07: FAIL (12 checks, session c23a4806-2775-4bbc-a1a5-74e19bddb867, 6771079 tokens)

@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { api, ApiError, get, type LearningCard } from '../api/client'
+import { api, ApiError, type LearningCard } from '../api/client'
+import { pageQueries } from '../lib/pageQueries'
 import LearningCardForm from '../components/LearningCardForm'
 import { Badge, Button, Card, IconButton } from '../components/ds'
 import { ConfirmDialog, Dialog, EmptyState, ErrorState, Loading, useToast } from '../components/ui'
@@ -113,7 +114,7 @@ function CardView({ card, onRemove }: { card: LearningCard; onRemove: () => void
 export default function LearningPage() {
   const toast = useToast()
   const refresh = useRefresh()
-  const cards = useQuery({ queryKey: ['learning'], queryFn: () => get<LearningCard[]>('/learning-cards') })
+  const cards = useQuery(pageQueries.learning())
   const [adding, setAdding] = useState(false)
   const [removing, setRemoving] = useState<LearningCard | null>(null)
   const remove = useMutation({

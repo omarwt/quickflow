@@ -1,0 +1,72 @@
+== phase-01
+  [PASS] 1. Open / redirects to /dashboard with Dashboard heading :: URL became /dashboard, heading 'Dashboard' shown
+  [PASS] 2. Nav contains exactly 6 expected links :: Dashboard, Tasks, Habits, Learning Resources, Todo Plans, Settings all present, no extras
+  [PASS] 3. Click each nav link, URL and heading match :: /tasks->Tasks, /habits->Habits, /learning->Learning Resources, /plans->Todo Plans, /settings->Settings all matched
+  [PASS] 4. Settings form shows default values :: Display name 'QuickFlow user', Timezone UTC, Default view Dashboard, notification checkbox checked
+  [PASS] 5. Clear Display name and save shows inline error :: 'Display name is required' alert shown, no save occurred
+  [PASS] 6. Invalid email shows server error :: 'Email must be a valid address' alert shown under Email field
+  [PASS] 7. Valid save shows confirmation :: 'Settings saved' status message appeared with all new values set
+  [PASS] 8. Reload persists saved values :: Omar, omar@example.com, Asia/Dubai, Todo Plans, checkbox unchecked all persisted after reload
+  [PASS] 9. Open / uses new default view :: URL became /plans
+  [PASS] 10. Mobile 390x844 bottom tab bar usable :: All six links visible as bottom tab bar; clicking Tasks navigated to /tasks with Tasks heading
+playwright phase-01: PASS (10 checks, session c7fdaadd-697c-46bb-a99e-c96fa996f4c3, 2873219 tokens)
+== phase-02
+  [PASS] 1. Open /tasks, empty state :: Heading 'Tasks', 'No tasks yet' empty state, 'Add Task' button shown
+  [PASS] 2. Submit with empty title :: Inline alert 'Title is required' shown, dialog stayed open
+  [PASS] 3. Add 'Write report' :: Dialog closed, toast 'Task "Write report" added', badges Todo/High priority/Due today shown
+  [PASS] 4. Add 'Pay bills' due yesterday :: Listed with 'Overdue' badge
+  [PASS] 5. Add 'Plan trip' :: Three tasks listed
+  [PASS] 6. Search 'report' :: Only 'Write report' shown
+  [PASS] 7. Priority filter Low :: Only 'Pay bills' shown
+  [PASS] 8. Due date filter Overdue :: Only 'Pay bills' shown
+  [PASS] 9. Complete 'Pay bills' :: Toast '"Pay bills" completed', 'Done' badge, strikethrough confirmed via screenshot, Overdue badge gone
+  [PASS] 10. Status filter Done :: Only 'Pay bills' shown
+  [PASS] 11. Edit 'Plan trip' :: Renamed to 'Plan summer trip', status 'In progress' shown in list
+  [PASS] 12. Archive/restore 'Plan summer trip' :: Disappeared on archive; with Show archived only it appeared with 'Restore' button; after restore+untick it returned to main list
+  [PASS] 13. Delete 'Write report' :: Confirmation dialog 'Delete task' shown; after confirming, task removed, two tasks remained
+  [PASS] 14. Reload page :: 'Plan summer trip' (In progress) and 'Pay bills' (Done) still listed after reload
+playwright phase-02: PASS (14 checks, session 3200012d-949b-4910-a463-63b3ed7b6bd6, 4595699 tokens)
+== phase-03
+  [PASS] 1. Open /habits, check empty state :: Heading 'Habits', empty state 'No habits yet' with 'Add Habit' button
+  [PASS] 2. Submit empty name :: Inline alert 'Name is required' shown, dialog stayed open
+  [PASS] 3. Add 'Morning run' Daily habit :: Card 'Morning run' with 'Daily' label, 'No streak yet', unticked 'Done today' checkbox
+  [PASS] 4. Add 'Weekly review' Weekly habit :: Card shows 'Weekly' label and 'Not done this week yet'
+  [PASS] 5. Tick Done today on Morning run :: Toast '"Morning run" done for today', checkbox checked, '1-day streak'
+  [PASS] 6. Reload page :: Morning run still checked, '1-day streak' (not duplicated)
+  [PASS] 7. Untick then retick Morning run :: Unticking showed 'No streak yet'; reticking showed '1-day streak' again
+  [PASS] 8. Tick Done today on Weekly review :: Shows '1-week streak' and 'Done this week'
+  [PASS] 9. Edit and rename Weekly review to Weekly planning :: Card title updated to 'Weekly planning'
+  [PASS] 10. Deactivate Weekly planning :: Moved under 'Inactive' heading, shows 'Inactive: not tracked', no Done today checkbox, button reads 'Activate'
+  [PASS] 11. Activate Weekly planning :: Moved back to main grid with 'Done today' checkbox
+  [PASS] 12. Remove Morning run :: Confirmation dialog 'Remove habit' shown; after confirming, Morning run card gone, only Weekly planning remains
+playwright phase-03: PASS (12 checks, session ed64ace1-e692-4a75-a3ad-4053f262a587, 2494905 tokens)
+== phase-04
+  [PASS] 1. Open /learning, empty state :: Heading 'Learning Resources' and empty state 'No learning cards yet' with Add Learning Card button shown
+  [PASS] 2. Add card with empty title :: Inline alert 'Title is required' shown, dialog stayed open
+  [PASS] 3. Add 'Spring in Action' card :: Card shows title, description 'Book by Craig Walls', status 'Not started', '0 of 0 milestones done'
+  [PASS] 4. Add 'Rust course' card :: Two cards displayed, Rust course status 'In progress'
+  [PASS] 5. Show details on Spring in Action :: Milestones section 'No milestones yet...' and Notes section 'No notes yet.' shown
+  [PASS] 6. Add milestone with empty title :: Alert 'Milestone title is required' shown
+  [PASS] 7. Add Chapter 1 (with date) and Chapter 2 (no date) :: Both listed, Chapter 1 shows 'Target Dec 1, 2026' badge, card shows '0 of 2 milestones done'
+  [PASS] 8. Tick Chapter 1 :: Checkbox checked, card shows '1 of 2 milestones done', screenshot confirms strikethrough text and partly filled progress bar
+  [PASS] 9. Remove Chapter 2 :: Only Chapter 1 remains, card shows '1 of 1 milestone done'
+  [PASS] 10. Add note, add second note, remove second :: First note listed with timestamp 'Sep 24, 01:10 PM'; after adding and removing second note, only first note remains
+  [PASS] 11. Change status to In progress, reload, verify persistence :: After reload status combobox shows 'In progress' selected; Show details reveals Chapter 1 milestone (checked) and note still present
+  [PASS] 12. Remove Rust course with confirmation :: Dialog 'Remove learning card' with text 'Remove "Rust course" with its milestones and notes?' appeared; after confirming, only Spring in Action card remains
+playwright phase-04: PASS (12 checks, session 965e80b0-aed7-4000-b73c-44cf6b6e2ca7, 3376705 tokens)
+seeded: task 1, habit 1, card 1, plans 'Yesterday review' (past) and 'Soon' (starts in 90 s)
+== phase-05
+  [PASS] 1. Open /plans :: Heading 'Todo Plans', 'Active and upcoming' showed 'Soon' as Not started with 'Starts in 1m 13s', 'Completed' showed 'Yesterday review' at 0% complete
+  [PASS] 2. Create Plan → submit empty :: Alerts 'Title is required' and 'Pick at least one task, habit or learning resource' shown
+  [PASS] 3. Fill title+items, End before Start :: Alert 'End date/time must be after the start date/time' shown
+  [PASS] 4. Valid Start/End/duration/priority, submit :: Toast 'Plan "Deep work" created'; Deep work listed before Soon as In progress, Rest time 49m 45s, 0% complete · 0 of 3 items done, Task/Habit/Learning badges present
+  [PASS] 5. Rest time countdown :: Rest time went from 49m 35s to 49m 29s after 5s wait
+  [PASS] 6. Tick Write report :: 33% complete · 1 of 3 items done
+  [PASS] 7. Tick Morning run + Spring in Action :: Deep work 100% complete, status Completed, moved to Completed section
+  [PASS] 8. Untick Write report :: 67% complete, moved back to Active and upcoming as In progress
+  [PASS] 9. Check /tasks :: Write report shows status 'Todo', checkbox unchecked
+  [PASS] 10. Wait for 'Soon' has started message :: Toast 'Plan "Soon" has started' observed in the status stack (fired earlier than the dedicated wait window since test actions were faster than the 90s timer, but message did appear and Soon showed In progress with rest time)
+  [PASS] 11. Remove Yesterday review :: Confirmation dialog 'Remove plan' appeared with text about tasks/habits/learning kept; after confirming, Yesterday review gone, 'No completed plans yet.' shown
+  [PASS] 12. Reload page :: Deep work (67%) and Soon still listed after reload; no toast appeared during 20s wait
+playwright phase-05: PASS (12 checks, session 41999e23-6f4a-4a8a-8df1-714d025739e1, 3542617 tokens)
+regression: 0 of 5 failed

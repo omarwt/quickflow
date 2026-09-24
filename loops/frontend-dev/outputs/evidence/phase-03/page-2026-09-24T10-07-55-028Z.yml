@@ -1,0 +1,71 @@
+- generic [ref=f1e3]:
+  - link "Skip to content" [ref=f1e4] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=f1e5]:
+    - generic [ref=f1e6]: QuickFlow
+    - navigation "Main" [ref=f1e10]:
+      - link "Dashboard" [ref=f1e11] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Tasks" [ref=f1e18] [cursor=pointer]:
+        - /url: /tasks
+      - link "Habits" [ref=f1e23] [cursor=pointer]:
+        - /url: /habits
+      - link "Learning Resources" [ref=f1e27] [cursor=pointer]:
+        - /url: /learning
+      - link "Todo Plans" [ref=f1e31] [cursor=pointer]:
+        - /url: /plans
+      - link "Settings" [ref=f1e36] [cursor=pointer]:
+        - /url: /settings
+  - main [ref=f1e40]:
+    - generic [ref=f1e41]:
+      - generic [ref=f1e42]:
+        - heading "Habits" [level=1] [ref=f1e43]
+        - button "Add Habit" [ref=f1e44] [cursor=pointer]
+      - generic [ref=f1e65]:
+        - article "Morning run" [ref=f1e66]:
+          - generic [ref=f1e67]:
+            - heading "Morning run" [level=2] [ref=f1e68]
+            - generic [ref=f1e69]: Daily
+          - paragraph [ref=f1e70]: 5 km
+          - paragraph [ref=f1e71]: 1-day streak
+          - generic [ref=f1e74] [cursor=pointer]:
+            - 'checkbox "Done today: Morning run" [checked] [ref=f1e75]'
+            - text: Done today
+          - generic [ref=f1e76]:
+            - button "Edit" [ref=f1e77] [cursor=pointer]
+            - button "Deactivate" [ref=f1e81] [cursor=pointer]
+            - button "Remove" [ref=f1e85] [cursor=pointer]
+        - article "Weekly review" [ref=f1e89]:
+          - generic [ref=f1e90]:
+            - heading "Weekly review" [level=2] [ref=f1e91]
+            - generic [ref=f1e92]: Weekly
+          - paragraph [ref=f1e93]: 1-week streak
+          - paragraph [ref=f1e96]: Done this week
+          - generic [ref=f1e97] [cursor=pointer]:
+            - 'checkbox "Done today: Weekly review" [checked] [ref=f1e98]'
+            - text: Done today
+          - generic [ref=f1e99]:
+            - button "Edit" [ref=f1e100] [cursor=pointer]
+            - button "Deactivate" [ref=f1e104] [cursor=pointer]
+            - button "Remove" [ref=f1e108] [cursor=pointer]
+      - dialog [ref=f1e134]:
+        - generic [ref=f1e135]:
+          - heading "Edit habit" [level=2] [ref=f1e136]
+          - button "Close" [ref=f1e137] [cursor=pointer]
+        - generic [ref=f1e141]:
+          - generic [ref=f1e142]:
+            - generic [ref=f1e143]: Name
+            - textbox "Name" [active] [ref=f1e144]: Weekly review
+          - generic [ref=f1e145]:
+            - generic [ref=f1e146]: Description
+            - textbox "Description" [ref=f1e147]
+          - group "Repeats" [ref=f1e148]:
+            - generic [ref=f1e150] [cursor=pointer]:
+              - radio "Daily" [ref=f1e151]
+              - text: Daily
+            - generic [ref=f1e152] [cursor=pointer]:
+              - radio "Weekly" [checked] [ref=f1e153]
+              - text: Weekly
+          - generic [ref=f1e154]:
+            - button "Cancel" [ref=f1e155] [cursor=pointer]
+            - button "Save changes" [ref=f1e156] [cursor=pointer]

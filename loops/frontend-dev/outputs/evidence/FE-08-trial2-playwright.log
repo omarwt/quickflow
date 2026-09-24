@@ -1,0 +1,10 @@
+  [PASS] 1. 320x640 /tasks layout, nav, filters button, row buttons :: scrollWidth=320; 6 nav links all within viewport; Dashboard label scrollWidth(52)=clientWidth(52); Filters button visible; Status filter select not in DOM; Edit/Archive/Delete buttons 32x32px
+  [PASS] 2. Filters dialog docked bottom, Priority filter apply/reset :: dialog bottom=640=viewport bottom, width=320=viewport width, contains Status/Priority/Due date/Sort/Show archived; after applying Medium priority, dialog closed, button read 'Filters (1)', 3 tasks still listed; after reset to All priorities, button read 'Filters'
+  [PASS] 3. Add Task dialog docked bottom, long title :: dialog bottom=640, width=320; Title field had focus; after typing long unbroken title and Enter, dialog closed, task listed, scrollWidth=320
+  [PASS] 4. 844x390 /habits vertical rail, Add Habit dialog :: scrollWidth=844; nav rail width=55px (<=80), fully within viewport; Habits heading and Morning run card visible; Add Habit dialog height(358)<=390 viewport, Add habit button reachable via scroll
+  [PASS] 5. 768x1024 /learning collapsed/expanded rail :: collapsed nav width=55px icons-only with accessible names preserved; main left=72px; after Expand navigation, nav width=207px(>=200) showing 'Learning Resources' text, main left unchanged(72); Escape collapsed nav back to 55px; after re-expand and clicking Todo Plans, URL=/plans and nav width=55px (collapsed)
+  [PASS] 6. 1024x768 /plans expanded sidebar :: sidebar text 'Todo Plans' visible; Expand navigation button present in DOM but not visible (offsetParent null)
+  [PASS] 7. 1440x900 /tasks title/badge alignment :: Call dentist title top=279, Todo badge top=282, diff=3px (<12px)
+  [PASS] 8. 1920x1080 /plans main width and centering :: main width=1320px (<=1320); left gap=197px, right gap=184px, diff=13px (<40px)
+  [PASS] 9. 640x800 /settings (200% zoom emulation) :: scrollWidth=640; bottom nav present (bottom=800=viewport, top=735); Save settings button fully visible after scrollIntoView, no overlap with bottom nav
+playwright phase-08: PASS (9 checks, session 019bcdbf-cf12-4699-b3ea-3d8756cd7880, 4653520 tokens)

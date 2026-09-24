@@ -15,6 +15,9 @@ const PATHS = {
   more: <><circle cx="12" cy="12" r="1" /><circle cx="19" cy="12" r="1" /><circle cx="5" cy="12" r="1" /></>,
   chevronDown: <path d="m6 9 6 6 6-6" />,
   chevronUp: <path d="m18 15-6-6-6 6" />,
+  chevronLeft: <path d="m15 18-6-6 6-6" />,
+  chevronRight: <path d="m9 18 6-6-6-6" />,
+  filter: <path d="M10 20a1 1 0 0 0 .55.9l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .52-1.34L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.74 1.67l7.22 7.99A2 2 0 0 1 10 14z" />,
   dashboard: <><rect x="3" y="3" width="7" height="9" rx="1" /><rect x="14" y="3" width="7" height="5" rx="1" /><rect x="14" y="12" width="7" height="9" rx="1" /><rect x="3" y="16" width="7" height="5" rx="1" /></>,
   tasks: <><path d="M21 10.5V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h12.5" /><path d="m9 11 3 3L22 4" /></>,
   habits: <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z" />,
@@ -50,7 +53,7 @@ export function Button({ variant = 'secondary', size = 'md', icon, pending, clas
     <button type={type} className={`btn btn-${variant} btn-${size}${className ? ` ${className}` : ''}`}
       disabled={disabled || pending} aria-busy={pending || undefined} {...rest}>
       {pending ? <span className="spinner" aria-hidden="true" /> : icon && <Icon name={icon} size={size === 'sm' ? 16 : 18} />}
-      {children}
+      {children != null && children !== false && <span className="btn-label">{children}</span>}
     </button>
   )
 }
@@ -76,17 +79,21 @@ export type MenuItem = { label: string; onSelect: () => void; icon?: IconName; d
  * Menu button for secondary actions (WAI-ARIA menu button pattern): Enter/Space/ArrowDown open it,
  * arrow keys move between items, Escape or a click outside closes it and returns focus to the button.
  */
-export function Menu({ label, items }: { label: string; items: MenuItem[] }) {
+export function Menu({ label, items, trigger }: {
+  label: string; items: MenuItem[]
+  /** a visible trigger (icon + text) instead of the default icon-only "more" button */
+  trigger?: { icon: IconName; text: string; variant?: ButtonProps['variant'] }
+}) {
   const [open, setOpen] = useState(false)
   const id = useId()
   const root = useRef<HTMLDivElement>(null)
-  const trigger = useRef<HTMLButtonElement>(null)
+  const triggerRef = useRef<HTMLButtonElement>(null)
   const list = useRef<HTMLUListElement>(null)
   const focusItem = (i: number) => {
     const all = list.current?.querySelectorAll<HTMLButtonElement>('button:not(:disabled)')
     if (all?.length) all[(i + all.length) % all.length].focus()
   }
-  const close = (refocus = true) => { setOpen(false); if (refocus) trigger.current?.focus() }
+  const close = (refocus = true) => { setOpen(false); if (refocus) triggerRef.current?.focus() }
 
   useEffect(() => {
     if (!open) return
@@ -109,10 +116,11 @@ export function Menu({ label, items }: { label: string; items: MenuItem[] }) {
 
   return (
     <div className="menu" ref={root} onKeyDown={open ? onKey : undefined}>
-      <button ref={trigger} type="button" className="btn btn-ghost btn-sm btn-icon" aria-label={label} title={label}
+      <button ref={triggerRef} type="button" className={trigger ? `btn btn-${trigger.variant ?? 'primary'} btn-md` : 'btn btn-ghost btn-sm btn-icon'}
+        aria-label={trigger ? undefined : label} title={trigger ? undefined : label}
         aria-haspopup="menu" aria-expanded={open} aria-controls={open ? id : undefined}
         onClick={() => setOpen(!open)} onKeyDown={(e) => { if (e.key === 'ArrowDown' && !open) { e.preventDefault(); setOpen(true) } }}>
-        <Icon name="more" size={16} />
+        {trigger ? <><Icon name={trigger.icon} /><span className="btn-label">{trigger.text}</span><Icon name="chevronDown" size={16} /></> : <Icon name="more" size={16} />}
       </button>
       {open && (
         <ul className="menu-list" role="menu" id={id} aria-label={label} ref={list}>

@@ -612,25 +612,124 @@
         {
           "id": "T5",
           "title": "Verify: build, UX scenario (keyboard-only, 360 px, dark), FE-01..05 regression, ux-audit on the five pages",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T6",
           "title": "Document phase",
-          "status": "todo"
+          "status": "done"
         }
       ],
-      "status": "in_progress",
-      "failedTrials": 0,
-      "verification": "pending",
-      "runs": [],
+      "status": "done",
+      "failedTrials": 1,
+      "verification": "pass",
+      "runs": [
+        {
+          "at": "2026-09-24T13:02:06+03:00",
+          "result": "fail",
+          "checks": [
+            {
+              "name": "build",
+              "cmd": "cd frontend && npm run build && npx vitest run",
+              "result": "pass",
+              "log": "outputs/evidence/FE-07-trial1-build.log"
+            },
+            {
+              "name": "regression",
+              "cmd": "bash loops/frontend-dev/verification/regress.sh 01 02 03 04 05",
+              "result": "fail",
+              "log": "outputs/evidence/FE-07-trial1-regression.log"
+            },
+            {
+              "name": "fresh",
+              "cmd": "backend/run.sh start --fresh",
+              "result": "pass",
+              "log": "outputs/evidence/FE-07-trial1-fresh.log"
+            },
+            {
+              "name": "seed",
+              "cmd": "bash loops/frontend-dev/verification/phase-07-seed.sh",
+              "result": "pass",
+              "log": "outputs/evidence/FE-07-trial1-seed.log"
+            },
+            {
+              "name": "playwright",
+              "cmd": "bash loops/_lib/playwright-verify.sh loops/frontend-dev/verification/phase-07.md",
+              "result": "fail",
+              "log": "outputs/evidence/FE-07-trial1-playwright.log"
+            },
+            {
+              "name": "ux",
+              "cmd": "python3 loops/_lib/ux-audit.py --pages /tasks,/habits,/learning,/plans,/settings --out loops/frontend-dev/outputs/evidence/ux-FE-07",
+              "result": "pass",
+              "log": "outputs/evidence/FE-07-trial1-ux.log"
+            }
+          ],
+          "evidence": []
+        },
+        {
+          "at": "2026-09-24T13:20:37+03:00",
+          "result": "pass",
+          "checks": [
+            {
+              "name": "build",
+              "cmd": "cd frontend && npm run build && npx vitest run",
+              "result": "pass",
+              "log": "outputs/evidence/FE-07-trial2-build.log"
+            },
+            {
+              "name": "regression",
+              "cmd": "bash loops/frontend-dev/verification/regress.sh 01 02 03 04 05",
+              "result": "pass",
+              "log": "outputs/evidence/FE-07-trial2-regression.log"
+            },
+            {
+              "name": "fresh",
+              "cmd": "backend/run.sh start --fresh",
+              "result": "pass",
+              "log": "outputs/evidence/FE-07-trial2-fresh.log"
+            },
+            {
+              "name": "seed",
+              "cmd": "bash loops/frontend-dev/verification/phase-07-seed.sh",
+              "result": "pass",
+              "log": "outputs/evidence/FE-07-trial2-seed.log"
+            },
+            {
+              "name": "playwright",
+              "cmd": "bash loops/_lib/playwright-verify.sh loops/frontend-dev/verification/phase-07.md",
+              "result": "pass",
+              "log": "outputs/evidence/FE-07-trial2-playwright.log"
+            },
+            {
+              "name": "ux",
+              "cmd": "python3 loops/_lib/ux-audit.py --pages /tasks,/habits,/learning,/plans,/settings --out loops/frontend-dev/outputs/evidence/ux-FE-07",
+              "result": "pass",
+              "log": "outputs/evidence/FE-07-trial2-ux.log"
+            }
+          ],
+          "evidence": []
+        }
+      ],
       "errors": [
-        "Regression phase-01 step 10 failed: the FE-01 scenario expected the mobile navigation at the top of the page; FE-07 intentionally moved it to a bottom tab bar (F3). The earlier grep only looked for changed copy, not layout."
+        "trial 1 failed: regression, playwright",
+        "Regression phase-01 step 10 failed: the FE-01 scenario expected the mobile navigation at the top of the page; FE-07 intentionally moved it to a bottom tab bar (F3). The earlier grep only looked for changed copy, not layout. (Re-recorded after FE-07: the original note was overwritten by the stale-state bug in `loop.py verify`.)",
+        "phase-07 step 2: opening a dialog put focus on the Close button, not the Title field (showModal() focuses the first focusable element, overriding autoFocus). Step 11: at 360 px the toast overlapped the bottom tab bar, and the smaller mobile h1 never applied, because the mobile overrides sat before the base .toasts/.page-head rules in index.css and lost the cascade."
       ],
       "fixes": [
-        "Updated phase-01.md step 10 to expect the bottom tab bar with all six pages; grepped phase-01..05 for other layout assumptions (none)."
+        "Updated phase-01.md step 10 to expect the bottom tab bar with all six pages; grepped phase-01..05 for other layout assumptions (none).",
+        "Dialog focuses the first field (or first button, e.g. Cancel) inside .dialog-body right after showModal(). The mobile overrides for .toasts and .page-head h1 moved to a final media block after the base rules; toasts span the width above the tab bar plus safe area."
       ],
-      "start": "2026-09-24T12:43:12+03:00"
+      "start": "2026-09-24T12:43:12+03:00",
+      "end": "2026-09-24T13:21:02+03:00",
+      "duration": "37m 50s",
+      "tokens": {
+        "input": 130,
+        "output": 37745,
+        "cache_write": 61331,
+        "cache_read": 11384628,
+        "total": 11483834
+      }
     },
     {
       "id": "FE-08",
@@ -645,40 +744,156 @@
         {
           "id": "T1",
           "title": "Breakpoint system as tokens: phone <480, large phone 480-759, tablet 760-1023, laptop 1024-1439, wide 1440+, plus fluid type and spacing with clamp()",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T2",
           "title": "Tablet layout: collapsible icon-rail sidebar, two-column grids; wide layout: wider content, three-column card grids, list rows with inline meta",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T3",
           "title": "Phones: dialogs become bottom sheets, toolbar filters collapse into a Filters sheet, landscape phones keep the tab bar usable",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T4",
           "title": "Reflow at 320 CSS px and 200% zoom (WCAG 1.4.10), long titles and numbers wrap without overflow",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T5",
           "title": "Verify: screenshot matrix (320, 390, 768, 1024, 1440, 1920), responsive scenario, FE-01..07 regression, ux-audit mobile + desktop",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T6",
           "title": "Document phase",
-          "status": "todo"
+          "status": "done"
         }
       ],
-      "status": "pending",
-      "failedTrials": 0,
-      "verification": "pending",
-      "runs": [],
-      "errors": [],
-      "fixes": []
+      "status": "done",
+      "failedTrials": 1,
+      "verification": "pass",
+      "runs": [
+        {
+          "at": "2026-09-24T13:51:02+03:00",
+          "result": "fail",
+          "checks": [
+            {
+              "name": "build",
+              "cmd": "cd frontend && npm run build && npx vitest run",
+              "result": "pass",
+              "log": "outputs/evidence/FE-08-trial1-build.log"
+            },
+            {
+              "name": "regression",
+              "cmd": "bash loops/frontend-dev/verification/regress.sh 01 02 03 04 05 06 07",
+              "result": "fail",
+              "log": "outputs/evidence/FE-08-trial1-regression.log"
+            },
+            {
+              "name": "fresh",
+              "cmd": "backend/run.sh start --fresh",
+              "result": "pass",
+              "log": "outputs/evidence/FE-08-trial1-fresh.log"
+            },
+            {
+              "name": "seed",
+              "cmd": "bash loops/frontend-dev/verification/phase-08-seed.sh",
+              "result": "pass",
+              "log": "outputs/evidence/FE-08-trial1-seed.log"
+            },
+            {
+              "name": "playwright",
+              "cmd": "bash loops/_lib/playwright-verify.sh loops/frontend-dev/verification/phase-08.md",
+              "result": "fail",
+              "log": "outputs/evidence/FE-08-trial1-playwright.log"
+            },
+            {
+              "name": "ux",
+              "cmd": "python3 loops/_lib/ux-audit.py --pages /tasks,/habits,/learning,/plans,/settings --out loops/frontend-dev/outputs/evidence/ux-FE-08",
+              "result": "pass",
+              "log": "outputs/evidence/FE-08-trial1-ux.log"
+            },
+            {
+              "name": "matrix",
+              "cmd": "SIZES='320x640 390x844 768x1024 1024x768 1440x900 1920x1080' bash loops/_lib/screenshots.sh loops/frontend-dev/outputs/evidence/ux-FE-08-after",
+              "result": "pass",
+              "log": "outputs/evidence/FE-08-trial1-matrix.log"
+            }
+          ],
+          "evidence": []
+        },
+        {
+          "at": "2026-09-24T14:22:46+03:00",
+          "result": "pass",
+          "checks": [
+            {
+              "name": "build",
+              "cmd": "cd frontend && npm run build && npx vitest run",
+              "result": "pass",
+              "log": "outputs/evidence/FE-08-trial2-build.log"
+            },
+            {
+              "name": "regression",
+              "cmd": "bash loops/frontend-dev/verification/regress.sh 01 02 03 04 05 06 07",
+              "result": "pass",
+              "log": "outputs/evidence/FE-08-trial2-regression.log"
+            },
+            {
+              "name": "fresh",
+              "cmd": "backend/run.sh start --fresh",
+              "result": "pass",
+              "log": "outputs/evidence/FE-08-trial2-fresh.log"
+            },
+            {
+              "name": "seed",
+              "cmd": "bash loops/frontend-dev/verification/phase-08-seed.sh",
+              "result": "pass",
+              "log": "outputs/evidence/FE-08-trial2-seed.log"
+            },
+            {
+              "name": "playwright",
+              "cmd": "bash loops/_lib/playwright-verify.sh loops/frontend-dev/verification/phase-08.md",
+              "result": "pass",
+              "log": "outputs/evidence/FE-08-trial2-playwright.log"
+            },
+            {
+              "name": "ux",
+              "cmd": "python3 loops/_lib/ux-audit.py --pages /tasks,/habits,/learning,/plans,/settings --out loops/frontend-dev/outputs/evidence/ux-FE-08",
+              "result": "pass",
+              "log": "outputs/evidence/FE-08-trial2-ux.log"
+            },
+            {
+              "name": "matrix",
+              "cmd": "SIZES='320x640 390x844 768x1024 1024x768 1440x900 1920x1080' bash loops/_lib/screenshots.sh loops/frontend-dev/outputs/evidence/ux-FE-08-after",
+              "result": "pass",
+              "log": "outputs/evidence/FE-08-trial2-matrix.log"
+            }
+          ],
+          "evidence": []
+        }
+      ],
+      "errors": [
+        "trial 1 failed: regression, playwright",
+        "Trial 1: (a) regression phase-07 step 12 - at 360 px, scrolling 'Save settings' into view with block 'nearest' (what keyboard focus does) left it under the fixed tab bar (WCAG 2.4.11 focus not obscured). (b) phase-08 step 5 - expanding the tablet rail made the sidebar position:fixed, it left the grid and main auto-placed into the 72 px first column (text one letter per line).",
+        "A second verify run was stopped by hand before it finished and was NOT recorded as a trial: in regression phase-03 the Playwright MCP server failed to connect (CONNECT_TIMEOUT 30 s, child session 79ed0806-f4b9-4deb-9e6a-ced1ac72babd), so that scenario was never executed; phases 01-02 had passed. Logs kept as outputs/evidence/FE-08-aborted-*.log."
+      ],
+      "fixes": [
+        "(a) html scroll-padding-bottom = tab bar height + safe area + 16 px on phones; probe: button bottom 668 < nav top 675. (b) .content pinned to grid-column 2 / row 1 on tablets; probe: main left stays 72 px, width 696, rail 232 px.",
+        "playwright-verify.sh pins @playwright/mcp@0.0.82, warms it up with --prefer-offline before starting the child session, and retries once only when the browser server never connected (no step passed and the output reports a connection failure); real step failures are never retried. The infra attempt is tracked in execution-tracking.csv."
+      ],
+      "start": "2026-09-24T13:22:31+03:00",
+      "end": "2026-09-24T14:23:49+03:00",
+      "duration": "61m 18s",
+      "tokens": {
+        "input": 216,
+        "output": 67295,
+        "cache_write": 110938,
+        "cache_read": 25611430,
+        "total": 25789879
+      }
     },
     {
       "id": "FE-09",
@@ -693,22 +908,22 @@
         {
           "id": "T1",
           "title": "Route transitions with the View Transitions API (React Router viewTransition), shell and navigation stay still, content cross-fades and slides",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T2",
           "title": "Prefetch a page's data when its nav link is hovered or focused, and keep previous data, so pages open without a loading flash",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T3",
           "title": "Focus and announcement on navigation: move focus to the page heading, per-page document.title, scroll to top; motion for dialogs, sheets, toasts and list add/remove",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T4",
           "title": "Respect prefers-reduced-motion (no movement, instant or fade only) and keep CLS 0 during navigation",
-          "status": "todo"
+          "status": "done"
         },
         {
           "id": "T5",
@@ -721,16 +936,42 @@
           "status": "todo"
         }
       ],
-      "status": "pending",
-      "failedTrials": 0,
-      "verification": "pending",
-      "runs": [],
-      "errors": [],
-      "fixes": []
+      "status": "in_progress",
+      "failedTrials": 1,
+      "verification": "fail",
+      "runs": [
+        {
+          "at": "2026-09-24T14:28:24+03:00",
+          "result": "fail",
+          "checks": [
+            {
+              "name": "build",
+              "result": "pass"
+            },
+            {
+              "name": "regression",
+              "result": "fail"
+            }
+          ],
+          "evidence": [
+            "Trial stopped after its first failure (the rest could not change the result): outputs/evidence/FE-09-trial1-build.log PASS; FE-09-trial1-regression.log phase-01 FAIL step 10 - at 390x844 clicking 'Tasks' in the bottom tab bar timed out because main intercepted the pointer events (child session f08df1ac-4ece-48e4-923c-231dc602fc54). Remaining checks not run."
+          ]
+        }
+      ],
+      "errors": [
+        "trial 1 failed: regression",
+        "Trial 1 (recorded with --manual after stopping the run at its first failure): regression phase-01 step 10 - at 390x844 the bottom tab bar could not be clicked; main intercepted the pointer events. view-transition-name turns .sidebar and main into stacking contexts, so the fixed tab bar inside .sidebar (z-index 25) was confined to the sidebar's context and main, later in the DOM, painted over it.",
+        "A second FE-09 run was stopped by hand and NOT recorded (logs: outputs/evidence/FE-09-aborted2-*.log; regression 01-04 had passed). At the user's request the FE-10 Dashboard/Settings code was put on the real app (5173) before FE-09 finished, because the preview on 5174 hit a CORS 403 (the backend allows only the 5173 origin), and toasts were changed because the user found sticky toasts a problem."
+      ],
+      "fixes": [
+        "On phones .sidebar gets position: relative; z-index: 25, so its context (and the tab bar in it) stacks above main. Headless probe: elementFromPoint at the centre of all six tab-bar links hits the link on /tasks and /settings.",
+        "FE-09 is verified on the combined code (FE-09 + FE-10, a superset). Toasts now all auto-close (success 4 s, error 7 s, info 15 s), pause while hovered or focused, a repeated message replaces the old one, and at most 3 are shown; 2 new vitest tests (happy-dom). Preview servers on 5174/8081 stopped."
+      ],
+      "start": "2026-09-24T14:23:58+03:00"
     },
     {
       "id": "FE-10",
-      "title": "Dashboard page",
+      "title": "Dashboard page and Settings completion",
       "dependsOn": [
         "FE-09",
         "ext:backend-dev/BE-06"
@@ -742,36 +983,42 @@
         "US-DASH-3",
         "US-DASH-4",
         "US-DASH-5",
-        "US-DASH-6"
+        "US-DASH-6",
+        "UX-SET"
       ],
       "tasks": [
         {
           "id": "T1",
-          "title": "Greeting and summary cards",
+          "title": "Greeting and the four summary cards (tasks, habits, plans, learning) with their numbers",
           "status": "todo"
         },
         {
           "id": "T2",
-          "title": "Today's tasks, overdue, habit checklist",
+          "title": "Today's tasks, overdue, completed today, and the habit checklist (active and done today)",
           "status": "todo"
         },
         {
           "id": "T3",
-          "title": "Active plans with live rest time, learning snapshot",
+          "title": "Active plans with live rest time and progress, the next upcoming plan, and a learning snapshot (cards in progress with milestone progress, milestones this week)",
           "status": "todo"
         },
         {
           "id": "T4",
-          "title": "Quick-add actions",
+          "title": "Quick-add menu for task, habit, learning card and plan",
           "status": "todo"
         },
         {
           "id": "T5",
-          "title": "Verify with Playwright MCP and ux-audit on /dashboard",
+          "title": "Settings: profile summary (initials, name, email, member since, data counts), notification behaviour (browser permission, allow, test notification), theme preference (system/light/dark), local-time preview for the timezone",
           "status": "todo"
         },
         {
           "id": "T6",
+          "title": "Verify: dashboard + settings scenario, FE-01..09 regression, ux-audit on all six pages",
+          "status": "todo"
+        },
+        {
+          "id": "T7",
           "title": "Document phase",
           "status": "todo"
         }
@@ -836,18 +1083,20 @@
       "fixes": []
     }
   ],
-  "lastUpdated": "2026-09-24T12:51:09+03:00",
-  "currentPhase": "FE-07",
+  "lastUpdated": "2026-09-24T14:41:51+03:00",
+  "currentPhase": "FE-09",
   "completedPhases": [
     "FE-01",
     "FE-02",
     "FE-03",
     "FE-04",
     "FE-05",
-    "FE-06"
+    "FE-06",
+    "FE-07",
+    "FE-08"
   ],
   "blockedPhases": [],
-  "retryCount": 0,
-  "verificationStatus": "pending",
+  "retryCount": 1,
+  "verificationStatus": "fail",
   "status": "in_progress"
 }

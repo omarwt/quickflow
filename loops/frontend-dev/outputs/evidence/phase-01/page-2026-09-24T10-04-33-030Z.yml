@@ -1,0 +1,57 @@
+- generic [ref=f2e3]:
+  - link "Skip to content" [ref=f2e4] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=f2e5]:
+    - generic [ref=f2e6]: QuickFlow
+    - navigation "Main" [ref=f2e10]:
+      - link "Dashboard" [ref=f2e11] [cursor=pointer]:
+        - /url: /dashboard
+        - generic [aria-hidden] [ref=f2e41]: Dashboard
+      - link "Tasks" [active] [ref=f2e18] [cursor=pointer]:
+        - /url: /tasks
+        - generic [aria-hidden] [ref=f2e42]: Tasks
+      - link "Habits" [ref=f2e23] [cursor=pointer]:
+        - /url: /habits
+        - generic [aria-hidden] [ref=f2e43]: Habits
+      - link "Learning Resources" [ref=f2e27] [cursor=pointer]:
+        - /url: /learning
+        - generic [aria-hidden] [ref=f2e44]: Learning
+      - link "Todo Plans" [ref=f2e31] [cursor=pointer]:
+        - /url: /plans
+        - generic [aria-hidden] [ref=f2e45]: Plans
+      - link "Settings" [ref=f2e36] [cursor=pointer]:
+        - /url: /settings
+        - generic [aria-hidden] [ref=f2e46]: Settings
+  - main [ref=f2e40]:
+    - generic [ref=f2e59]:
+      - generic [ref=f2e60]:
+        - heading "Tasks" [level=1] [ref=f2e61]
+        - button "Add Task" [ref=f2e62] [cursor=pointer]
+      - search [ref=f2e65]:
+        - searchbox "Search tasks" [ref=f2e66]
+        - combobox "Status filter" [ref=f2e67]:
+          - option "All statuses" [selected]
+          - option "Todo"
+          - option "In progress"
+          - option "Done"
+        - combobox "Priority filter" [ref=f2e68]:
+          - option "All priorities" [selected]
+          - option "High"
+          - option "Medium"
+          - option "Low"
+        - combobox "Due date filter" [ref=f2e69]:
+          - option "Any due date" [selected]
+          - option "Due today"
+          - option "Overdue"
+          - option "Upcoming"
+          - option "No due date"
+        - combobox "Sort" [ref=f2e70]:
+          - option "Newest first" [selected]
+          - option "By due date"
+        - generic [ref=f2e71] [cursor=pointer]:
+          - checkbox "Show archived" [ref=f2e72]
+          - text: Show archived
+      - generic [ref=f2e73]:
+        - heading "No tasks yet" [level=2] [ref=f2e74]
+        - paragraph [ref=f2e75]: Add your first task to start tracking your work.
+        - button "Add Task" [ref=f2e76] [cursor=pointer]

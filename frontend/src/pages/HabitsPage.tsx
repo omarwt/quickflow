@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { api, get, type Dashboard, type Habit } from '../api/client'
+import { api, type Habit } from '../api/client'
 import HabitForm from '../components/HabitForm'
 import HabitToggle from '../components/HabitToggle'
 import { Badge, Button, Card, Icon } from '../components/ds'
 import { ConfirmDialog, Dialog, EmptyState, ErrorState, Loading, useToast } from '../components/ui'
 import { useRefresh } from '../lib/queries'
+import { pageQueries } from '../lib/pageQueries'
 
 function streakText(h: Habit) {
   const n = h.progress.currentStreak
@@ -16,9 +17,9 @@ function streakText(h: Habit) {
 export default function HabitsPage() {
   const toast = useToast()
   const refresh = useRefresh()
-  const habits = useQuery({ queryKey: ['habits'], queryFn: () => get<Habit[]>('/habits') })
+  const habits = useQuery(pageQueries.habits())
   // "today" in the user's timezone comes from the server, not the browser clock
-  const today = useQuery({ queryKey: ['dashboard'], queryFn: () => get<Dashboard>('/dashboard') }).data?.today
+  const today = useQuery(pageQueries.dashboard()).data?.today
   const [editing, setEditing] = useState<Habit | 'new' | null>(null)
   const [removing, setRemoving] = useState<Habit | null>(null)
 

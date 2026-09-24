@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { api, get, type Plan } from '../api/client'
+import { api, type Plan } from '../api/client'
+import { pageQueries } from '../lib/pageQueries'
 import PlanBuilder from '../components/PlanBuilder'
 import PlanCard from '../components/PlanCard'
 import { Button } from '../components/ds'
@@ -10,8 +11,8 @@ import { useRefresh } from '../lib/queries'
 export default function PlansPage() {
   const toast = useToast()
   const refresh = useRefresh()
-  // refetch every 30 s so status changes made by the clock show up even without user action
-  const plans = useQuery({ queryKey: ['plans'], queryFn: () => get<Plan[]>('/plans'), refetchInterval: 30_000 })
+  // refetches every 30 s (see pageQueries) so status changes made by the clock show up without user action
+  const plans = useQuery(pageQueries.plans())
   const [building, setBuilding] = useState(false)
   const [removing, setRemoving] = useState<Plan | null>(null)
   const remove = useMutation({

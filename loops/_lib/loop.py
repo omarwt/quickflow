@@ -285,6 +285,9 @@ def cmd_verify(a):
         checks.append({"name": name, "result": res})
     if not checks:
         die("nothing to verify: give --check and/or --manual")
+    # checks can run for a long time; reload so plans, notes or other phases saved meanwhile aren't overwritten
+    lp = Loop(a.loop)
+    p = lp.phase(a.phase)
     ok = all(c["result"] == "pass" for c in checks)
     p["runs"].append({"at": now().isoformat(), "result": "pass" if ok else "fail", "checks": checks,
                       "evidence": a.evidence})

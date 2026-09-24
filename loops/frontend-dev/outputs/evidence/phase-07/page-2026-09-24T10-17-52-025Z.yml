@@ -1,0 +1,55 @@
+- generic [ref=f3e3]:
+  - link "Skip to content" [ref=f3e4] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=f3e5]:
+    - generic [ref=f3e6]: QuickFlow
+    - navigation "Main" [ref=f3e10]:
+      - link "Dashboard" [ref=f3e11] [cursor=pointer]:
+        - /url: /dashboard
+        - generic [aria-hidden] [ref=f3e17]: Dashboard
+      - link "Tasks" [ref=f3e18] [cursor=pointer]:
+        - /url: /tasks
+        - generic [aria-hidden] [ref=f3e22]: Tasks
+      - link "Habits" [ref=f3e23] [cursor=pointer]:
+        - /url: /habits
+        - generic [aria-hidden] [ref=f3e26]: Habits
+      - link "Learning Resources" [ref=f3e27] [cursor=pointer]:
+        - /url: /learning
+        - generic [aria-hidden] [ref=f3e30]: Learning
+      - link "Todo Plans" [ref=f3e31] [cursor=pointer]:
+        - /url: /plans
+        - generic [aria-hidden] [ref=f3e35]: Plans
+      - link "Settings" [ref=f3e36] [cursor=pointer]:
+        - /url: /settings
+        - generic [aria-hidden] [ref=f3e39]: Settings
+  - main [ref=f3e40]:
+    - generic [ref=f3e41]:
+      - generic [ref=f3e42]:
+        - heading "Tasks" [level=1] [ref=f3e43]
+        - button "Add Task" [ref=f3e44] [cursor=pointer]
+      - search [ref=f3e47]:
+        - searchbox "Search tasks" [ref=f3e48]
+        - combobox "Status filter" [ref=f3e49]:
+          - option "All statuses" [selected]
+          - option "Todo"
+          - option "In progress"
+          - option "Done"
+        - combobox "Priority filter" [ref=f3e50]:
+          - option "All priorities" [selected]
+          - option "High"
+          - option "Medium"
+          - option "Low"
+        - combobox "Due date filter" [ref=f3e51]:
+          - option "Any due date" [selected]
+          - option "Due today"
+          - option "Overdue"
+          - option "Upcoming"
+          - option "No due date"
+        - combobox "Sort" [ref=f3e52]:
+          - option "Newest first" [selected]
+          - option "By due date"
+        - generic [ref=f3e53] [cursor=pointer]:
+          - checkbox "Show archived" [ref=f3e54]
+          - text: Show archived
+      - status [ref=f3e55]:
+        - generic [ref=f3e56]: Loading…

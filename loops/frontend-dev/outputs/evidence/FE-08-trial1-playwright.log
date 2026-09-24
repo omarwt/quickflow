@@ -1,0 +1,10 @@
+  [PASS] 1. /tasks @320x640: scrollWidth, bottom nav, filters button, edit/archive/delete buttons :: scrollWidth=320, 6 nav links all in-viewport with unclipped labels, Filters shown, Status filter hidden, action buttons 32x32
+  [PASS] 2. Filters dialog docking, priority filter round-trip :: Dialog docked to bottom (width=320, bottom=640), became 'Filters (1)' after applying Medium, reverted to 'Filters' after resetting, 3 tasks remained
+  [PASS] 3. Add Task dialog, 120-char title, submit :: Dialog docked to bottom, Title had focus, task added, scrollWidth stayed 320
+  [PASS] 4. /habits @844x390: vertical rail, Add Habit dialog :: scrollWidth=844, nav rail 55px fully visible, heading/card visible, dialog fit height 358 within 390 and Add habit button reachable
+  [FAIL] 5. /learning @768x1024: collapsed rail, expand, escape, navigate to Todo Plans :: Collapsed rail correct (55px, icons only, correct names). Clicking Expand navigation broke layout: main shrank to left=0 width=72 with text wrapped one letter per line, and a gray overlay covered the remaining viewport instead of overlaying unchanged content (expected main left to stay at 72). Escape and re-expand + navigation to /plans worked afterward.
+  [PASS] 6. /plans @1024x768: expanded sidebar, no expand button :: Nav shows 'Todo Plans' text, no Expand navigation button present
+  [PASS] 7. /tasks @1440x900: title/badge alignment :: Call dentist title and Todo badge top offsets differ by 3px (<12px)
+  [PASS] 8. /plans @1920x1080: main width and centering :: main width=1320, gaps relative to sidebar 197px vs 184px (diff 13px <40px)
+  [PASS] 9. /settings @640x800: scrollWidth, bottom nav, Save settings reachable :: scrollWidth=640, bottom nav shown, Save settings button fully visible above nav after scrollIntoView
+playwright phase-08: FAIL (9 checks, session 1b49e0f4-9961-421f-8c91-9074faf270dd, 5228240 tokens)

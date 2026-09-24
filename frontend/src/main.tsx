@@ -6,7 +6,8 @@ import { ToastProvider } from './components/ui'
 import App from './App'
 import './index.css'
 
-const queryClient = new QueryClient({ defaultOptions: { queries: { retry: 1, refetchOnWindowFocus: true } } })
+// staleTime: data fetched (or prefetched from the navigation) in the last 10 s is shown without refetching
+const queryClient = new QueryClient({ defaultOptions: { queries: { retry: 1, refetchOnWindowFocus: true, staleTime: 10_000 } } })
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

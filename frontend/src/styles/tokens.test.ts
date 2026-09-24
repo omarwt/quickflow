@@ -2,11 +2,10 @@ import { describe, expect, it } from 'vitest'
 import css from './tokens.css?raw'
 
 // WCAG 2.2 AA contrast for every foreground/background pair the components use, in both themes.
-function tokens(block: string) {
-  return Object.fromEntries([...block.matchAll(/--(color-[\w-]+):\s*(#[0-9a-f]{6})/gi)].map((m) => [m[1], m[2]]))
-}
-const light = tokens(css.split('@media (prefers-color-scheme: dark)')[0])
-const dark = { ...light, ...tokens(css.split('@media (prefers-color-scheme: dark)')[1].split('@media')[0]) }
+// every colour token is light-dark(<light>, <dark>)
+const pairs = [...css.matchAll(/--(color-[\w-]+):\s*light-dark\((#[0-9a-f]{6}),\s*(#[0-9a-f]{6})\)/gi)]
+const light = Object.fromEntries(pairs.map((m) => [m[1], m[2]]))
+const dark = Object.fromEntries(pairs.map((m) => [m[1], m[3]]))
 
 function luminance(hex: string) {
   const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255)

@@ -209,7 +209,7 @@
     },
     {
       "id": "FE-10",
-      "title": "Dashboard page",
+      "title": "Dashboard page and Settings completion",
       "dependsOn": [
         "FE-09",
         "ext:backend-dev/BE-06"
@@ -221,14 +221,16 @@
         "US-DASH-3",
         "US-DASH-4",
         "US-DASH-5",
-        "US-DASH-6"
+        "US-DASH-6",
+        "UX-SET"
       ],
       "tasks": [
-        "Greeting and summary cards",
-        "Today's tasks, overdue, habit checklist",
-        "Active plans with live rest time, learning snapshot",
-        "Quick-add actions",
-        "Verify with Playwright MCP and ux-audit on /dashboard",
+        "Greeting and the four summary cards (tasks, habits, plans, learning) with their numbers",
+        "Today's tasks, overdue, completed today, and the habit checklist (active and done today)",
+        "Active plans with live rest time and progress, the next upcoming plan, and a learning snapshot (cards in progress with milestone progress, milestones this week)",
+        "Quick-add menu for task, habit, learning card and plan",
+        "Settings: profile summary (initials, name, email, member since, data counts), notification behaviour (browser permission, allow, test notification), theme preference (system/light/dark), local-time preview for the timezone",
+        "Verify: dashboard + settings scenario, FE-01..09 regression, ux-audit on all six pages",
         "Document phase"
       ]
     },

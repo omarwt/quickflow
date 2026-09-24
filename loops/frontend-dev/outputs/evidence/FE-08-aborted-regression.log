@@ -1,0 +1,33 @@
+== phase-01
+  [PASS] 1. Open / redirects to /dashboard with Dashboard heading :: URL became /dashboard, heading 'Dashboard' shown
+  [PASS] 2. Nav contains exactly 6 links :: Dashboard, Tasks, Habits, Learning Resources, Todo Plans, Settings present, no extras
+  [PASS] 3. Click each nav link changes URL and heading :: /tasks→Tasks, /habits→Habits, /learning→Learning Resources, /plans→Todo Plans, /settings→Settings, /dashboard→Dashboard all matched
+  [PASS] 4. Settings shows defaults :: Display name 'QuickFlow user', Timezone UTC, Default view Dashboard, notification checkbox checked
+  [PASS] 5. Clear Display name and save shows inline error :: 'Display name is required' alert shown, nothing saved
+  [PASS] 6. Invalid email shows server error :: 'Email must be a valid address' alert shown under Email field
+  [PASS] 7. Valid save shows confirmation :: 'Settings saved' status message appeared with new values applied
+  [PASS] 8. Reload persists saved values :: Omar, omar@example.com, Asia/Dubai, Todo Plans, checkbox unticked all persisted
+  [PASS] 9. Open / opens on new default view :: / redirected to /plans
+  [PASS] 10. Mobile 390x844 bottom tab bar :: Nav fixed at bottom (y=779, height 65) with all 6 links; clicking Tasks navigated and showed Tasks heading
+playwright phase-01: PASS (10 checks, session b39017db-4bca-46f2-9011-d2266274863f, 3365606 tokens)
+== phase-02
+  [PASS] 1. Open /tasks empty state :: Heading 'Tasks', empty state 'No tasks yet' with 'Add Task' button shown
+  [PASS] 2. Add Task with empty title :: Inline error 'Title is required' shown, dialog stayed open
+  [PASS] 3. Add 'Write report' task :: Dialog closed, toast 'Task "Write report" added', badges 'Todo', 'High priority', 'Due today' shown
+  [PASS] 4. Add 'Pay bills' task (Low, yesterday) :: Listed with 'Overdue' badge
+  [PASS] 5. Add 'Plan trip' task (Medium, no due date) :: Three tasks listed
+  [PASS] 6. Search 'report' :: Only 'Write report' listed
+  [PASS] 7. Priority filter 'Low' :: Only 'Pay bills' listed
+  [PASS] 8. Due date filter 'Overdue' :: Only 'Pay bills' listed
+  [PASS] 9. Complete 'Pay bills' :: Toast '"Pay bills" completed', 'Done' badge, struck-through text, 'Overdue' badge gone
+  [PASS] 10. Status filter 'Done' :: Only 'Pay bills' listed
+  [PASS] 11. Edit 'Plan trip' -> 'Plan summer trip', In progress :: List shows 'Plan summer trip' with 'In progress' badge
+  [PASS] 12. Archive/Restore 'Plan summer trip' :: Disappeared on archive; with 'Show archived' ticked only it was listed with 'Restore' button; restored and reappeared in main list after unticking
+  [PASS] 13. Delete 'Write report' :: Confirmation dialog 'Delete task' shown; after confirming, task gone, two tasks remain
+  [PASS] 14. Reload page :: Same two tasks persisted: 'Pay bills' (Done), 'Plan summer trip' (In progress)
+playwright phase-02: PASS (14 checks, session fe3e674e-6f31-46c5-864f-a0528a8d1ec1, 4378629 tokens)
+== phase-03
+  [FAIL] all :: Playwright MCP server failed to connect (CONNECT_TIMEOUT after 30000ms); no browser tools available to perform any scenario steps
+playwright phase-03: FAIL (1 checks, session 79ed0806-f4b9-4deb-9e6a-ced1ac72babd, 45085 tokens)
+== phase-04
+Terminated

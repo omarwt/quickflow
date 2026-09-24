@@ -1,0 +1,70 @@
+- generic [ref=f1e3]:
+  - link "Skip to content" [ref=f1e4] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=f1e5]:
+    - generic [ref=f1e6]: QuickFlow
+    - navigation "Main" [ref=f1e10]:
+      - link "Dashboard" [ref=f1e11] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Tasks" [ref=f1e18] [cursor=pointer]:
+        - /url: /tasks
+      - link "Habits" [ref=f1e23] [cursor=pointer]:
+        - /url: /habits
+      - link "Learning Resources" [ref=f1e27] [cursor=pointer]:
+        - /url: /learning
+      - link "Todo Plans" [ref=f1e31] [cursor=pointer]:
+        - /url: /plans
+      - link "Settings" [ref=f1e36] [cursor=pointer]:
+        - /url: /settings
+  - main [ref=f1e40]:
+    - generic [ref=f1e41]:
+      - generic [ref=f1e42]:
+        - heading "Tasks" [level=1] [ref=f1e43]
+        - button "Add Task" [ref=f1e44] [cursor=pointer]
+      - search [ref=f1e47]:
+        - searchbox "Search tasks" [ref=f1e48]
+        - combobox "Status filter" [ref=f1e49]:
+          - option "All statuses" [selected]
+          - option "Todo"
+          - option "In progress"
+          - option "Done"
+        - combobox "Priority filter" [ref=f1e50]:
+          - option "All priorities" [selected]
+          - option "High"
+          - option "Medium"
+          - option "Low"
+        - combobox "Due date filter" [ref=f1e51]:
+          - option "Any due date" [selected]
+          - option "Due today"
+          - option "Overdue"
+          - option "Upcoming"
+          - option "No due date"
+        - combobox "Sort" [ref=f1e52]:
+          - option "Newest first" [selected]
+          - option "By due date"
+        - generic [ref=f1e53] [cursor=pointer]:
+          - checkbox "Show archived" [ref=f1e54]
+          - text: Show archived
+      - list "Tasks" [ref=f1e73]:
+        - listitem [ref=f1e74]:
+          - checkbox "Mark \"Pay bills\" done" [ref=f1e75]
+          - generic [ref=f1e76]:
+            - generic [ref=f1e77]: Pay bills
+            - generic [ref=f1e78]:
+              - generic [ref=f1e79]: Todo
+              - generic [ref=f1e80]: Medium priority
+          - generic [ref=f1e81]:
+            - button "Edit" [ref=f1e82] [cursor=pointer]
+            - button "Archive" [ref=f1e86] [cursor=pointer]
+            - button "Delete" [ref=f1e90] [cursor=pointer]
+        - listitem [ref=f1e94]:
+          - checkbox "Mark \"Write report\" done" [ref=f1e95]
+          - generic [ref=f1e96]:
+            - generic [ref=f1e97]: Write report
+            - generic [ref=f1e98]:
+              - generic [ref=f1e99]: Todo
+              - generic [ref=f1e100]: Medium priority
+          - generic [ref=f1e101]:
+            - button "Edit" [ref=f1e102] [cursor=pointer]
+            - button "Archive" [ref=f1e106] [cursor=pointer]
+            - button "Delete" [ref=f1e110] [cursor=pointer]

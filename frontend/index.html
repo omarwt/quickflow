@@ -8,6 +8,8 @@
     <meta name="theme-color" content="#f5f6f8" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0e131a" media="(prefers-color-scheme: dark)" />
     <title>QuickFlow</title>
+    <!-- apply the saved theme (Settings > Appearance) before the first paint, so there is no flash -->
+    <script>try { var t = localStorage.getItem('quickflow-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}</script>
   </head>
   <body>
     <div id="root"></div>

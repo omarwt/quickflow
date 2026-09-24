@@ -53,7 +53,13 @@ export function Dialog({ title, open, onClose, children }: { title: string; open
   useEffect(() => {
     const d = ref.current
     if (!d) return
-    if (open && !d.open) d.showModal()
+    if (open && !d.open) {
+      d.showModal()
+      // showModal() focuses the first focusable element (the Close button); start in the content instead:
+      // the first form field, or the first button (Cancel in confirmations)
+      const body = d.querySelector('.dialog-body')
+      body?.querySelector<HTMLElement>('input, select, textarea, button')?.focus()
+    }
     if (!open && d.open) d.close()
   }, [open])
   return (
@@ -62,7 +68,7 @@ export function Dialog({ title, open, onClose, children }: { title: string; open
         <h2 id="dialog-title">{title}</h2>
         <IconButton variant="ghost" icon="x" label="Close" onClick={onClose} />
       </div>
-      {open && children}
+      <div className="dialog-body">{open && children}</div>
     </dialog>
   )
 }
@@ -88,25 +94,43 @@ export function FormError({ error }: { error: unknown }) {
 type Toast = { id: number; text: string; kind: 'info' | 'success' | 'error' }
 const ToastContext = createContext<(text: string, kind?: Toast['kind']) => void>(() => {})
 
+// every toast closes by itself; info (plan start) stays longest so it isn't missed, and errors longer than successes
+const DURATION: Record<Toast['kind'], number> = { success: 4000, error: 7000, info: 15000 }
+const MAX_TOASTS = 3
+
+/** One toast: closes after its duration, but waits while hovered or focused so it can be read or dismissed. */
+function ToastItem({ toast, onClose }: { toast: Toast; onClose: (id: number) => void }) {
+  const [paused, setPaused] = useState(false)
+  const left = useRef(DURATION[toast.kind])
+  useEffect(() => {
+    if (paused) return
+    const started = Date.now()
+    const timer = setTimeout(() => onClose(toast.id), left.current)
+    return () => { clearTimeout(timer); left.current -= Date.now() - started }
+  }, [paused, onClose, toast.id])
+  return (
+    <div className={`toast ${toast.kind}`} role={toast.kind === 'error' ? 'alert' : 'status'}
+      onPointerEnter={() => setPaused(true)} onPointerLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)} onBlur={() => setPaused(false)}>
+      <Icon name={toast.kind === 'error' ? 'alert' : toast.kind === 'info' ? 'info' : 'check'} />
+      <span className="toast-text">{toast.text}</span>
+      <IconButton variant="ghost" size="sm" icon="x" label="Dismiss" onClick={() => onClose(toast.id)} />
+    </div>
+  )
+}
+
 export function ToastProvider({ children }: { children: ReactNode }) {
   const [toasts, setToasts] = useState<Toast[]>([])
   const push = useCallback((text: string, kind: Toast['kind'] = 'success') => {
-    const id = Date.now() + Math.random()
-    setToasts((t) => [...t, { id, text, kind }])
-    // info toasts (plan start notifications) stay until dismissed so they can't be missed
-    if (kind !== 'info') setTimeout(() => setToasts((t) => t.filter((x) => x.id !== id)), 4000)
+    // the same message again replaces the old one, and at most MAX_TOASTS are shown (oldest go first)
+    setToasts((t) => [...t.filter((x) => x.text !== text), { id: Date.now() + Math.random(), text, kind }].slice(-MAX_TOASTS))
   }, [])
+  const close = useCallback((id: number) => setToasts((all) => all.filter((x) => x.id !== id)), [])
   return (
     <ToastContext.Provider value={push}>
       {children}
       <div className="toasts" aria-live="polite">
-        {toasts.map((t) => (
-          <div key={t.id} className={`toast ${t.kind}`} role={t.kind === 'error' ? 'alert' : 'status'}>
-            <Icon name={t.kind === 'error' ? 'alert' : t.kind === 'info' ? 'info' : 'check'} />
-            <span className="toast-text">{t.text}</span>
-            <IconButton variant="ghost" size="sm" icon="x" label="Dismiss" onClick={() => setToasts((all) => all.filter((x) => x.id !== t.id))} />
-          </div>
-        ))}
+        {toasts.map((t) => <ToastItem key={t.id} toast={t} onClose={close} />)}
       </div>
     </ToastContext.Provider>
   )

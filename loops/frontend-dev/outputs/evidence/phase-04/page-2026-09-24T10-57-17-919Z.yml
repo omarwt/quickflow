@@ -1,0 +1,25 @@
+- generic [ref=e3]:
+  - link "Skip to content" [ref=e4] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=e5]:
+    - generic [ref=e6]: QuickFlow
+    - navigation "Main" [ref=e11]:
+      - link "Dashboard" [ref=e12] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Tasks" [ref=e19] [cursor=pointer]:
+        - /url: /tasks
+      - link "Habits" [ref=e24] [cursor=pointer]:
+        - /url: /habits
+      - link "Learning Resources" [ref=e28] [cursor=pointer]:
+        - /url: /learning
+      - link "Todo Plans" [ref=e32] [cursor=pointer]:
+        - /url: /plans
+      - link "Settings" [ref=e37] [cursor=pointer]:
+        - /url: /settings
+  - main [ref=e41]:
+    - generic [ref=e42]:
+      - generic [ref=e43]:
+        - heading "Learning Resources" [level=1] [ref=e44]
+        - button "Add Learning Card" [ref=e45] [cursor=pointer]
+      - status [ref=e49]:
+        - generic [ref=e50]: Loading…
