@@ -1,0 +1,86 @@
+{
+  "phases": [
+    {
+      "id": "OR-01",
+      "title": "Requirements analysis",
+      "requirements": [
+        "PRD.md"
+      ],
+      "dependsOn": [],
+      "tasks": [
+        "Read the full PRD",
+        "Give every requirement an ID",
+        "Record ambiguities and chosen interpretations",
+        "Assign each requirement to backend, frontend or both",
+        "Verify coverage of the PRD",
+        "Document phase output"
+      ]
+    },
+    {
+      "id": "OR-02",
+      "title": "Dependency graph",
+      "requirements": [
+        "PRD.md"
+      ],
+      "dependsOn": [
+        "OR-01"
+      ],
+      "tasks": [
+        "Build the dependency graph",
+        "Write backend-dev plan",
+        "Write frontend-dev plan",
+        "Init and plan both loops",
+        "Verify every requirement is planned",
+        "Document phase output"
+      ]
+    },
+    {
+      "id": "OR-03",
+      "title": "Backend delegation",
+      "requirements": [
+        "PRD.md"
+      ],
+      "dependsOn": [
+        "OR-02"
+      ],
+      "tasks": [
+        "Run backend-dev loop",
+        "Verify all backend phases are done",
+        "Document phase output"
+      ]
+    },
+    {
+      "id": "OR-04",
+      "title": "Frontend delegation",
+      "requirements": [
+        "PRD.md"
+      ],
+      "dependsOn": [
+        "OR-03"
+      ],
+      "tasks": [
+        "Run frontend-dev loop",
+        "Verify all frontend phases are done",
+        "Document phase output"
+      ]
+    },
+    {
+      "id": "OR-05",
+      "title": "Final verification and docs",
+      "requirements": [
+        "PRD.md"
+      ],
+      "dependsOn": [
+        "OR-04"
+      ],
+      "tasks": [
+        "Fresh-database regression (build, unit tests, curl scripts)",
+        "Full user journey through Playwright MCP",
+        "Write docs/architecture.md and docs/implementation-guide.md",
+        "Update README.md",
+        "Verify final gate",
+        "Document phase output"
+      ]
+    }
+  ]
+}

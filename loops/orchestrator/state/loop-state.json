@@ -1,0 +1,249 @@
+{
+  "loop": "orchestrator",
+  "input": "PRD.md",
+  "mode": "prd",
+  "created": "2026-09-24T10:18:41+03:00",
+  "phases": [
+    {
+      "id": "OR-01",
+      "title": "Requirements analysis",
+      "requirements": [
+        "PRD.md"
+      ],
+      "dependsOn": [],
+      "tasks": [
+        {
+          "id": "T1",
+          "title": "Read the full PRD",
+          "status": "done"
+        },
+        {
+          "id": "T2",
+          "title": "Give every requirement an ID",
+          "status": "done"
+        },
+        {
+          "id": "T3",
+          "title": "Record ambiguities and chosen interpretations",
+          "status": "done"
+        },
+        {
+          "id": "T4",
+          "title": "Assign each requirement to backend, frontend or both",
+          "status": "done"
+        },
+        {
+          "id": "T5",
+          "title": "Verify coverage of the PRD",
+          "status": "done"
+        },
+        {
+          "id": "T6",
+          "title": "Document phase output",
+          "status": "done"
+        }
+      ],
+      "status": "done",
+      "failedTrials": 0,
+      "verification": "pass",
+      "runs": [
+        {
+          "at": "2026-09-24T10:20:53+03:00",
+          "result": "pass",
+          "checks": [
+            {
+              "name": "coverage",
+              "cmd": "python3 loops/orchestrator/verification/phase-01.py PRD.md loops/orchestrator/outputs/phase-01-requirements-analysis.md",
+              "result": "pass",
+              "log": "outputs/evidence/OR-01-trial1-coverage.log"
+            }
+          ],
+          "evidence": []
+        }
+      ],
+      "errors": [],
+      "fixes": [],
+      "start": "2026-09-24T10:18:41+03:00",
+      "end": "2026-09-24T10:21:08+03:00",
+      "duration": "2m 27s",
+      "tokens": {
+        "input": 16,
+        "output": 15426,
+        "cache_write": 17626,
+        "cache_read": 2261851,
+        "total": 2294919
+      }
+    },
+    {
+      "id": "OR-02",
+      "title": "Dependency graph",
+      "requirements": [
+        "PRD.md"
+      ],
+      "dependsOn": [
+        "OR-01"
+      ],
+      "tasks": [
+        {
+          "id": "T1",
+          "title": "Build the dependency graph",
+          "status": "todo"
+        },
+        {
+          "id": "T2",
+          "title": "Write backend-dev plan",
+          "status": "todo"
+        },
+        {
+          "id": "T3",
+          "title": "Write frontend-dev plan",
+          "status": "todo"
+        },
+        {
+          "id": "T4",
+          "title": "Init and plan both loops",
+          "status": "todo"
+        },
+        {
+          "id": "T5",
+          "title": "Verify every requirement is planned",
+          "status": "todo"
+        },
+        {
+          "id": "T6",
+          "title": "Document phase output",
+          "status": "todo"
+        }
+      ],
+      "status": "pending",
+      "failedTrials": 0,
+      "verification": "pending",
+      "runs": [],
+      "errors": [],
+      "fixes": []
+    },
+    {
+      "id": "OR-03",
+      "title": "Backend delegation",
+      "requirements": [
+        "PRD.md"
+      ],
+      "dependsOn": [
+        "OR-02"
+      ],
+      "tasks": [
+        {
+          "id": "T1",
+          "title": "Run backend-dev loop",
+          "status": "todo"
+        },
+        {
+          "id": "T2",
+          "title": "Verify all backend phases are done",
+          "status": "todo"
+        },
+        {
+          "id": "T3",
+          "title": "Document phase output",
+          "status": "todo"
+        }
+      ],
+      "status": "pending",
+      "failedTrials": 0,
+      "verification": "pending",
+      "runs": [],
+      "errors": [],
+      "fixes": []
+    },
+    {
+      "id": "OR-04",
+      "title": "Frontend delegation",
+      "requirements": [
+        "PRD.md"
+      ],
+      "dependsOn": [
+        "OR-03"
+      ],
+      "tasks": [
+        {
+          "id": "T1",
+          "title": "Run frontend-dev loop",
+          "status": "todo"
+        },
+        {
+          "id": "T2",
+          "title": "Verify all frontend phases are done",
+          "status": "todo"
+        },
+        {
+          "id": "T3",
+          "title": "Document phase output",
+          "status": "todo"
+        }
+      ],
+      "status": "pending",
+      "failedTrials": 0,
+      "verification": "pending",
+      "runs": [],
+      "errors": [],
+      "fixes": []
+    },
+    {
+      "id": "OR-05",
+      "title": "Final verification and docs",
+      "requirements": [
+        "PRD.md"
+      ],
+      "dependsOn": [
+        "OR-04"
+      ],
+      "tasks": [
+        {
+          "id": "T1",
+          "title": "Fresh-database regression (build, unit tests, curl scripts)",
+          "status": "todo"
+        },
+        {
+          "id": "T2",
+          "title": "Full user journey through Playwright MCP",
+          "status": "todo"
+        },
+        {
+          "id": "T3",
+          "title": "Write docs/architecture.md and docs/implementation-guide.md",
+          "status": "todo"
+        },
+        {
+          "id": "T4",
+          "title": "Update README.md",
+          "status": "todo"
+        },
+        {
+          "id": "T5",
+          "title": "Verify final gate",
+          "status": "todo"
+        },
+        {
+          "id": "T6",
+          "title": "Document phase output",
+          "status": "todo"
+        }
+      ],
+      "status": "pending",
+      "failedTrials": 0,
+      "verification": "pending",
+      "runs": [],
+      "errors": [],
+      "fixes": []
+    }
+  ],
+  "lastUpdated": "2026-09-24T10:21:08+03:00",
+  "currentPhase": null,
+  "completedPhases": [
+    "OR-01"
+  ],
+  "blockedPhases": [],
+  "retryCount": 0,
+  "verificationStatus": "-",
+  "status": "ready"
+}

@@ -374,7 +374,8 @@ def cmd_hook(a):
     except ValueError:
         return
     if d.get("hook_event_name") == "UserPromptSubmit":
-        track(session_id=d.get("session_id") or "unavailable", prompt=(d.get("prompt") or "")[:4000],
+        prompt = re.sub(r"<(ide_\w+|system-reminder)>.*?</\1>\s*", "", d.get("prompt") or "", flags=re.S)
+        track(session_id=d.get("session_id") or "unavailable", prompt=prompt.strip()[:4000],
               status="Started", notes="UserPromptSubmit hook")
 
 
