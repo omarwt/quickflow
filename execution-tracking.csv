@@ -1,0 +1,5 @@
+timestamp,session_id,loop,phase,requirement,prompt,status,retry,verification,notes
+2026-09-24T10:02:44+03:00,428a50ee-5e1f-4c1c-9279-7c03bab008b1,-,-,,"<ide_opened_file>The user opened the file /home/omar/Downloads/AI/project/loops/README.md in the IDE. This may or may not be related to the current task.</ide_opened_file>
+move the readme files into the main project's readme, i don't need loop specific readme i want only a single readme for the whole project",Started,,,"UserPromptSubmit hook"
+,,,,,,,,,
+,,,,,,,,,

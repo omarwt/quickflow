@@ -1,0 +1,66 @@
+# --- Secrets and local config -------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.claude/settings.local.json
+
+# --- Loop runtime (state/, outputs/ and evidence/ ARE committed) --------------
+loops/.active.json
+loops/**/*.tmp
+
+# --- Playwright MCP scratch output --------------------------------------------
+.playwright-mcp/
+test-results/
+playwright-report/
+
+# --- Backend build output (the stack is chosen by backend-dev) -----------------
+backend/target/
+backend/build/
+backend/bin/
+backend/out/
+backend/.gradle/
+.gradle/
+*.class
+hs_err_pid*
+
+# --- Frontend -----------------------------------------------------------------
+node_modules/
+frontend/dist/
+frontend/build/
+frontend/.vite/
+frontend/coverage/
+*.tsbuildinfo
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# --- Python -------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# --- Local databases and runtime data -----------------------------------------
+backend/data/
+data/
+*.db
+*.sqlite
+*.sqlite3
+*.mv.db
+*.trace.db
+
+# --- Logs ---------------------------------------------------------------------
+*.log
+!loops/**/outputs/evidence/*.log
+
+# --- Editors and OS -----------------------------------------------------------
+.idea/
+*.iml
+.vscode/
+*.swp
+*~
+.DS_Store
+Thumbs.db
