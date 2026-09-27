@@ -33,7 +33,7 @@ fi
 
 PROMPT="Run the Claude Loop '$LOOP'. Follow loops/$LOOP/Loop-instructions.md exactly.
 Input: ${INPUT:-(from state)} | Mode: $MODE | Phase: ${PHASE:-all runnable phases} | Resume: $RESUME
-All state changes go through python3 loops/_lib/loop.py. Stop when the selected phases are done or blocked."
+Keep loops/$LOOP/task.md and progress.md up to date as you go. Stop when the selected phases are done or blocked."
 
 cd "$ROOT"
 if [[ $HEADLESS == no ]]; then

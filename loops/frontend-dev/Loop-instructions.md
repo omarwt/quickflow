@@ -1,85 +1,137 @@
 # frontend-dev — Loop instructions
 
-Reusable loop that plans, implements, documents and verifies a frontend against a backend API. It is
-project-agnostic: screens and stack come from the inputs.
+A reusable loop that builds a frontend against a backend API, one feature at a time. Nothing here
+is specific to one product: the screens and the stack come from the input.
 
-## Purpose
-Build the UI one feature at a time. A feature is done only when the **Playwright MCP server** has
-driven it in a real browser against the running application (frontend and backend both up) and it
-passed.
+## What "done" means
 
-## Inputs
-- `PRD.md` + the backend Swagger/OpenAPI (`/v3/api-docs` of the running backend), **or** a single user story + the API specification
-- Existing state in `state/` and existing code in `frontend/` (used to resume or extend)
-- `loops/backend-dev/state/`, for cross-loop dependencies
+A phase is done only when the Playwright MCP server has driven the feature in a real browser,
+against the running frontend and backend, and every step of the scenario passed. A green build,
+type check or unit test run is never enough on its own.
 
-## Outputs
-Same layout as backend-dev: `task.md`, `progress.md`, `state/`, `plan.json`,
-`outputs/phase-NN-<name>.md`, `outputs/evidence/` (screenshots, Playwright notes), plus the code in `frontend/`.
+## What you work with
 
-## Preconditions
-- Node.js and npm.
-- The MCP servers in `.mcp.json`. All of them are headless with an isolated profile, so none of them opens your browser:
-  - `playwright`: user scenarios, run through `playwright-verify.sh`. It needs the `claude` CLI on PATH.
-  - `chrome-devtools`: Lighthouse, device/colour-scheme emulation, computed styles and performance traces. `ux-audit.py` uses it.
-  - `context7`: up-to-date library docs. Look APIs up here instead of recalling them.
-- The backend phases this feature needs are `done`. `loop.py` checks this through `ext:backend-dev/<ID>` dependencies.
+| File or folder | What it is for |
+| --- | --- |
+| `PRD.md` plus the backend OpenAPI document, or a user story plus the API it needs | The input. |
+| `task.md` | The phase plan and its checklist. You keep it up to date by hand. |
+| `progress.md` | The history of each phase: when it ran, how many trials, what failed, what was fixed. |
+| `outputs/phase-NN-<name>.md` | One write-up per phase. |
+| `outputs/evidence/` | Logs, screenshots and audit reports of every verification run. |
+| `verification/phase-NN.md` | The browser scenario that verifies a phase. |
+| `verification/phase-NN-seed.sh` | Optional: data the scenario needs, created through the API. |
+| `loops/backend-dev/task.md` | Tells you which backend phases are done. |
+| `frontend/` | The code. |
 
-## Process
+You need Node.js and npm, the Claude Code CLI, and the MCP servers in `.mcp.json`. All of them
+run headless with an isolated profile, so they never open your own browser:
 
-**1. Initialise**
-`python3 loops/_lib/loop.py init frontend-dev --input <PRD.md|story.md> --mode <prd|story>`
+- `playwright` drives the browser through the user scenarios.
+- `chrome-devtools` runs Lighthouse, emulates devices and colour schemes, reads computed styles and records performance traces.
+- `context7` gives up-to-date library documentation. Look APIs up there instead of recalling them.
 
-**2. Analyse and plan**
-- Read the UX requirements: pages, navigation, forms, validation, empty/loading/error states, notifications, responsiveness.
-- Read the OpenAPI spec and map each screen to the endpoints it uses. If a screen needs an endpoint that doesn't exist, that's a gap: record it and hand it back to backend-dev. Never fake data.
-- Pick the stack (follow the repo if it has one) and record it in `docs/architecture.md`.
-- Write `loops/frontend-dev/plan.json`. Phase 1 is the app shell: routing, navigation, API client, shared UI states. Then one phase per page/feature, each depending on its backend phase (e.g. `"dependsOn": ["FE-01", "ext:backend-dev/BE-02"]`). The last phase is an end-to-end journey.
-- Plan the UI/UX work as its own phases, and don't leave it as polish at the end:
-  - an **audit + design system** phase once the core pages exist. Its baseline is `ux-audit.py` plus screenshots at mobile and desktop width, and it produces tokens and shared components. The restyle must not change behaviour: the earlier scenarios have to pass unchanged.
-  - an **improvements** phase that fixes the ranked findings for accessibility, responsive layout and feedback.
-  - a **screen sizes** phase that designs each size class (phone, large phone, tablet, laptop, wide) and checks it with the `screenshots.sh` matrix (`SIZES=...`).
-  - a **page transitions** phase: route transitions, prefetching from navigation, focus and title on navigation, reduced motion, and a DevTools performance trace.
-  - pages built after these phases use the design system from the start.
-  - the final phase adds the `ux-audit.py` gate for every page.
-  - write the plan and its findings to `docs/ui-ux-plan.md`.
-- `python3 loops/_lib/loop.py plan frontend-dev loops/frontend-dev/plan.json`
+## Step 1: read and plan
 
-**3. Run every phase in this cycle**
-1. `loop.py next frontend-dev`, then `loop.py start frontend-dev <ID>`.
-2. Define the scope, acceptance criteria, screens/components and API calls in the phase output.
-3. Implement the UI, state management, validation, and loading/error/empty states, plus responsive layout and accessibility (labels, roles, keyboard access).
-4. Build and type-check, then run the app and note its URL.
-5. Write the browser scenario `loops/frontend-dev/verification/phase-NN.md`: numbered steps a user would take, each with the result you expect to see. Cover navigation, forms and validation, data from the API, success, error and empty states, and dialogs. Mark the key steps `[screenshot]`.
-6. Verify. One `verify` call counts as one trial:
-   ```
-   python3 loops/_lib/loop.py verify frontend-dev <ID> \
-     --check "build=cd frontend && npm run build && npx vitest run" \
-     --check "fresh=bash loops/frontend-dev/verification/test-env.sh fresh" \
-     --check "seed=API=http://localhost:8090 bash loops/frontend-dev/verification/phase-NN-seed.sh" \
-     --check "playwright=bash loops/_lib/playwright-verify.sh loops/frontend-dev/verification/phase-NN.md http://localhost:5180"
-   ```
-   Browser checks run against an **isolated copy** of the app from `verification/test-env.sh`: the UI on :5180 and an in-memory backend on :8090, with CORS set for :5180. The copy you use on :5173/:8080 is never reset, and an open tab of yours can't interfere with a check, for example by acknowledging a test plan's start notification first. Seed scripts read `API`. `regress.sh` uses the same environment.
-   `playwright-verify.sh` runs the scenario through the Playwright MCP server in a separate headless session. It uses its own browser profile and never touches yours. The session has to end with a machine-readable verdict: the script exits 0 only if every step passed, saves screenshots to `outputs/evidence/`, and records the child session's ID in `execution-tracking.csv`.
-   UI/UX phases add the Lighthouse gate, plus regression runs of earlier scenarios:
-   ```
-     --check "ux=python3 loops/_lib/ux-audit.py --pages /tasks,/habits --out loops/frontend-dev/outputs/evidence/ux-FE-NN"
-     --check "regress-02=bash loops/_lib/playwright-verify.sh loops/frontend-dev/verification/phase-02.md"
-   ```
-   `ux-audit.py` drives chrome-devtools-mcp directly, with no LLM involved. It runs Lighthouse on every page, on mobile and desktop, and exits 0 only if accessibility ≥ 95, best practices ≥ 95, SEO ≥ 90 and CLS ≤ 0.1 (all can be changed with `--min`/`--max-cls`). The reports are kept in `--out`.
-7. On FAIL: investigate, fix, rebuild or restart, then run Playwright again. On PASS: complete the output, tick the tasks, and run `loop.py finish frontend-dev <ID>`.
+Skip this step when `task.md` already lists phases; then go straight to step 2.
 
-## Testing
-Build success, type checks and unit tests are never enough on their own; Playwright MCP is required for every phase. Unit tests are optional and belong on non-trivial logic.
+1. Read the UX requirements: pages, navigation, forms, validation, empty, loading and error
+   states, notifications and responsiveness.
+2. Read the OpenAPI document and map each screen to the endpoints it uses. A screen that needs an
+   endpoint that doesn't exist is a gap: record it and hand it back to backend-dev. Never fake data.
+3. Pick the stack. Follow the repository if it already has one. Record the choice in `docs/architecture.md`.
+4. Write the phases into `task.md`. The first phase is the app shell: routing, navigation, the API
+   client and the shared loading, error and empty states. Then one phase per page or feature. Each
+   phase has an ID, a title, a "Depends on" line and four to eight tasks; the last two tasks are
+   always "Verify with Playwright MCP" and "Document phase". A page phase depends on the backend
+   phase that serves it, written as `backend-dev/BE-NN`.
+5. Plan the UI/UX work as phases of its own, not as polish at the end:
+   - **Audit and design system**, once the core pages exist. Take the Lighthouse baseline and
+     screenshots at phone and desktop width, then produce design tokens and shared components.
+     The restyle must not change behaviour: the earlier scenarios have to pass unchanged.
+   - **Improvements**, fixing the ranked findings for accessibility, responsive layout and feedback.
+   - **Screen sizes**, designing each size class (phone, large phone, tablet, laptop, wide) and
+     checking it with a screenshot matrix.
+   - **Page transitions**: route transitions, prefetching from navigation, focus and title on
+     navigation, reduced motion, and a performance trace.
+   - Pages built after these phases use the design system from the start.
+   - The last phase is the end-to-end journey with the Lighthouse gate on every page.
+   - Write the plan and its findings to `docs/ui-ux-plan.md`.
 
-## State, retries and the stop condition
-Identical to backend-dev. A phase stops when it is verified or after 3 failed trials; then it is blocked and its dependants are marked `blocked_by_dependency`. Resume by re-running the loop.
+## Step 2: work through the phases
+
+Pick the first pending phase whose dependencies are all done, including its backend phase. Only
+one phase is in progress at a time. For each phase:
+
+1. **Start.** Mark the phase in progress in `task.md`. Add an entry with the start time to
+   `progress.md`. Create the phase write-up in `outputs/` with these sections: requirements
+   covered, tasks, scope and acceptance criteria, screens and components, API calls, tests and
+   verification, problems and fixes, final status.
+2. **Implement.** The UI, state management, validation, and loading, error and empty states, plus
+   responsive layout and accessibility (labels, roles, keyboard access). Tick tasks in `task.md`
+   as you finish them.
+3. **Write the scenario.** Create `verification/phase-NN.md`: numbered steps a user would take,
+   each with the result you expect to see. Cover navigation, forms and validation, data from the
+   API, success, error and empty states, and dialogs. Mark the key steps `[screenshot]`. If the
+   scenario needs existing data, create it in `verification/phase-NN-seed.sh` through the API.
+4. **Verify.** Run the checks below in order and save each output to
+   `outputs/evidence/<ID>-trial<N>-<check>.log`. One run of all of them is one trial.
+5. **On failure.** Investigate, write the error into `progress.md`, fix the code, write the fix
+   next to the error, rebuild or restart, and run the checks again. The third failed trial blocks
+   the phase (see below).
+6. **On success.** Complete the write-up, tick the remaining tasks, mark the phase done in
+   `task.md`, and close its `progress.md` entry with the end time, duration, trial count and
+   verdict. A phase is not done while a task is open or a write-up section is empty.
+
+## The checks
+
+Browser checks run against an isolated copy of the app: the UI on port 5180 and an in-memory
+backend on port 8090. The copy you use on ports 5173 and 8080 is never reset, and an open tab of
+yours can't interfere with a check.
+
+| Check | Command | When |
+| --- | --- | --- |
+| build | `cd frontend && npm run build && npx vitest run` | every phase |
+| fresh | `bash loops/frontend-dev/verification/test-env.sh start` the first time, then `test-env.sh fresh` to empty the backend again | every phase |
+| seed | `API=http://localhost:8090 bash loops/frontend-dev/verification/phase-NN-seed.sh` | when the scenario needs data |
+| playwright | `bash loops/_lib/playwright-verify.sh loops/frontend-dev/verification/phase-NN.md http://localhost:5180` | every phase |
+| regression | `bash loops/frontend-dev/verification/regress.sh 01 02 ...` re-runs earlier scenarios, each on a fresh database | UI/UX phases and the final journey |
+| lighthouse | Lighthouse through the Chrome DevTools MCP server on every page, mobile and desktop. Passes when accessibility ≥ 95, best practices ≥ 95, SEO ≥ 90 and CLS ≤ 0.1. Keep the reports in `outputs/evidence/`. | UI/UX phases and the final journey |
+| screenshots | `SIZES="320x640 390x844 768x1024 1024x768 1440x900 1920x1080" bash loops/_lib/screenshots.sh <out dir> http://localhost:5180` | screen-size phase |
+| trace | A Chrome DevTools performance trace while navigating between pages. Passes when INP ≤ 200 ms and CLS ≤ 0.1. | page-transitions phase |
+
+The browser check runs the scenario through the Playwright MCP server in a separate headless
+session with its own browser profile. It exits 0 only when every step passed, saves screenshots
+to `outputs/evidence/`, and records the session in `execution-tracking.csv`.
+
+## Retries, blocking and resuming
+
+- Three failed trials block the phase. Mark it `[!]` in `task.md` and mark every phase that depends
+  on it blocked as well. Write the symptom, the evidence, the fixes tried and the suspected cause
+  into the phase write-up.
+- A blocked phase doesn't stop the loop. Carry on with the next phase whose dependencies are done,
+  and report the block at the end.
+- To resume after an interruption, read `task.md`. Continue the phase marked in progress, or start
+  the next runnable one. Never redo a completed phase.
+
+## Keeping progress.md
+
+One entry per phase, appended when the phase starts and completed when it ends:
+
+```text
+## FE-02 Tasks page
+Status: done · Start: 2026-09-24 11:13 · End: 2026-09-24 11:17 · Duration: 4m · Trials: 1 (0 failed)
+Trial 1: build PASS, playwright PASS (logs and screenshots in outputs/evidence/)
+Errors: none · Fixes: none
+Output: outputs/phase-02-tasks-page.md
+```
 
 ## Invocation
+
 | Goal | Command |
-|---|---|
+| --- | --- |
 | Full PRD | `loops/run.sh frontend-dev --input PRD.md` |
 | One user story | `loops/run.sh frontend-dev --input story.md --mode story` |
 | One phase | `loops/run.sh frontend-dev --input PRD.md --phase FE-03` |
 | Resume | `loops/run.sh frontend-dev --resume` |
-| Interactive | in Claude Code: *"Run the frontend-dev loop on PRD.md"* |
+| Interactive | In Claude Code: *"Run the frontend-dev loop on PRD.md"* |
+| From the orchestrator | See `loops/orchestrator/Loop-instructions.md` |

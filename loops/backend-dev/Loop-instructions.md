@@ -1,83 +1,106 @@
 # backend-dev — Loop instructions
 
-Reusable loop that plans, implements, documents and verifies a backend. Nothing here is specific to
-one project: the product, stack and endpoints all come from the input.
+A reusable loop that turns requirements into a working backend, one phase at a time. Nothing here
+is specific to one product: the stack, the data model and the endpoints all come from the input.
 
-## Purpose
-Turn requirements into a running backend with Swagger/OpenAPI, one phase at a time. A phase is done
-only when its endpoints were called with real `curl` requests against the running server and passed.
+## What "done" means
 
-## Inputs
-- `PRD.md` (mode `prd`) **or** a single user story / requirement (mode `story`, file or text)
-- Existing state in `state/` and existing code in `backend/` (used to resume or extend)
+A phase is done only when its endpoints were called with real `curl` requests against the running
+server and every check passed. Code that merely compiles is not done.
 
-## Outputs
-| File | Content |
-|---|---|
-| `task.md` | checklist per phase (rendered by `loop.py`) |
-| `progress.md` | start/end, duration, tokens, retries, tests, errors, fixes per phase (rendered) |
-| `state/loop-state.json` | machine-readable state used to resume |
-| `plan.json` | the phase plan you write |
-| `outputs/phase-NN-<name>.md` | one document per phase |
-| `outputs/evidence/` | logs of every verification run |
-| `backend/` | the code; Swagger UI and OpenAPI JSON are served by the running app |
+## What you work with
 
-## Preconditions
-`python3`, `curl`, `jq`, and the build tool of the chosen stack.
+| File or folder | What it is for |
+| --- | --- |
+| `PRD.md` or a user story | The input. A PRD gives the whole plan; a story adds one or two phases to an existing plan. |
+| `task.md` | The phase plan and its checklist. You keep it up to date by hand. |
+| `progress.md` | The history of each phase: when it ran, how many trials, what failed, what was fixed. |
+| `outputs/phase-NN-<name>.md` | One write-up per phase. |
+| `outputs/evidence/` | The log of every verification run. |
+| `verification/phase-NN.sh` | The curl script that verifies a phase. |
+| `backend/` | The code. Swagger UI and the OpenAPI document are served by the running app. |
 
-## Process
+You need `curl`, `jq` and the build tool of the chosen stack.
 
-**1. Initialise (idempotent, safe to repeat when resuming)**
+## Step 1: read and plan
+
+Skip this step when `task.md` already lists phases; then go straight to step 2.
+
+1. Read the whole input. List its requirements, business rules, data model and acceptance
+   criteria. Keep the IDs the input already has; invent IDs only where it has none.
+2. Pick the stack. Follow the PRD or the repository if they name one. Otherwise choose a
+   mainstream, strongly typed stack with OpenAPI support. Record the choice in `docs/architecture.md`.
+3. Write the phases into `task.md`. The first phase is the foundation: project skeleton,
+   persistence, a uniform error format and OpenAPI. Then one phase per domain slice, in dependency
+   order. Each phase has an ID, a title, a "Depends on" line and four to eight tasks. The last two
+   tasks are always "Verify with curl" and "Document phase".
+4. In story mode, add one or two phases with IDs that cannot clash with existing ones, such as `BE-S1`.
+
+## Step 2: work through the phases
+
+Pick the first pending phase whose dependencies are all done. Only one phase is in progress at a
+time. For each phase:
+
+1. **Start.** Mark the phase in progress in `task.md`. Add an entry with the start time to
+   `progress.md`. Create the phase write-up in `outputs/` with these sections: requirements
+   covered, tasks, implementation, files changed, APIs, tests and verification, problems and
+   fixes, final status.
+2. **Implement.** Migrations and models, business rules, endpoints, validation, error handling,
+   security where the input asks for it, and OpenAPI annotations. Tick tasks in `task.md` as you
+   finish them.
+3. **Write the check.** Create `verification/phase-NN.sh`, a curl script that may source
+   `loops/_lib/curl-lib.sh`. It must cover the success path, validation failures, not found,
+   business-rule failures, invalid parameters and edge cases. It asserts both the status code and
+   the body, and exits 0 only when everything passed.
+4. **Verify.** Start the backend, then run these three checks and save each output to
+   `outputs/evidence/<ID>-trial<N>-<check>.log`. One run of all three is one trial.
+
+   | Check | Command |
+   |---|---|
+   | build | `backend/run.sh build` (compile plus unit tests) |
+   | curl | `bash loops/backend-dev/verification/phase-NN.sh` |
+   | swagger | fetch `http://localhost:8080/v3/api-docs` and confirm every new path is listed |
+
+5. **On failure.** Read the logs. Write the error into `progress.md`, fix the code, write the fix
+   next to the error, and run the checks again. The third failed trial blocks the phase (see below).
+6. **On success.** Complete the write-up, tick the remaining tasks, mark the phase done in
+   `task.md`, and close its `progress.md` entry with the end time, duration, trial count and
+   verdict. A phase is not done while a task is open or a write-up section is empty.
+
+## Testing rules
+
+- Every endpoint of the phase is called with curl. A green build and unit tests alone never verify a phase.
+- Unit tests are welcome where they check real business logic. Don't write them to raise coverage.
+
+## Retries, blocking and resuming
+
+- Three failed trials block the phase. Mark it `[!]` in `task.md` and mark every phase that depends
+  on it blocked as well. Write the symptom, the evidence, the fixes tried and the suspected cause
+  into the phase write-up.
+- A blocked phase doesn't stop the loop. Carry on with the next phase whose dependencies are done,
+  and report the block at the end.
+- To resume after an interruption, read `task.md`. Continue the phase marked in progress, or start
+  the next runnable one. Never redo a completed phase.
+
+## Keeping progress.md
+
+One entry per phase, appended when the phase starts and completed when it ends:
+
+```text
+## BE-02 Tasks
+Status: done · Start: 2026-09-24 10:31 · End: 2026-09-24 10:55 · Duration: 24m · Trials: 1 (0 failed)
+Trial 1: build PASS, curl PASS, swagger PASS (logs in outputs/evidence/)
+Errors: none · Fixes: none
+Output: outputs/phase-02-tasks.md
 ```
-python3 loops/_lib/loop.py init backend-dev --input <PRD.md|story.md> --mode <prd|story>
-```
-
-**2. Analyse and plan (skip if `state/` already has phases)**
-- Read the whole input. List its requirements, rules, data model and acceptance criteria. Use the IDs the input already has; make up IDs only where it has none.
-- Pick the stack: follow the PRD or repository if they name one, otherwise choose a mainstream, strongly typed stack with OpenAPI support. Record the choice in `docs/architecture.md`.
-- Write `loops/backend-dev/plan.json`. In story mode the plan is usually 1–2 phases, with IDs that don't clash with existing ones.
-  ```json
-  {"phases": [{"id": "BE-01", "title": "Foundation", "requirements": ["..."], "dependsOn": [],
-               "tasks": ["Analyse requirements", "Implement ...", "Verify with curl", "Document phase"]}]}
-  ```
-  Phase 1 is the foundation: project skeleton, persistence, error format, OpenAPI. Then one phase per domain slice, in dependency order.
-- `python3 loops/_lib/loop.py plan backend-dev loops/backend-dev/plan.json`
-
-**3. Run every phase in this cycle**
-```
-next → start → implement → verify ──pass──► document → finish
-                   ▲            │
-                   └─ fix ◄─ fail (trial < 3)      fail on trial 3 → blocked
-```
-1. `loop.py next backend-dev` tells you which phase to start or resume.
-2. `loop.py start backend-dev <ID>` refuses to start if a dependency isn't done. It also creates the phase output file.
-3. Implement the phase: migrations/models, business rules, APIs, validation, error handling, security where the input needs it, and OpenAPI annotations. Tick tasks as you go with `loop.py task backend-dev <ID> T1 T2`.
-4. Write a curl script, `loops/backend-dev/verification/phase-NN.sh` (it can use `loops/_lib/curl-lib.sh`). It must cover success, validation failures, not found, business-rule failures, invalid parameters, error responses and edge cases, and assert both status codes and bodies.
-5. Start the backend, then verify. One `verify` call is one trial:
-   ```
-   python3 loops/_lib/loop.py verify backend-dev <ID> \
-     --check "build=<build + unit tests>" \
-     --check "curl=bash loops/backend-dev/verification/phase-NN.sh" \
-     --check "swagger=curl -sf http://localhost:<port>/v3/api-docs | jq -e '.paths[\"/api/...\"]'"
-   ```
-6. On FAIL: read the logs in `outputs/evidence/`, record the error with `loop.py note backend-dev <ID> --error "..."`, fix it, record the fix with `--fix "..."`, and verify again.
-7. On PASS: fill in the phase output (implementation, files changed, APIs, tests, problems and fixes), tick the remaining tasks, then run `loop.py finish backend-dev <ID>`. `finish` refuses to run until verification has passed, every task is done, and no `_TODO_` is left in the output.
-
-## Testing
-- Code that compiles is not verified. Every endpoint of the phase is called with curl.
-- Unit tests are optional. Add them where they check real business logic, not to raise coverage.
-
-## State, retries and the stop condition
-- A phase ends when it is **verified**, or after **3 failed trials**. At that point `loop.py` marks it `blocked`, and every phase that depends on it becomes `blocked_by_dependency`.
-- After a block, write the symptom, evidence, fixes tried and suspected cause into the phase output. Then carry on with `loop.py next`, since independent phases can still run.
-- Resume by running the loop again. Completed phases are never redone.
 
 ## Invocation
+
 | Goal | Command |
-|---|---|
+| --- | --- |
 | Full PRD | `loops/run.sh backend-dev --input PRD.md` |
 | One user story | `loops/run.sh backend-dev --input "As a user, I want ..." --mode story` |
 | One phase | `loops/run.sh backend-dev --input PRD.md --phase BE-02` |
 | Resume | `loops/run.sh backend-dev --resume` |
-| Interactive | in Claude Code: *"Run the backend-dev loop on PRD.md"* |
-| From the orchestrator | see `loops/orchestrator/Loop-instructions.md` |
+| Interactive | In Claude Code: *"Run the backend-dev loop on PRD.md"* |
+| From the orchestrator | See `loops/orchestrator/Loop-instructions.md` |
